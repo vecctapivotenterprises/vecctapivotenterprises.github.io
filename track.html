@@ -1,85 +1,99 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Track — VECCTAPIVOT GLOBAL Till 1741514</title><link rel="icon" href="logo.png"><link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 .wrap{max-width:820px;margin:18px auto;padding:0 14px}
-.top-card{background:linear-gradient(135deg,#1e293b,#0f172a);border:1px solid #334155;border-radius:22px;padding:22px;box-shadow:0 20px 60px #0005}
+.top-card{background:linear-gradient(135deg,#1e293b,#0f172a);border:1px solid #334155;border-radius:22px;padding:22px}
 .h{color:#facc15;text-align:center;margin:0;font-size:24px}.sub{color:#94a3b8;text-align:center;font-size:12px;margin:6px 0 14px}
-.search{display:flex;gap:8px}.input{flex:1;padding:14px;border-radius:12px;background:#0f172a;color:#fff;border:1px solid #334155;box-sizing:border-box;outline:none}.input:focus{border-color:#facc15;box-shadow:0 0 0 3px #facc1526}
+.search{display:flex;gap:8px}.input{flex:1;padding:14px;border-radius:12px;background:#0f172a;color:#fff;border:1px solid #334155;box-sizing:border-box;outline:none}
 .btn-gold{padding:14px 18px;border:none;border-radius:12px;background:#facc15;color:#000;font-weight:900;cursor:pointer}
 .card{background:#1e293b;border:1px solid #334155;border-radius:18px;padding:16px;margin:12px 0}.well{padding:14px;border-radius:14px;margin:10px 0;border:2px solid;line-height:1.6;font-size:14px}
-.green{border-color:#22c55e;background:#052e16}.red{border-color:#ef4444;background:#450a0a}.yellow{border-color:#facc15;background:#422006}.blue{border-color:#60a5fa;background:#0c1a32}.gray{border-color:#334155;background:#0f172a}
-.badge{padding:4px 10px;border-radius:999px;font-size:10px;font-weight:900;letter-spacing:.6px}.b-Logged{background:#334155;color:#fff}.b-Quoted{background:#422006;color:#facc15}.b-Paid{background:#052e16;color:#22c55e}.b-InProgress{background:#1e1b4b;color:#a5b4fc}.b-Done{background:#052e16;color:#22c55e}.b-Revision{background:#450a0a;color:#fca5a5}.b-Resubmitted{background:#422006;color:#fdba74}.b-LDY{background:#422006;color:#facc15;border:1px solid #facc15}
+.green{border-color:#22c55e;background:#052e16}.yellow{border-color:#facc15;background:#422006}.blue{border-color:#60a5fa;background:#0c1a32}.gray{border-color:#334155;background:#0f172a}
+.badge{padding:4px 10px;border-radius:999px;font-size:10px;font-weight:900;background:#422006;color:#facc15;border:1px solid #facc15}
 .timeline{display:flex;gap:8px;overflow-x:auto;padding:8px 0}.step{min-width:110px;text-align:center;padding:10px;border-radius:12px;border:1px solid #334155;background:#0f172a;opacity:.5;font-size:12px}.step.active{opacity:1;border-color:#facc15;background:#422006;color:#facc15;font-weight:800}
-.kbd{font-family:ui-monospace;font-size:22px;color:#facc15;font-weight:900}.small{font-size:11px;color:#94a3b8}.textarea{width:100%;padding:12px;border-radius:10px;background:#0f172a;border:1px solid #334155;color:#fff;box-sizing:border-box;margin:6px 0}.btn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:800;cursor:pointer}
-</style>
-</head><body>
-<div class="utility"><div class="uwrap"><span class="uitem"><span class="ubadge">TRACK GLOBAL LIVE</span></span><span class="uitem">JOB + TIC + LDY | Till 1741514 LOCK</span><a class="uitem" href="https://wa.me/254788099685">Help</a></div></div>
-<header class="top"><div class="navrow"><a class="brand" href="index.html"><img src="logo.png"><span class="brandname">Vecctapivot<em>Track Desk</em></span></a><div class="navcta"><a class="btn line sm2" href="job.html">New Job</a><a class="btn gold sm2" href="ticket.html">Raise Ticket</a></div></div></header>
+.kbd{font-family:ui-monospace;font-size:22px;color:#facc15;font-weight:900}.small{font-size:11px;color:#94a3b8}.btn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:800;cursor:pointer}
+</style></head><body>
+<div class="utility"><div class="uwrap"><span class="uitem"><span class="ubadge">TRACK LIVE</span></span><span class="uitem">LDY | Till 1741514 LOCK</span><a class="uitem" href="https://wa.me/254788099685">Help</a></div></div>
+<header class="top"><div class="navrow"><a class="brand" href="index.html"><img src="logo.png"><span class="brandname">Vecctapivot<em>Track</em></span></a><div class="navcta"><a class="btn line sm2" href="laundry.html">New Booking</a></div></div></header>
 <main class="wrap">
-<div class="top-card">
-<h2 class="h">Track Job, Ticket & Laundry — Till 1741514</h2>
-<p class="sub">Enter JOB-xxxxxx or TIC-xxxxx or LDY-xxxxx — pay unlocks goods</p>
-<div class="search"><input id="q" class="input" placeholder="JOB-123456 or TIC-12345 or LDY-12345"><button class="btn-gold" onclick="doTrack()">TRACK →</button></div>
-<div id="cloudSt" class="small" style="text-align:center;margin-top:8px;color:#22c55e">● Cloud: vecctapivot — LIVE | Till 1741514 🔒</div>
-</div>
+<div class="top-card"><h2 class="h">Track Laundry — Till 1741514</h2><p class="sub">Enter LDY-xxxxx — pay unlocks goods</p><div class="search"><input id="q" class="input" placeholder="LDY-12345"><button class="btn-gold" onclick="doTrack()">TRACK →</button></div><div id="cloudSt" class="small" style="text-align:center;margin-top:8px;color:#22c55e">● LIVE | Till 1741514 🔒 Auto-Update ON</div></div>
 <div id="out"></div>
 </main>
 <script type="module">
 import { db } from './firebase.js';
-import { collection, getDocs, query, where, doc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, getDocs, query, where, doc, updateDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const TILL = 1741514;
-window.currentLaundry = null;
-window.currentLaundryTotal = 0;
+window.currentLaundry = null; window.currentLaundryTotal = 0; let unsub = null;
 async function findById(col, id){ try{ let snap=await getDocs(query(collection(db,col), where('id','==',id))); let r=null; snap.forEach(d=>{r={...d.data(),_docId:d.id}}); return r; }catch(e){ return null; } }
-function timeline(status){
- let steps=['Logged','Quoted','Paid','In Progress','Done']; let idx=steps.indexOf(status); if(status==='Revision Needed') idx=1; if(status==='Resubmitted') idx=1;
- return `<div class=timeline>${steps.map((s,i)=>`<div class="step ${i<=idx?'active':''}">${i<=idx?'✅':'○'} ${s}</div>`).join('')}</div>`;
+function laundryTimeline(steps){ if(!steps) return ''; return `<div class=timeline>${steps.map(s=>`<div class="step ${s.status==='done'?'active':''}">${s.status==='done'?'✅':'○'} ${s.name}<br><span class=small>${s.time||''}</span></div>`).join('')}</div>`;}
+
+function renderLaundry(l){
+ window.currentLaundry=l; window.currentLaundryTotal=(l.total+'').replace(/[^0-9]/g,'')||l.total;
+ let curStep = l.steps ? [...l.steps].reverse().find(s=>s.status==='done')?.name : (l.status||'Received');
+ let isPaid = !!l.paid || l.status==='Paid' || l.status==='PAID_VERIFIED' || !!l.mpesaCode;
+ let isDispatched = (l.status==='Dispatched' || curStep==='Dispatched'); let isDelivered = (l.status==='Delivered');
+ let h=`<div class=card><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px"><div><span class=kbd style="color:#facc15">${l.ticket||l.id}</span><br><span class="badge">${isPaid?'✅ PAID Till '+TILL:'❌ NOT PAID Till '+TILL} • ${curStep}</span> <span class=small>${l.createdAt||''}</span></div><div style="text-align:right"><div class=small>Total</div><div style="font-size:22px;font-weight:900;color:#facc15">KES ${l.total}</div><div class=small>${l.location||''} • ${l.name||''}</div></div></div>${laundryTimeline(l.steps)}</div>`;
+
+ if(!isPaid){
+   h+=`<div class="well yellow"><b style="color:#facc15">🧺 READY — PAY TO UNLOCK 🔒</b><br>Amount KES ${l.total} Till ${TILL}<br><div style="margin-top:10px"><input id="mpesaCode" class="input" placeholder="M-Pesa Code e.g QGH7..."><button class="btn" style="background:#facc15;color:#000;margin-top:8px" onclick="submitCode('${l._docId||l.ticket||l.id}')">✅ I Paid — Submit Code</button></div></div>`;
+ }
+ else if(isPaid && !isDispatched && !isDelivered){
+   h+=`<div class="well green"><b style="color:#22c55e">✅ Payment Received — KES ${l.total} — Till ${TILL}</b><br>Code: ${l.mpesaCode||'-'}<br><br><b>🧾 Receipt in process</b><br><span class=small>Goods 🔒 LOCKED at store. Awaiting dispatch. Download will appear after dispatch.</span></div>`;
+ }
+ else if(isDispatched){
+   h+=`<div class="well blue"><b style="color:#60a5fa">🚚 DISPATCHED — Rider has your laundry 🔓</b><br><div style="margin-top:8px;background:#0f172a;padding:10px;border-radius:10px;font-size:13px;line-height:1.7">
+   <b>Rider Name:</b> ${l.riderName||'-'}<br>
+   <b>Rider Tel:</b> ${l.riderTel||'-'}<br>
+   <b>Number Plate:</b> ${l.riderPlate||'-'}<br>
+   <b>Close Time:</b> ${l.closeTime||''}<br>
+   <b>Sign:</b> ${l.signature||''}
+   </div><div style="margin-top:12px;display:flex;gap:8px"><button class="btn" style="background:#facc15;color:#000;flex:1;padding:14px" onclick="generateReceipt()">📄 Download / Print Receipt</button><button class="btn" style="background:#0f172a;border:1px solid #facc15;color:#facc15;flex:1" onclick="shareReceipt()">📲 Share</button></div><button class="btn" style="background:#22c55e;color:#000;margin-top:12px;padding:14px" onclick="markReceived('${l._docId||l.ticket||l.id}')">✅ I HAVE RECEIVED</button></div>`;
+ }
+ else if(isDelivered){
+   h+=`<div class="well green"><b>✅ DELIVERED</b><br><button class="btn" style="background:#facc15;color:#000;margin-top:8px" onclick="generateReceipt()">📄 Download Receipt Again</button></div>`;
+ }
+ h+=`<div class=card><a href="https://wa.me/254788099685?text=Hi%20about%20${l.ticket||l.id}%20Till%20${TILL}" style="flex:1;background:#22c55e;color:#000;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:800;display:block">WhatsApp Support</a></div>`;
+ document.getElementById('out').innerHTML=h;
 }
-function laundryTimeline(steps){
-  if(!steps) return ''; return `<div class=timeline>${steps.map(s=>`<div class="step ${s.status==='done'?'active':''}">${s.status==='done'?'✅':'○'} ${s.name}<br><span class=small>${s.time||''}</span></div>`).join('')}</div>`;
-}
+
 window.doTrack=async()=>{
- let id=(q.value||new URLSearchParams(location.search).get('job')||new URLSearchParams(location.search).get('ticket')||new URLSearchParams(location.search).get('laundry')||new URLSearchParams(location.search).get('ldy')||'').toUpperCase().trim();
- if(!id){alert('Enter JOB- or TIC- or LDY- ID'); return} q.value=id;
- document.getElementById('out').innerHTML='<div class=card>⏳ Checking cloud...</div>';
- if(id.startsWith('JOB')){
-  let j=await findById('jobs', id); if(!j){document.getElementById('out').innerHTML=`<div class=card style="border-left:5px solid #ef4444"><b style="color:#ef4444">JOB ${id} not found</b></div>`; return}
-  let h=`<div class=card><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px"><div><span class=kbd>${j.id}</span><br><span class="badge b-${(j.status||'Logged').replace(' ','')}">${j.status}</span> <span class=small>${j.logged||''}</span></div><div style="text-align:right"><div class=small>Price</div><div style="font-size:22px;font-weight:900;color:#facc15">${j.price?'KSH '+j.price:'Awaiting quote'}</div></div></div>${timeline(j.status)}</div>`;
-  if(j.adminMessage) h+=`<div class="well green"><b style="color:#22c55e">✅ ADMIN:</b><br>${j.adminMessage}</div>`;
-  if(j.revisionNote) h+=`<div class="well red"><b>🔴 Revision:</b><br>${j.revisionNote}<br><textarea id="rep" class=textarea placeholder="Reply to revision"></textarea><button class="btn" style="background:#facc15;color:#000" onclick="resubmitJob('${j._docId}')">Resubmit</button></div>`;
-  document.getElementById('out').innerHTML=h;
- }
- else if(id.startsWith('TIC')){
-  let t=await findById('tickets', id); if(!t){document.getElementById('out').innerHTML=`<div class=card>TICKET ${id} not found</div>`; return}
-  let h=`<div class=card><span class=kbd style="color:#60a5fa">${t.id}</span> for <b style="color:#facc15">${t.jobId}</b><br>${t.subject||''}<div class="well yellow">${t.message||''}</div></div>`;
-  if(t.adminReply) h+=`<div class="well green"><b>✅ ADMIN REPLY:</b><br>${t.adminReply}</div>`;
-  document.getElementById('out').innerHTML=h;
- }
- else if(id.startsWith('LDY')){
-  let cloudData = await findById('laundry', id); let localData = JSON.parse(localStorage.getItem('order_' + id) || 'null'); let l = cloudData || localData;
-  if(!l){document.getElementById('out').innerHTML=`<div class=card style="border-left:5px solid #ef4444"><b style="color:#ef4444">Laundry ${id} not found</b></div>`; return}
-  window.currentLaundry = l; window.currentLaundryTotal = (l.total+'').replace(/[^0-9]/g,'')||l.total;
-  let curStep = l.steps ? [...l.steps].reverse().find(s=>s.status==='done')?.name : (l.status||'Received');
-  let isPaid = !!l.paid; let isReady = ['Ready','Ready for Pickup'].includes(curStep) || ['Ready','Ready for Pickup'].includes(l.status); let isDispatched = (l.status==='Dispatched' || curStep==='Dispatched'); let isDelivered = (l.status==='Delivered');
-  let h=`<div class=card><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px"><div><span class=kbd style="color:#facc15">${l.ticket||l.id}</span><br><span class="badge b-LDY">${isPaid?'✅ PAID Till '+TILL:'❌ NOT PAID Till '+TILL} • ${curStep}</span> <span class=small>${l.createdAt||''}</span></div><div style="text-align:right"><div class=small>Total</div><div style="font-size:22px;font-weight:900;color:#facc15">KES ${l.total}</div><div class=small>${l.location||''} • ${l.name||''}</div></div></div>${laundryTimeline(l.steps)}</div>`;
-  if(isReady && !isPaid){
-    h+=`<div class="well yellow" style="border-color:#facc15"><b style="color:#facc15;font-size:18px">🧺 READY — PAY TO UNLOCK 🔒</b><br><div style="margin-top:8px;font-size:16px">Amount: <b style="color:#facc15">KES ${l.total}</b><br>Buy Goods Till: <b style="font-size:20px">${TILL}</b> — VECCTA</div><div style="margin-top:12px;padding:12px;background:#0f172a;border-radius:10px"><div class=small>M-PESA STEPS:</div><div style="font-size:13px">M-Pesa → Buy Goods & Services → Enter Till ${TILL} → Amount ${l.total} → PIN</div></div><button class="btn" style="background:#facc15;color:#000;margin-top:12px;padding:16px;font-size:16px" onclick="promptPay()">💚 PAY NOW KES ${l.total} → TILL ${TILL}</button><div style="margin-top:14px"><input id="mpesaCode" class="input" placeholder="Enter M-Pesa Code after paying e.g QGH7..."><button class="btn" style="background:#0f172a;border:1px solid #facc15;color:#facc15;margin-top:8px" onclick="submitCode('${l._docId||l.ticket||l.id}')">✅ I Paid — Submit Code</button></div><div class="small" style="margin-top:8px;color:#ef4444">🔒 Goods remain LOCKED at store until you pay & admin dispatches.</div></div>`;
-  } else if(isPaid && !isDispatched && !isDelivered){
-    h+=`<div class="well green"><b style="color:#22c55e;font-size:16px">✅ Payment Received — KES ${l.total} — Till ${TILL}</b><br>Code: ${l.mpesaCode||'—'}<br><span class=small>Goods still 🔒 LOCKED at store. Awaiting Admin Dispatch. Rider will collect after dispatch.</span></div>`;
-  } else if(isDispatched){
-    h+=`<div class="well blue"><b style="color:#60a5fa">🚚 DISPATCHED — Rider has your laundry 🔓</b><br><span class=small>On the way to ${l.location||'you'} — Till ${TILL} PAID</span><br><button class="btn" style="background:#22c55e;color:#000;margin-top:12px;padding:14px" onclick="markReceived('${l._docId||l.ticket||l.id}')">✅ I HAVE RECEIVED MY LAUNDRY — RATE NOW</button></div>`;
-  } else if(isDelivered){
-    h+=`<div class="well green"><b style="color:#22c55e">✅ DELIVERED + RATED</b><br>${l.rating?`⭐ ${l.rating}/5 — ${l.comment||''}`:'Thanks!'}<br><span class=small>Till ${TILL}</span></div>`;
-  } else {
-    h+=`<div class="well gray"><b>${curStep}</b> — <span class=small>in progress. You will be asked to pay Till ${TILL} when Ready.</span></div>`;
-  }
-  h+=`<div class=card style="display:flex;gap:8px;flex-wrap:wrap"><a href="https://wa.me/254788099685?text=Hi%20about%20${l.ticket||l.id}%20Till%20${TILL}%20Amount%20${l.total}" style="flex:1;background:#22c55e;color:#000;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:800">WhatsApp</a><a href="laundry.html" style="flex:1;background:#0f172a;border:1px solid #334155;color:#fff;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:700">New Booking</a></div>`;
-  document.getElementById('out').innerHTML=h;
+ let id=(q.value||new URLSearchParams(location.search).get('ldy')||'').toUpperCase().trim(); if(!id){alert('Enter LDY-');return} q.value=id;
+ document.getElementById('out').innerHTML='<div class=card>⏳ Checking LIVE...</div>';
+ if(id.startsWith('LDY')){
+   if(unsub) unsub();
+   unsub = onSnapshot(doc(db,'laundry',id), (snap)=>{
+     if(!snap.exists()){ document.getElementById('out').innerHTML=`<div class=card>Laundry ${id} not found</div>`; return;}
+     let l={...snap.data(),_docId:snap.id}; renderLaundry(l);
+   });
  }
 }
-window.promptPay=()=>{ let total = window.currentLaundryTotal; alert(`M-PESA BUY GOODS\nTill: ${TILL}\nAmount: KES ${total}\n\n1. M-Pesa → Buy Goods\n2. Till Number: ${TILL}\n3. Amount: ${total}\n4. PIN`); }
-window.submitCode=async(docId)=>{ let code = document.getElementById('mpesaCode')?.value.trim().toUpperCase(); if(!code){alert('Enter M-Pesa Code'); return} try{ await updateDoc(doc(db,'laundry',docId),{ mpesaCode: code }); alert('✅ Code saved. Admin will verify Till '+TILL+' and dispatch.'); doTrack(); } catch(e){ try{ await setDoc(doc(db,'laundry',docId), { mpesaCode: code, id: docId, ticket: docId }, { merge: true }); alert('✅ Code saved.'); doTrack(); }catch(e2){ localStorage.setItem('mpesa_'+docId, code); alert('✅ Code saved locally.'); } } }
-window.markReceived=async(docId)=>{ let rating = prompt('Rate us 1-5:'); if(!rating) return; let comment = prompt('Comment:')||''; try{ await updateDoc(doc(db,'laundry',docId),{ status:'Delivered', steps: window.currentLaundry.steps.map(s=> s.name==='Delivered'?{...s,status:'done',time:new Date().toLocaleString()}:s.name==='Dispatched'?{...s,status:'done'}:s ), rating:parseInt(rating), comment:comment, receivedAt:new Date().toISOString() }); alert('✅ Thank you! Rated.'); doTrack(); }catch(e){ alert('Error: '+e.message); } }
-window.resubmitJob=async(docId)=>{ let v=document.getElementById('rep')?.value?.trim(); if(!v){alert('Write reply'); return} await updateDoc(doc(db,'jobs',docId),{revisionReply:v,status:'Resubmitted'}); alert('✅ Resubmitted'); doTrack(); }
-window.onload=()=>{ let p=new URLSearchParams(location.search); let j=p.get('job'), t=p.get('ticket'), l=p.get('laundry')||p.get('ldy'); if(j||t||l){q.value=(j||t||l).toUpperCase(); doTrack()} }
-</script>
-</body></html>
+window.promptPay=()=>{ alert(`M-PESA Till ${TILL} Amount KES ${window.currentLaundryTotal}`); }
+window.submitCode=async(docId)=>{ let code=document.getElementById('mpesaCode')?.value.trim().toUpperCase(); if(!code)return; await updateDoc(doc(db,'laundry',docId),{ mpesaCode:code, status:'Paid', paid:true }); alert('Code saved'); }
+
+window.generateReceipt=()=>{
+ let l=window.currentLaundry; const { jsPDF }=window.jspdf; const doc=new jsPDF();
+ doc.setFillColor(15,23,42); doc.rect(0,0,210,32,'F');
+ doc.setTextColor(250,204,21); doc.setFontSize(16); doc.setFont('helvetica','bold'); doc.text('VECCTAPIVOT LAUNDRY SERVICES',10,14);
+ doc.setFontSize(9); doc.setTextColor(148,163,184); doc.setFont('helvetica','normal'); doc.text('Valet • Steam Press • Till 1741514 • 0740899185 • support@vecctapivot.com',10,22);
+ doc.setTextColor(0,0,0); doc.setFontSize(14); doc.setFont('helvetica','bold'); doc.text('RECEIPT / INVOICE',10,42);
+ doc.setFontSize(11); doc.setTextColor(180,140,0); doc.text(`Ticket No / Reg No / Receipt No: ${l.ticket||l.id}`,10,50);
+ doc.setTextColor(0,0,0); doc.setFontSize(10); doc.setFont('helvetica','normal'); let y=58;
+ doc.text(`Customer: ${l.name||''} | Phone: ${l.phone||''}`,10,y); y+=6;
+ doc.text(`Location: ${l.location||''}`,10,y); y+=6;
+ doc.text(`Service Received: ${l.service||''}`,10,y); y+=6;
+ doc.text(`Amount Paid: KES ${l.total} via Buy Goods Till ${TILL}`,10,y); y+=6;
+ doc.text(`M-Pesa Code: ${l.mpesaCode||''}`,10,y); y+=8;
+ doc.text(`Ticket Book Time: ${l.createdAt||''}`,10,y); y+=6;
+ doc.text(`Service Close Time: ${l.closeTime||''}`,10,y); y+=8;
+ doc.setFont('helvetica','bold'); doc.text('RIDER DETAILS:',10,y); y+=6; doc.setFont('helvetica','normal');
+ doc.text(`Rider Name: ${l.riderName||'-'}`,10,y); y+=6;
+ doc.text(`Rider Tel: ${l.riderTel||'-'}`,10,y); y+=6;
+ doc.text(`Rider Number Plate: ${l.riderPlate||'-'}`,10,y); y+=8;
+ doc.setFontSize(13); doc.setFont('helvetica','bold'); doc.text(`Authorized Sign (Initials): ${l.signature||''}`,10,y); y+=10;
+ doc.setFontSize(10); doc.setFont('helvetica','normal'); doc.text(`Status: ${l.status}`,10,y); y+=12;
+ doc.setDrawColor(250,204,21); doc.line(10,y,200,y); y+=6; doc.setFontSize(8); doc.setTextColor(100,100,100); doc.text('Valid proof of payment. Till 1741514 LOCKED. Present upon collection.',10,y);
+ doc.save(`${l.ticket||l.id}_Receipt_${l.signature||'VP'}.pdf`);
+}
+window.shareReceipt=()=>{ let l=window.currentLaundry; let txt=`*VECCTAPIVOT RECEIPT*%0ATicket/Reg/Receipt: ${l.ticket}%0AAmount: KES ${l.total} Till ${TILL}%0ACode: ${l.mpesaCode}%0ARider: ${l.riderName} Tel: ${l.riderTel} Plate: ${l.riderPlate}%0ASign: ${l.signature}`; window.open('https://wa.me/?text='+txt,'_blank'); }
+window.markReceived=async(docId)=>{ await updateDoc(doc(db,'laundry',docId),{ status:'Delivered' }); alert('Thanks!'); }
+window.onload=()=>{ let p=new URLSearchParams(location.search); let l=p.get('ldy'); if(l){q.value=l.toUpperCase(); doTrack()} }
+</script></body></html>
