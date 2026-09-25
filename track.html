@@ -12,9 +12,9 @@
 .well{padding:14px;border-radius:14px;margin:10px 0;border:2px solid;line-height:1.6;font-size:14px}
 .green{border-color:#22c55e;background:#052e16}.red{border-color:#ef4444;background:#450a0a}.yellow{border-color:#facc15;background:#422006}.blue{border-color:#60a5fa;background:#0c1a32}.gray{border-color:#334155;background:#0f172a}
 .badge{padding:4px 10px;border-radius:999px;font-size:10px;font-weight:900;letter-spacing:.6px}
-.b-Logged{background:#334155;color:#fff}.b-Quoted{background:#422006;color:#facc15}.b-Paid{background:#052e16;color:#22c55e}.b-InProgress{background:#1e1b4b;color:#a5b4fc}.b-Done{background:#052e16;color:#22c55e}.b-Revision{background:#450a0a;color:#fca5a5}.b-Resubmitted{background:#422006;color:#fdba74}
+.b-Logged{background:#334155;color:#fff}.b-Quoted{background:#422006;color:#facc15}.b-Paid{background:#052e16;color:#22c55e}.b-InProgress{background:#1e1b4b;color:#a5b4fc}.b-Done{background:#052e16;color:#22c55e}.b-Revision{background:#450a0a;color:#fca5a5}.b-Resubmitted{background:#422006;color:#fdba74}.b-LDY{background:#422006;color:#facc15;border:1px solid #facc15}
 .timeline{display:flex;gap:8px;overflow-x:auto;padding:8px 0}
-.step{min-width:110px;text-align:center;padding:10px;border-radius:12px;border:1px solid #334155;background:#0f172a;opacity:.5}
+.step{min-width:110px;text-align:center;padding:10px;border-radius:12px;border:1px solid #334155;background:#0f172a;opacity:.5;font-size:12px}
 .step.active{opacity:1;border-color:#facc15;background:#422006;color:#facc15;font-weight:800}
 .kbd{font-family:ui-monospace;font-size:22px;color:#facc15;font-weight:900}
 .small{font-size:11px;color:#94a3b8}
@@ -22,15 +22,15 @@
 .btn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:800;cursor:pointer}
 </style>
 </head><body>
-<div class="utility"><div class="uwrap"><span class="uitem"><span class="ubadge">TRACK GLOBAL LIVE</span></span><span class="uitem">JOB + TICKET + ADMIN RESPONSE</span><a class="uitem" href="https://wa.me/254788099685">Help</a></div></div>
+<div class="utility"><div class="uwrap"><span class="uitem"><span class="ubadge">TRACK GLOBAL LIVE</span></span><span class="uitem">JOB + TIC + LDY LAUNDRY</span><a class="uitem" href="https://wa.me/254788099685">Help</a></div></div>
 <header class="top"><div class="navrow"><a class="brand" href="index.html"><img src="logo.png"><span class="brandname">Vecctapivot<em>Track Desk</em></span></a><div class="navcta"><a class="btn line sm2" href="job.html">New Job</a><a class="btn gold sm2" href="ticket.html">Raise Ticket</a></div></div></header>
 
 <main class="wrap">
 <div class="top-card">
-<h2 class="h">Track Job & Ticket — GLOBAL</h2>
-<p class="sub">Enter JOB-xxxxxx or TIC-xxxxx — see status + admin message well-displayed from any phone</p>
-<div class="search"><input id="q" class="input" placeholder="JOB-123456 or TIC-12345"><button class="btn-gold" onclick="doTrack()">TRACK →</button></div>
-<div id="cloudSt" class="small" style="text-align:center;margin-top:8px;color:#22c55e">● Cloud: vecctapivot — live</div>
+<h2 class="h">Track Job, Ticket & Laundry — GLOBAL</h2>
+<p class="sub">Enter JOB-xxxxxx or TIC-xxxxx or LDY-xxxxx — see status + admin message</p>
+<div class="search"><input id="q" class="input" placeholder="JOB-123456 or TIC-12345 or LDY-12345"><button class="btn-gold" onclick="doTrack()">TRACK →</button></div>
+<div id="cloudSt" class="small" style="text-align:center;margin-top:8px;color:#22c55e">● Cloud: vecctapivot — live + local LDY</div>
 </div>
 
 <div id="out"></div>
@@ -40,54 +40,81 @@
 import { db } from './firebase.js';
 import { collection, getDocs, query, where, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-async function findById(col, id){ let snap=await getDocs(query(collection(db,col), where('id','==',id))); let r=null; snap.forEach(d=>{r={...d.data(),_docId:d.id}}); return r;}
+async function findById(col, id){ try{ let snap=await getDocs(query(collection(db,col), where('id','==',id))); let r=null; snap.forEach(d=>{r={...d.data(),_docId:d.id}}); return r; }catch(e){ return null; } }
 
 function timeline(status){
  let steps=['Logged','Quoted','Paid','In Progress','Done']; let idx=steps.indexOf(status); if(status==='Revision Needed') idx=1; if(status==='Resubmitted') idx=1;
  return `<div class=timeline>${steps.map((s,i)=>`<div class="step ${i<=idx?'active':''}">${i<=idx?'✅':'○'} ${s}</div>`).join('')}</div>`;
 }
 
+function laundryTimeline(steps){
+  if(!steps) return '';
+  return `<div class=timeline>${steps.map(s=>`<div class="step ${s.status==='done'?'active':''}">${s.status==='done'?'✅':'○'} ${s.name}<br><span class=small>${s.time||''}</span></div>`).join('')}</div>`;
+}
+
 window.doTrack=async()=>{
- let id=(q.value||new URLSearchParams(location.search).get('job')||new URLSearchParams(location.search).get('ticket')||'').toUpperCase().trim();
- if(!id){alert('Enter JOB- or TIC- ID'); return}
+ let id=(q.value||new URLSearchParams(location.search).get('job')||new URLSearchParams(location.search).get('ticket')||new URLSearchParams(location.search).get('laundry')||'').toUpperCase().trim();
+ if(!id){alert('Enter JOB- or TIC- or LDY- ID'); return}
  q.value=id;
- document.getElementById('out').innerHTML='<div class=card>⏳ Checking cloud vecctapivot...</div>';
+ document.getElementById('out').innerHTML='<div class=card>⏳ Checking cloud + local...</div>';
+ 
  if(id.startsWith('JOB')){
   let j=await findById('jobs', id);
-  if(!j){document.getElementById('out').innerHTML=`<div class="card" style="border-left:5px solid #ef4444"><b style="color:#ef4444">JOB ${id} not found in cloud</b><br><span class=small>Submit from job.html first. Check Firestore Rules = allow read, write: if true;</span><br><a href="job.html" style="color:#facc15">Go to job.html →</a></div>`; return}
-  
+  if(!j){document.getElementById('out').innerHTML=`<div class="card" style="border-left:5px solid #ef4444"><b style="color:#ef4444">JOB ${id} not found in cloud</b><br><span class=small>Submit from job.html first.</span><br><a href="job.html" style="color:#facc15">Go to job.html →</a></div>`; return}
   let h=`<div class=card>
   <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px"><div><span class=kbd>${j.id}</span><br><span class="badge b-${(j.status||'Logged').replace(' ','')}">${j.status}</span> <span class=small>${j.logged||''}</span></div>
   <div style="text-align:right"><div class=small>Price</div><div style="font-size:22px;font-weight:900;color:#facc15">${j.price?'KSH '+j.price:'Awaiting quote'}</div><div class=small>${j.pillar||''}</div></div></div>
   <div style="margin-top:10px"><b>${j.fullService||''}</b><br><span class=small>${j.clientName||''} • ${j.clientPhone||''}</span></div>
   ${timeline(j.status)}
   </div>`;
-
   if(j.details||j.detail) h+=`<div class="well gray"><b>Your Details:</b><br>${j.details||''} ${j.detail? ' | '+j.detail:''} ${j.requirements?.detail||''}</div>`;
-  
-  // ADMIN RESPONSE — WELL DISPLAYED
-  if(j.adminMessage) h+=`<div class="well green"><b style="color:#22c55e">✅ ADMIN MESSAGE — WELL DISPLAYED:</b><br><div style="font-size:15px;margin-top:6px">${j.adminMessage}</div><div class=small style="margin-top:6px;color:#22c55e">Displayed from cloud — any phone</div></div>`;
-  else h+=`<div class="well gray"><span class=small>Admin hasn't replied yet — usually within 1hr. Keep checking.</span></div>`;
-
-  if(j.revisionNote) h+=`<div class="well red"><b style="color:#ef4444">🔴 REVISION NEEDED — RED LOCK BOX (Admin requests fix):</b><br><div style="margin-top:8px;font-size:15px">${j.revisionNote}</div><br><label class=small>Your Reply:</label><textarea id=rep class=textarea rows=3 placeholder="Write what you fixed..."></textarea><button class=btn style="background:#ef4444;color:#fff" onclick="resubmitJob('${j._docId}')">↩ Resubmit for Review</button></div>`;
-  
-  if(j.revisionReply) h+=`<div class="well yellow"><b style="color:#facc15">↩ Your Resubmit:</b><br>${j.revisionReply}<br><span class=small>Admin will review and update status</span></div>`;
-
-  h+=`<div class=card style="display:flex;gap:8px;flex-wrap:wrap"><a href="ticket.html?job=${j.id}" style="flex:1;background:#0f172a;border:1px solid #334155;color:#fff;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:700">Raise Ticket for ${j.id}</a><a href="https://wa.me/254788099685?text=Hi%20about%20${j.id}%20${encodeURIComponent(j.fullService)}" style="flex:1;background:#22c55e;color:#000;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:800">WhatsApp Help</a></div>`;
-
+  if(j.adminMessage) h+=`<div class="well green"><b style="color:#22c55e">✅ ADMIN MESSAGE:</b><br><div style="font-size:15px;margin-top:6px">${j.adminMessage}</div></div>`;
+  else h+=`<div class="well gray"><span class=small>Admin hasn't replied yet.</span></div>`;
+  if(j.revisionNote) h+=`<div class="well red"><b style="color:#ef4444">🔴 REVISION NEEDED:</b><br><div style="margin-top:8px;font-size:15px">${j.revisionNote}</div><br><label class=small>Your Reply:</label><textarea id=rep class=textarea rows=3 placeholder="Write what you fixed..."></textarea><button class=btn style="background:#ef4444;color:#fff" onclick="resubmitJob('${j._docId}')">↩ Resubmit for Review</button></div>`;
+  if(j.revisionReply) h+=`<div class="well yellow"><b style="color:#facc15">↩ Your Resubmit:</b><br>${j.revisionReply}</div>`;
+  h+=`<div class=card style="display:flex;gap:8px;flex-wrap:wrap"><a href="ticket.html?job=${j.id}" style="flex:1;background:#0f172a;border:1px solid #334155;color:#fff;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:700">Raise Ticket for ${j.id}</a><a href="https://wa.me/254788099685?text=Hi%20about%20${j.id}" style="flex:1;background:#22c55e;color:#000;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:800">WhatsApp Help</a></div>`;
   document.getElementById('out').innerHTML=h;
  }
  else if(id.startsWith('TIC')){
   let t=await findById('tickets', id);
   if(!t){document.getElementById('out').innerHTML=`<div class=card style="border-left:5px solid #ef4444">TICKET ${id} not found in cloud</div>`; return}
-  let h=`<div class=card><span class=kbd style="color:#60a5fa">${t.id}</span> for <b style="color:#facc15">${t.jobId}</b><br><span class=badge>${t.status}</span> ${t.priority} • ${t.tType} • ${t.category||''}<br><b>${t.subject}</b></div>`;
+  let h=`<div class=card><span class=kbd style="color:#60a5fa">${t.id}</span> for <b style="color:#facc15">${t.jobId}</b><br><span class=badge>${t.status}</span> ${t.priority} • ${t.tType}<br><b>${t.subject}</b></div>`;
   h+=`<div class="well yellow"><b>Your Ticket:</b><br>${t.message}</div>`;
-  if(t.adminReply) h+=`<div class="well green"><b style="color:#22c55e">✅ ADMIN REPLY — WELL DISPLAYED:</b><br><div style="font-size:15px;margin-top:6px">${t.adminReply}</div></div>`;
-  else h+=`<div class="well gray"><span class=small>Admin hasn't replied yet — we reply within 1hr on tickets</span></div>`;
+  if(t.adminReply) h+=`<div class="well green"><b style="color:#22c55e">✅ ADMIN REPLY:</b><br><div style="font-size:15px;margin-top:6px">${t.adminReply}</div></div>`;
+  else h+=`<div class="well gray"><span class=small>Admin hasn't replied yet.</span></div>`;
+  document.getElementById('out').innerHTML=h;
+ }
+ else if(id.startsWith('LDY')){
+  // TRY LOCAL FIRST, THEN CLOUD laundry collection
+  let localData = JSON.parse(localStorage.getItem('order_' + id) || 'null');
+  let cloudData = await findById('laundry', id);
+  let l = cloudData || localData;
+  if(!l){document.getElementById('out').innerHTML=`<div class=card style="border-left:5px solid #ef4444"><b style="color:#ef4444">Laundry ${id} not found</b><br><span class=small>Check this same phone where you booked, or ask admin to push to cloud. Local storage only on booking device.</span></div>`; return}
+  
+  let h=`<div class=card>
+  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+    <div><span class=kbd style="color:#facc15">${l.ticket}</span><br><span class="badge b-LDY">LAUNDRY</span> <span class=small>${l.createdAt||''}</span></div>
+    <div style="text-align:right"><div class=small>Total</div><div style="font-size:22px;font-weight:900;color:#facc15">${l.total}</div><div class=small>${l.location||''}</div></div>
+  </div>
+  <div style="margin-top:10px"><b>${l.service||''}</b><br><span class=small>${l.name||''} • ${l.phone||''}</span></div>
+  ${laundryTimeline(l.steps)}
+  </div>`;
+
+  h+=`<div class="well blue"><b>🚚 Delivery:</b><br><span style="font-size:16px;font-weight:800;color:#facc15">${l.delivery||''}</span></div>`;
+
+  if(l.steps && l.steps.find(s=>s.status==='done' && s.name!=='Received')){
+    let lastDone = [...l.steps].reverse().find(s=>s.status==='done');
+    h+=`<div class="well green"><b style="color:#22c55e">✅ Latest Update: ${lastDone.name}</b><br><div class=small>${lastDone.time||''} • by ${lastDone.updatedBy||'Admin'}</div></div>`;
+  } else {
+    h+=`<div class="well gray"><span class=small>Order received — washing starts soon. Delivery as shown above.</span></div>`;
+  }
+
+  h+=`<div class=card style="display:flex;gap:8px;flex-wrap:wrap"><a href="https://wa.me/254788099685?text=Hi%20about%20Laundry%20${l.ticket}%20Delivery:${encodeURIComponent(l.delivery||'')}" style="flex:1;background:#22c55e;color:#000;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:800">WhatsApp Laundry Desk</a><a href="laundry.html" style="flex:1;background:#0f172a;border:1px solid #334155;color:#fff;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:700">New Laundry Booking →</a></div>`;
+
   document.getElementById('out').innerHTML=h;
  }
  else{
-  document.getElementById('out').innerHTML='<div class=card>Enter ID starting with JOB- or TIC-</div>';
+  document.getElementById('out').innerHTML='<div class=card>Enter ID starting with JOB- or TIC- or LDY-</div>';
  }
 }
 
@@ -97,9 +124,8 @@ window.resubmitJob=async(docId)=>{
  alert('✅ Resubmitted — admin sees instantly'); doTrack();
 }
 
-// auto-load from URL ?job= or ?ticket=
 window.onload=()=>{
- let p=new URLSearchParams(location.search); let j=p.get('job'), t=p.get('ticket'); if(j||t){q.value=j||t; doTrack()}
+ let p=new URLSearchParams(location.search); let j=p.get('job'), t=p.get('ticket'), l=p.get('laundry')||p.get('ldy'); if(j||t||l){q.value=(j||t||l).toUpperCase(); doTrack()}
 }
 </script>
 </body></html>
