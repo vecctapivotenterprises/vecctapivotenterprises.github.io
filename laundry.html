@@ -1,67 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-KE">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Laundry - Gilgil</title>
-<style>
-:root{--gold:#d4a017;--bg:#111;--card:#1a1a1a;--muted:#888;}
-body{background:var(--bg);color:#fff;font-family:Inter,sans-serif;padding:20px;}
-.card{background:var(--card);border-radius:16px;padding:20px;max-width:420px;margin:auto;border:1px solid #222;}
-label{display:block;margin:12px 0 6px;color:var(--muted);font-size:13px;}
-select,input{width:100%;padding:12px;border-radius:10px;background:#222;border:1px solid #333;color:#fff;font-size:15px;}
-#autoDeliveryDisplay{margin-top:12px;padding:12px;background:#222;border-left:3px solid var(--gold);border-radius:8px;text-align:center;min-height:48px;}
-#autoDeliveryDisplay b{font-size:18px;color:var(--gold);}
-#ruleEl{font-size:12px;color:var(--muted);margin-top:4px;}
-#totalEl{font-size:28px;font-weight:800;margin-top:10px;color:var(--gold);}
-button{width:100%;margin-top:18px;padding:14px;border-radius:12px;background:var(--gold);color:#000;font-weight:800;font-size:16px;border:none;cursor:pointer;}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VECCTAPIVOT Laundry — Service Hub</title>
+  <link rel="icon" href="logo.png">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="card">
-  <h2 style="margin:0;">🧺 Laundry Booking</h2>
-  
-  <label>Service</label>
-  <select id="service">
-    <option value="150">Wash & Fold - 150 per KG</option>
-    <option value="400">Flat - Duvet - 400 flat</option>
-    <option value="200">Wash & Iron - 200 per KG</option>
-  </select>
-  
-  <label>Quantity (KG / Items)</label>
-  <input type="number" id="qty" value="1" min="1">
-  <div id="ruleEl"></div>
-  
-  <label>Pickup Time</label>
-  <select id="pickup">
-    <option value="08:00">08:00 AM</option>
-    <option value="09:00">09:00 AM</option>
-    <option value="10:00">10:00 AM</option>
-    <option value="11:00">11:00 AM</option>
-    <option value="12:00">12:00 PM</option>
-    <option value="13:00">01:00 PM</option>
-    <option value="14:00">02:00 PM</option>
-    <option value="15:00">03:00 PM</option>
-    <option value="16:00">04:00 PM</option>
-    <option value="17:00">05:00 PM</option>
-    <option value="18:00">06:00 PM</option>
-  </select>
-  
-  <div id="autoDeliveryDisplay">Select pickup time to see delivery</div>
-  
-  <div id="totalEl">KES 400</div>
-  
-  <button id="laundSubmitBtn">Book →</button>
-</div>
-
+  <div class="utility">
+    <div class="uwrap">
+      <span class="uitem"><span class="ubadge">BRS BN-AYSO8LRE</span></span>
+      <span class="uitem">64 services</span>
+      <a class="uitem" href="https://wa.me/254788099685">WhatsApp +254 788 099 685</a>
+    </div>
+  </div>
+  <header class="top">
+    <div class="navrow">
+      <a class="brand" href="index.html"><img src="logo.png" alt="Vecctapivot logo"><span class="brandname">Vecctapivot<em>Enterprises</em></span></a>
+      <nav class="mainnav"><a href="index.html#services">Services</a><a href="track.html">Track</a></nav>
+    </div>
+  </header>
+  <main>
+    <p class="backline"><a href="index.html">← All Services</a></p>
+    <section class="deskhead">
+      <span class="kicker">Pillar 8 · Express Service Desk</span>
+      <h1>VECCTAPIVOT Laundry</h1>
+      <p>4-hour turnaround. If your 4hr window crosses 6PM closing, we auto-roll to next-day 8AM-11AM.</p>
+    </section>
+    <section class="formcard reveal in" style="max-width:600px;margin:24px auto;display:block;">
+      <form id="olKalouLaundryForm" onsubmit="return false;" novalidate>
+        <fieldset style="border:1px solid var(--line);padding:16px;border-radius:12px;margin-bottom:18px;">
+          <legend style="color:var(--gold);font-weight:700;text-transform:uppercase;font-size:0.78rem;letter-spacing:1.8px;padding:0 8px;">1. Contact & Delivery</legend>
+          <div class="frow">
+            <div class="field"><label>Full Name</label><input type="text" id="laundName" required placeholder="Jane Wanjiku"></div>
+            <div class="field"><label>WhatsApp Phone</label><input type="tel" id="laundPhone" required placeholder="+254 7XX"></div>
+          </div>
+          <div class="frow">
+            <div class="field">
+              <label>Pickup Time (4hr TAT)</label>
+              <select id="laundPickup" style="width:100%;">
+                <option value="08:00" selected>08:00 AM</option>
+                <option value="09:00">09:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="13:00">01:00 PM</option>
+                <option value="14:00">02:00 PM</option>
+                <option value="15:00">03:00 PM</option>
+                <option value="16:00">04:00 PM</option>
+                <option value="17:00">05:00 PM</option>
+                <option value="18:00">06:00 PM</option>
+              </select>
+            </div>
+            <div class="field"><label>Ol Kalou Estate</label><input type="text" id="laundLocation" required placeholder="Huruma"></div>
+          </div>
+          <div style="margin-top:12px;padding:12px;background:rgba(232,185,62,0.05);border:1px dashed var(--line);border-radius:9px;text-align:center;">
+            <span style="font-size:0.72rem;text-transform:uppercase;color:var(--muted);">🚚 DELIVERY TIME</span>
+            <span id="autoDeliveryDisplay" style="font-size:0.92rem;color:var(--gold);font-weight:700;display:block;margin-top:4px;">Calculating...</span>
+          </div>
+        </fieldset>
+        <fieldset style="border:1px solid var(--line);padding:16px;border-radius:12px;margin-bottom:18px;">
+          <legend style="color:var(--gold);font-weight:700;text-transform:uppercase;font-size:0.78rem;padding:0 8px;">2. Service</legend>
+          <div class="field">
+            <label>Service</label>
+            <select id="laundService" style="width:100%;">
+              <option value="80" selected>Express Wash, Spin & Fold — KES 80 / kg</option>
+              <option value="130">Executive Wash, Steam Press — KES 130 / kg</option>
+              <option value="60">Valet Steam Press — KES 60 / kg</option>
+              <option value="400">Duvet / Blanket — KES 400 Flat</option>
+              <option value="150">Footwear Care — KES 150 / Pair</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Weight (Kg)</label>
+            <input type="number" id="laundQty" value="5" min="1" max="40" style="width:100%;">
+            <p style="color:var(--gold);margin-top:6px;font-size:0.8rem;">📌 Minimum KES 400</p>
+          </div>
+        </fieldset>
+        <div style="margin:20px 0;padding:16px;background:var(--bg-2);border-radius:10px;text-align:center;border:1px solid var(--line);">
+          <span style="font-size:0.72rem;text-transform:uppercase;color:var(--muted);">Invoice Total</span>
+          <h2 id="laundTotalDisplay" style="color:var(--gold);font-size:2.5rem;margin:6px 0;">KES 400</h2>
+          <p id="laundRuleNotice" style="font-size:0.82rem;color:var(--muted);font-style:italic;"></p>
+          <div style="margin-top:10px;padding:8px;background:rgba(37,211,102,0.08);border:1px dashed rgba(37,211,102,0.4);border-radius:8px;">🟩 Till: <strong style="color:var(--gold);">1741514</strong></div>
+        </div>
+        <p id="localFormErr" hidden style="background:rgba(180,60,60,0.14);border:1px solid rgba(220,100,100,0.5);color:#f0b8b8;padding:10px;border-radius:8px;margin-bottom:12px;"></p>
+        <button type="button" class="btn gold big" id="laundSubmitBtn" style="width:100%;">Book →</button>
+      </form>
+    </section>
+    <section class="confcard" id="laundryTicketResult" hidden style="border:1px solid var(--gold);padding:24px;background:linear-gradient(165deg,var(--panel),var(--bg-2));border-radius:var(--radius);text-align:center;max-width:600px;margin:24px auto;">
+      <span class="kicker" style="color:var(--gold);">DIGITAL RECEIPT</span>
+      <h2 id="ticketRefHeader" style="font-size:2.2rem;color:var(--gold);">TKT-XXXX</h2>
+      <div id="qrcode" style="background:#fff;padding:12px;display:inline-block;border-radius:8px;margin:15px auto;"></div>
+      <dl style="margin:15px auto;max-width:500px;border:1px solid var(--line);border-radius:10px;text-align:left;overflow:hidden;">
+        <div style="display:grid;grid-template-columns:40% 60%;background:rgba(11,18,32,0.4);"><dt style="padding:10px;color:var(--muted);font-size:0.8rem;">CLIENT</dt><dd id="recName" style="padding:10px;border-left:1px solid var(--line);"></dd></div>
+        <div style="display:grid;grid-template-columns:40% 60%;"><dt style="padding:10px;color:var(--muted);font-size:0.8rem;">SERVICE</dt><dd id="recService" style="padding:10px;border-left:1px solid var(--line);"></dd></div>
+        <div style="display:grid;grid-template-columns:40% 60%;background:rgba(11,18,32,0.5);"><dt style="padding:10px;color:var(--muted);font-size:0.8rem;">DELIVERY</dt><dd id="recDateTime" style="padding:10px;border-left:1px solid var(--line);color:var(--gold-soft);font-weight:600;"></dd></div>
+        <div style="display:grid;grid-template-columns:40% 60%;"><dt style="padding:10px;color:var(--muted);font-size:0.8rem;">LOCATION</dt><dd id="recLoc" style="padding:10px;border-left:1px solid var(--line);"></dd></div>
+        <div style="display:grid;grid-template-columns:40% 60%;background:rgba(11,18,32,0.5);"><dt style="padding:10px;color:var(--muted);font-size:0.8rem;">TOTAL</dt><dd id="recTotal" style="padding:10px;border-left:1px solid var(--line);color:var(--gold);font-weight:700;"></dd></div>
+      </dl>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;"><a class="btn gold" id="waTicketLink" target="_blank">Send to WhatsApp →</a> <a class="btn" href="track.html" style="border:1px solid var(--line);">Track LDY- Ticket →</a></div>
+    </section>
+  </main>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script>
-const serviceEl = document.getElementById('service');
-const qtyEl = document.getElementById('qty');
-const pickupEl = document.getElementById('pickup');
-const totalEl = document.getElementById('totalEl');
-const ruleEl = document.getElementById('ruleEl');
+const serviceEl = document.getElementById('laundService');
+const qtyEl = document.getElementById('laundQty');
+const pickupEl = document.getElementById('laundPickup');
+const totalEl = document.getElementById('laundTotalDisplay');
+const ruleEl = document.getElementById('laundRuleNotice');
 const deliveryEl = document.getElementById('autoDeliveryDisplay');
-
+const submitBtn = document.getElementById('laundSubmitBtn');
 function calc(){
   let rate=parseInt(serviceEl.value);
   let qty=parseInt(qtyEl.value)||1;
@@ -71,33 +120,65 @@ function calc(){
   let final=isFlat?raw:Math.max(400,raw);
   totalEl.textContent=`KES ${final.toLocaleString()}`;
   ruleEl.textContent=isFlat?`${qty} item(s)`: `${qty}kg x ${rate} = ${raw}`;
-  
   let pickHour=parseInt(pickupEl.value.split(':')[0]);
   let deliveryHour=pickHour+4;
-  document.getElementById('laundSubmitBtn').textContent=`Book →`;
-  
+  submitBtn.textContent=`Book →`;
   if(deliveryHour > 18){
     let nextDayHour = 8 + (pickHour - 15);
     if(nextDayHour > 11) nextDayHour = 11;
     let h = String(nextDayHour).padStart(2,'0');
-    deliveryEl.innerHTML=`<b style="color:#ff9d66;">${h}:00 AM Tomorrow</b><br><small style="color:#ff9d66;">Extra care overnight, ready ${nextDayHour}AM sharp! ✨</small>`;
-    deliveryEl.style.borderLeftColor='#ff9d66';
+    deliveryEl.innerHTML=`<b style="color:#ff9d66;font-size:1.1rem;">${h}:00 AM Tomorrow</b><br><small style="color:#ff9d66;">Extra care overnight, ready ${nextDayHour}AM sharp! ✨</small>`;
   } else {
     let ampm = deliveryHour >= 12 ? 'PM' : 'AM';
     let showH = deliveryHour > 12 ? deliveryHour - 12 : deliveryHour;
-    let msg = pickHour <= 9 ? 'Fresh, clean & ready today! ✨' : 
-              pickHour === 14 ? 'Last same-day slot, ready tonight!' : 
-              'Pressed to perfection, ready today!';
-    deliveryEl.innerHTML=`<b>${String(showH).padStart(2,'0')}:00 ${ampm}</b><br><small style="color:var(--muted);">${msg}</small>`;
-    deliveryEl.style.borderLeftColor='var(--gold)';
+    let msg = pickHour <= 9 ? 'Fresh, clean & ready today! ✨' : pickHour === 14 ? 'Last same-day slot, ready tonight!' : 'Pressed to perfection, ready today!';
+    deliveryEl.innerHTML=`<b style="font-size:1.1rem;">${String(showH).padStart(2,'0')}:00 ${ampm}</b><br><small style="color:var(--muted);">${msg}</small>`;
   }
   return final;
 }
-
-serviceEl.addEventListener('change', calc);
-qtyEl.addEventListener('input', calc);
-pickupEl.addEventListener('change', calc);
+serviceEl.addEventListener('change',calc);
+qtyEl.addEventListener('input',calc);
+pickupEl.addEventListener('change',calc);
 calc();
+document.getElementById('laundSubmitBtn').addEventListener('click',()=>{
+  let name=document.getElementById('laundName').value.trim();
+  let phone=document.getElementById('laundPhone').value.trim();
+  let loc=document.getElementById('laundLocation').value.trim();
+  let err=document.getElementById('localFormErr');
+  if(!name||!phone||!loc){err.textContent='Fill name, phone, estate'; err.hidden=false; return;}
+  err.hidden=true;
+  let final=calc();
+  const laundryExistingTickets = JSON.parse(localStorage.getItem('veccta_laundry_tickets') || '[]');
+  let ticket;
+  do { let num = Math.floor(10000 + Math.random() * 90000); ticket = `LDY-${num}`; } while (laundryExistingTickets.includes(ticket));
+  laundryExistingTickets.push(ticket);
+  localStorage.setItem('veccta_laundry_tickets', JSON.stringify(laundryExistingTickets));
+  let orderData = {
+    ticket: ticket, page: "laundry", name: name, phone: phone, location: loc,
+    service: serviceEl.options[serviceEl.selectedIndex].text + ' x ' + qtyEl.value,
+    total: totalEl.textContent, delivery: deliveryEl.innerText, createdAt: new Date().toLocaleString(),
+    steps: [
+      { name: "Received", status: "done", time: new Date().toLocaleString(), updatedBy: "Admin" },
+      { name: "Washing", status: "pending", time: "", updatedBy: "" },
+      { name: "Ironing / Pressing", status: "pending", time: "", updatedBy: "" },
+      { name: "Ready for Pickup", status: "pending", time: "", updatedBy: "" },
+      { name: "Delivered", status: "pending", time: "", updatedBy: "" }
+    ]
+  };
+  localStorage.setItem('order_' + ticket, JSON.stringify(orderData));
+  document.getElementById('ticketRefHeader').textContent=ticket;
+  document.getElementById('recName').textContent=name+' ('+phone+')';
+  document.getElementById('recService').textContent=orderData.service;
+  document.getElementById('recDateTime').textContent=deliveryEl.innerText;
+  document.getElementById('recLoc').textContent=loc;
+  document.getElementById('recTotal').textContent=totalEl.textContent;
+  document.getElementById('qrcode').innerHTML='';
+  new QRCode(document.getElementById('qrcode'),{text:ticket+'|'+totalEl.textContent,width:128,height:128});
+  let msg=encodeURIComponent(`VECCTAPIVOT Laundry\nTICKET ${ticket}\nName:${name}\nService:${orderData.service}\nTotal:${totalEl.textContent}\nDelivery:${deliveryEl.innerText}\nLocation:${loc}\nTill 1741514\nTrack: track.html`);
+  document.getElementById('waTicketLink').href='https://wa.me/254788099685?text='+msg;
+  document.getElementById('laundryTicketResult').hidden=false;
+  document.getElementById('laundryTicketResult').scrollIntoView({behavior:'smooth'});
+});
 </script>
 </body>
 </html>
