@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin GLOBAL — VECCTAPIVOT — Full Power Delete</title><link rel="icon" href="logo.png"><link rel="stylesheet" href="style.css">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin SECURE FULL — VECCTAPIVOT — Till 1741514</title><link rel="icon" href="logo.png"><link rel="stylesheet" href="style.css">
 <style>
 :root{--gold:#facc15;--gold2:#eab308;--green:#22c55e;--red:#ef4444;--blue:#60a5fa;--bg:#070a14;--card:#1e293b;--line:#334155}
 *{box-sizing:border-box}body{background:radial-gradient(1200px 600px at 20% -10%,#1e293b 0%,#0f172a 40%,var(--bg) 100%);color:#fff;font-family:Inter,system-ui;margin:0;min-height:100vh}
@@ -22,12 +22,12 @@
 </style>
 </head><body>
 <div class="topbar">
-<div style="display:flex;gap:10px;align-items:center"><img src="logo.png" style="height:28px"><b style="color:var(--gold)">VECCTAPIVOT ADMIN — FULL POWER</b><span id="cloudSt" style="font-size:11px;color:#94a3b8">● Connecting vecctapivot</span></div>
-<div style="display:flex;gap:6px"><button class="btn line" onclick="loadCloud()">↻ Cloud</button><button class="btn line" onclick="exportCSV()">CSV</button><a class="btn line" href="index.html" style="text-decoration:none">Home</a></div>
+<div style="display:flex;gap:10px;align-items:center"><img src="logo.png" style="height:28px"><b style="color:var(--gold)">VECCTAPIVOT ADMIN SECURE — FULL POWER — Till 1741514</b><span id="cloudSt" style="font-size:11px;color:#94a3b8">● Secure Auth Required</span></div>
+<div style="display:flex;gap:6px"><button class="btn line" onclick="loadCloud()">↻ Cloud</button><button class="btn line" onclick="exportCSV()">CSV</button><button class="btn line" id="logoutBtn" hidden onclick="doLogout()">Logout</button><a class="btn line" href="index.html" style="text-decoration:none">Home</a></div>
 </div>
 
 <div class="page">
-<div id="loginBox" class="card" style="max-width:420px;margin:50px auto;text-align:center"><h3 style="color:var(--gold);margin:0 0 8px">Admin Login — Full Power</h3><p style="font-size:11px;color:#94a3b8;margin-bottom:12px">Delete JOB/TICKET/LDY from cloud</p><input id="pw" type="password" class="input" placeholder="veccta2024" style="width:100%"><button class="btn gold" style="width:100%;margin-top:10px;padding:12px" onclick="login()">Login GLOBAL</button></div>
+<div id="loginBox" class="card" style="max-width:420px;margin:60px auto;text-align:center"><h3 style="color:var(--gold);margin:0 0 8px">Secure Admin Login</h3><p style="font-size:11px;color:#94a3b8;margin-bottom:12px">No password in code — Firebase Auth • Till 1741514</p><input id="email" class="input" type="email" placeholder="admin@vecctapivot.com" style="margin-bottom:8px"><input id="pw" type="password" class="input" placeholder="Password"><button class="btn gold" style="width:100%;margin-top:10px;padding:12px" onclick="doLogin()">Login SECURE</button><div id="loginMsg" style="font-size:11px;color:#ef4444;margin-top:8px"></div><div style="font-size:10px;color:#64748b;margin-top:10px">Create user in Firebase Console > Authentication > Users</div></div>
 
 <div id="panel" hidden>
 <div class="stats">
@@ -43,13 +43,13 @@
 <div class="tabs">
 <span class="tab active" id="tab-jobs" onclick="setTab('jobs')">📦 Jobs</span>
 <span class="tab" id="tab-tickets" onclick="setTab('tickets')">🎫 Tickets</span>
-<span class="tab" id="tab-laundry" onclick="setTab('laundry')">👕 Laundry LDY</span>
+<span class="tab" id="tab-laundry" onclick="setTab('laundry')">👕 Laundry LDY Till 1741514</span>
 <span class="tab" id="tab-pillars" onclick="setTab('pillars')">🏛 Pillars</span>
 </div>
 
 <div class="toolbar">
 <input id="q" class="input" placeholder="Search JOB-, TIC-, LDY-, name, phone..." oninput="render()" style="flex:1;min-width:220px">
-<select id="fStat" class="select" onchange="render()"><option value="">All Status</option><option>Logged</option><option>Quoted</option><option>Paid</option><option>In Progress</option><option>Done</option><option>Revision Needed</option><option>Resubmitted</option><option>Received</option><option>Ready for Pickup</option><option>Delivered</option></select>
+<select id="fStat" class="select" onchange="render()"><option value="">All Status</option><option>Logged</option><option>Quoted</option><option>Paid</option><option>In Progress</option><option>Done</option><option>Revision Needed</option><option>Resubmitted</option><option>Received</option><option>Washing</option><option>Ironing / Pressing</option><option>Ready for Pickup</option><option>Ready</option><option>Dispatched</option><option>Delivered</option></select>
 <select id="fPill" class="select" onchange="render()"><option value="">All Pillars</option><option>Digital & Brand Systems</option><option>Academic & Testing Logistics</option><option>Transport Brokerage Hub</option><option>Merchandise Sourcing Links</option><option>Independent Fixer Desk</option><option>General Agency Core</option><option>Statutory & Portal Logistics</option></select>
 <select id="fSort" class="select" onchange="render()"><option value="newest">Newest First</option><option value="oldest">Oldest First</option><option value="priceHigh">Price High-Low</option></select>
 </div>
@@ -59,156 +59,102 @@
 </div>
 
 <script type="module">
-import { db } from './firebase.js';
-import { collection, getDocs, doc, updateDoc, deleteDoc, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { db, auth } from './firebase.js';
+import { collection, getDocs, doc, updateDoc, deleteDoc, query, orderBy, limit, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+const TILL = 1741514;
 let JOBS=[], TICKETS=[], LAUNDRY=[], TAB='jobs';
 
-function getLocal(){
- try{
-  let a=JSON.parse(localStorage.getItem('veccta_jobs')||'[]');
-  let b=JSON.parse(localStorage.getItem('karanu_jobs')||'[]');
-  let m=[...a,...b]; let map=new Map(); m.forEach(j=>{if(!map.has(j.id)) map.set(j.id,j)}); return Array.from(map.values());
- }catch(e){return []}
-}
+onAuthStateChanged(auth, (user)=>{
+  if(user){ loginBox.hidden=true; panel.hidden=false; logoutBtn.hidden=false; cloudSt.textContent='● Logged as '+user.email+' | Till '+TILL; loadCloud(); }
+  else{ loginBox.hidden=false; panel.hidden=true; logoutBtn.hidden=true; cloudSt.textContent='● Secure Auth Required'; }
+});
+window.doLogin=async()=>{ let e=email.value.trim(), p=pw.value.trim(); if(!e||!p){ loginMsg.textContent='Enter email & password'; return; } loginMsg.textContent='Checking...'; try{ await signInWithEmailAndPassword(auth,e,p); loginMsg.textContent=''; }catch(err){ loginMsg.textContent=err.message; } }
+window.doLogout=async()=>{ await signOut(auth); location.reload(); }
 
-window.login=()=>{if(pw.value==='veccta2024'){loginBox.hidden=true; panel.hidden=false; loadCloud()}else alert('Wrong password')}
+function getLocal(){ try{ let a=JSON.parse(localStorage.getItem('veccta_jobs')||'[]'); let b=JSON.parse(localStorage.getItem('karanu_jobs')||'[]'); let m=[...a,...b]; let map=new Map(); m.forEach(j=>{if(!map.has(j.id)) map.set(j.id,j)}); return Array.from(map.values()); }catch(e){return []} }
 
 window.loadCloud=async()=>{
  cloudSt.textContent='● Syncing cloud...'; cloudSt.style.color='#facc15';
  try{
-  let snap=await getDocs(query(collection(db,'jobs'), orderBy('createdAt','desc'), limit(300)));
-  let cloud=[]; snap.forEach(d=>{cloud.push({...d.data(),_docId:d.id})});
-  let snap2=await getDocs(query(collection(db,'tickets'), orderBy('createdAt','desc'), limit(200)));
-  let cloudT=[]; snap2.forEach(d=>{cloudT.push({...d.data(),_docId:d.id})});
-  let snap3=await getDocs(query(collection(db,'laundry'), orderBy('createdAt','desc'), limit(200)));
-  let cloudL=[]; snap3.forEach(d=>{cloudL.push({...d.data(),_docId:d.id})});
+  let snap=await getDocs(query(collection(db,'jobs'), orderBy('createdAt','desc'), limit(300))); let cloud=[]; snap.forEach(d=>{cloud.push({...d.data(),_docId:d.id})});
+  let snap2=await getDocs(query(collection(db,'tickets'), orderBy('createdAt','desc'), limit(200))); let cloudT=[]; snap2.forEach(d=>{cloudT.push({...d.data(),_docId:d.id})});
+  let snap3=await getDocs(query(collection(db,'laundry'), orderBy('createdAt','desc'), limit(200))); let cloudL=[]; snap3.forEach(d=>{cloudL.push({...d.data(),_docId:d.id})});
   let local=getLocal(); let map=new Map(); local.forEach(j=>map.set(j.id,j)); cloud.forEach(j=>map.set(j.id,j));
   JOBS=Array.from(map.values()); TICKETS=cloudT; LAUNDRY=cloudL;
-  cloudSt.textContent=`● Cloud LIVE — ${cloud.length} jobs / ${cloudT.length} tickets / ${cloudL.length} laundry`; cloudSt.style.color='#22c55e';
- }catch(e){
-  cloudSt.textContent='● Local only — '+e.message; cloudSt.style.color='#ef4444';
-  JOBS=getLocal(); TICKETS=JSON.parse(localStorage.getItem('veccta_tickets')||'[]');
-  // load laundry from localStorage fallback
-  LAUNDRY=[]; for(let i=0;i<localStorage.length;i++){let k=localStorage.key(i); if(k.startsWith('order_LDY-')){ try{ LAUNDRY.push(JSON.parse(localStorage.getItem(k))); }catch{} } }
- }
+  cloudSt.textContent=`● Cloud LIVE — ${cloud.length} jobs / ${cloudT.length} tickets / ${cloudL.length} laundry | Till ${TILL} | ${auth.currentUser?.email}`; cloudSt.style.color='#22c55e';
+ }catch(e){ cloudSt.textContent='● Local only — '+e.message; cloudSt.style.color='#ef4444'; JOBS=getLocal(); TICKETS=JSON.parse(localStorage.getItem('veccta_tickets')||'[]'); LAUNDRY=[]; for(let i=0;i<localStorage.length;i++){let k=localStorage.key(i); if(k.startsWith('order_LDY-')){ try{ LAUNDRY.push(JSON.parse(localStorage.getItem(k))); }catch{} } } }
  renderStats(); render();
 }
-
-function renderStats(){
- cTotal.textContent=JOBS.length;
- cNew.textContent=JOBS.filter(j=>j.status==='Logged').length;
- cRev.textContent=JOBS.filter(j=>['Revision Needed','Resubmitted'].includes(j.status)).length;
- cPaid.textContent=JOBS.filter(j=>['Paid','Done'].includes(j.status)).length;
- cTic.textContent=TICKETS.length;
- cLaund.textContent=LAUNDRY.length;
- cMoney.textContent='KSH '+(JOBS.reduce((s,j)=>s+(parseInt(j.price)||0),0).toLocaleString());
- document.getElementById('tab-jobs').textContent=`📦 Jobs (${JOBS.length})`;
- document.getElementById('tab-tickets').textContent=`🎫 Tickets (${TICKETS.length})`;
- document.getElementById('tab-laundry').textContent=`👕 Laundry (${LAUNDRY.length})`;
-}
-
-window.setTab=t=>{
- TAB=t; document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); document.getElementById('tab-'+t).classList.add('active'); render();
-}
+function renderStats(){ cTotal.textContent=JOBS.length; cNew.textContent=JOBS.filter(j=>j.status==='Logged').length; cRev.textContent=JOBS.filter(j=>['Revision Needed','Resubmitted'].includes(j.status)).length; cPaid.textContent=JOBS.filter(j=>['Paid','Done'].includes(j.status)).length; cTic.textContent=TICKETS.length; cLaund.textContent=LAUNDRY.length; cMoney.textContent='KSH '+(JOBS.reduce((s,j)=>s+(parseInt(j.price)||0),0).toLocaleString()); document.getElementById('tab-jobs').textContent=`📦 Jobs (${JOBS.length})`; document.getElementById('tab-tickets').textContent=`🎫 Tickets (${TICKETS.length})`; document.getElementById('tab-laundry').textContent=`👕 Laundry (${LAUNDRY.length}) Till ${TILL}`; }
+window.setTab=t=>{ TAB=t; document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); document.getElementById('tab-'+t).classList.add('active'); render(); }
 
 window.render=()=>{
- let qv=(q.value||'').toLowerCase(), fs=fStat.value, fp=fPill.value, sort=fSort.value;
- let html='';
+ let qv=(q.value||'').toLowerCase(), fs=fStat.value, fp=fPill.value, sort=fSort.value; let html='';
  if(TAB==='jobs'){
-  let list=[...JOBS];
-  if(qv) list=list.filter(j=>JSON.stringify(j).toLowerCase().includes(qv));
-  if(fs) list=list.filter(j=>j.status===fs);
-  if(fp) list=list.filter(j=>j.pillar===fp);
-  if(sort==='oldest') list.reverse(); if(sort==='priceHigh') list.sort((a,b)=>(parseInt(b.price)||0)-(parseInt(a.price)||0));
+  let list=[...JOBS]; if(qv) list=list.filter(j=>JSON.stringify(j).toLowerCase().includes(qv)); if(fs) list=list.filter(j=>j.status===fs); if(fp) list=list.filter(j=>j.pillar===fp); if(sort==='oldest') list.reverse(); if(sort==='priceHigh') list.sort((a,b)=>(parseInt(b.price)||0)-(parseInt(a.price)||0));
   if(!list.length) html=`<div class=card>No jobs</div>`;
   list.forEach(j=>{
    html+=`<div class=card>
-   <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
-   <div><span class=kbd>${j.id}</span> <span class=badge style="background:#334155;color:#fff">${j.status}</span><br><b>${j.fullService||''}</b><br><span style="font-size:12px">${j.clientName||''} • ${j.clientPhone||''}</span></div>
-   <div style="text-align:right"><div style="font-size:20px;font-weight:900;color:var(--gold)">${j.price?'KSH '+j.price:'Pending'}</div></div>
-   </div>
+   <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><div><span class=kbd>${j.id}</span> <span class=badge style="background:#334155;color:#fff">${j.status}</span><br><b>${j.fullService||''}</b><br><span style="font-size:12px">${j.clientName||''} • ${j.clientPhone||''}</span></div><div style="text-align:right"><div style="font-size:20px;font-weight:900;color:var(--gold)">${j.price?'KSH '+j.price:'Pending'}</div></div></div>
    ${j.adminMessage?`<div class="well g"><b>✅ Green Well:</b><br>${j.adminMessage}</div>`:''}
    ${j.revisionNote?`<div class="well r"><b>🔴 Revision:</b><br>${j.revisionNote}</div>`:''}
-   <div class=grid2 style="margin-top:12px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label style="font-size:11px;color:#facc15;font-weight:800">PRICE</label><input id="p-${j.id}" class=input value="${j.price||''}"></div><div><label style="font-size:11px;color:#facc15;font-weight:800">STATUS</label><select id="s-${j.id}" class=select><option ${j.status==='Logged'?'selected':''}>Logged</option><option ${j.status==='Quoted'?'selected':''}>Quoted</option><option ${j.status==='Paid'?'selected':''}>Paid</option><option ${j.status==='In Progress'?'selected':''}>In Progress</option><option ${j.status==='Done'?'selected':''}>Done</option><option ${j.status==='Revision Needed'?'selected':''}>Revision Needed</option></select></div></div><div><label style="font-size:11px;color:#22c55e;font-weight:800">ADMIN MESSAGE</label><textarea id="m-${j.id}" class=textarea rows=2>${j.adminMessage||''}</textarea><label style="font-size:11px;color:#ef4444;font-weight:800">RED LOCK</label><textarea id="r-${j.id}" class=textarea rows=2 style="border-color:#ef4444">${j.revisionNote||''}</textarea></div></div>
-   <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn gold" onclick="saveJob('${j.id}')">💾 Save & Push</button><button class="btn line" onclick="waJob('${j.id}')">WhatsApp</button><a class="btn line" href="track.html?job=${j.id}" target="_blank" style="text-decoration:none;text-align:center">View Client</a><button class="btn red" onclick="delJob('${j.id}')">🗑 DELETE</button></div>
-   </div>`;
+   <div class=grid2 style="margin-top:12px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label style="font-size:11px;color:#facc15;font-weight:800">PRICE</label><input id="p-${j.id}" class=input value="${j.price||''}"></div><div><label style="font-size:11px;color:#facc15;font-weight:800">STATUS</label><select id="s-${j.id}" class=select><option ${j.status==='Logged'?'selected':''}>Logged</option><option ${j.status==='Quoted'?'selected':''}>Quoted</option><option ${j.status==='Paid'?'selected':''}>Paid</option><option ${j.status==='In Progress'?'selected':''}>In Progress</option><option ${j.status==='Done'?'selected':''}>Done</option><option ${j.status==='Revision Needed'?'selected':''}>Revision Needed</option></select></div></div><div><label style="font-size:11px;color:#22c55e;font-weight:800">ADMIN MESSAGE (GREEN WELL)</label><textarea id="m-${j.id}" class=textarea rows=2>${j.adminMessage||''}</textarea><label style="font-size:11px;color:#ef4444;font-weight:800">RED LOCK (Revision Note)</label><textarea id="r-${j.id}" class=textarea rows=2 style="border-color:#ef4444">${j.revisionNote||''}</textarea></div></div>
+   <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn gold" onclick="saveJob('${j.id}')">💾 Save & Push Cloud</button><button class="btn line" onclick="waJob('${j.id}')">WhatsApp</button><a class="btn line" href="track.html?job=${j.id}" target="_blank" style="text-decoration:none;text-align:center">View Client</a><button class="btn red" onclick="delJob('${j.id}')">🗑 DELETE</button></div></div>`;
   });
  }
  if(TAB==='tickets'){
   let list=[...TICKETS]; let qv2=(q.value||'').toLowerCase(); if(qv2) list=list.filter(t=>JSON.stringify(t).toLowerCase().includes(qv2));
   if(!list.length) html=`<div class=card>No tickets</div>`;
-  list.forEach(t=>{
-   html+=`<div class=card><div><span class=kbd style="color:#60a5fa">${t.id}</span> for <b style="color:#facc15">${t.jobId}</b></div><b>${t.subject||''}</b><div class="well y">${t.message||''}</div>${t.adminReply?`<div class="well g">${t.adminReply}</div>`:''}<textarea id="tr-${t.id}" class=textarea rows=2>${t.adminReply||''}</textarea><select id="ts-${t.id}" class=select><option ${t.status==='Open'?'selected':''}>Open</option><option ${t.status==='In Progress'?'selected':''}>In Progress</option><option ${t.status==='Closed'?'selected':''}>Closed</option></select><div style="display:flex;gap:8px;margin-top:8px"><button class="btn gold" onclick="saveTicket('${t.id}')">💾 Reply</button><button class="btn red" onclick="delTicket('${t.id}')">🗑 DELETE</button></div></div>`;
-  });
+  list.forEach(t=>{ html+=`<div class=card><div><span class=kbd style="color:#60a5fa">${t.id}</span> for <b style="color:#facc15">${t.jobId}</b> — ${t.priority||''} • ${t.tType||''}</div><b>${t.subject||''}</b><div class="well y">${t.message||''}</div>${t.adminReply?`<div class="well g">${t.adminReply}</div>`:''}<textarea id="tr-${t.id}" class=textarea rows=2>${t.adminReply||''}</textarea><select id="ts-${t.id}" class=select><option ${t.status==='Open'?'selected':''}>Open</option><option ${t.status==='In Progress'?'selected':''}>In Progress</option><option ${t.status==='Closed'?'selected':''}>Closed</option></select><div style="display:flex;gap:8px;margin-top:8px"><button class="btn gold" onclick="saveTicket('${t.id}')">💾 Reply Cloud</button><button class="btn red" onclick="delTicket('${t.id}')">🗑 DELETE</button></div></div>`; });
  }
  if(TAB==='laundry'){
-  let list=[...LAUNDRY]; if(qv) list=list.filter(l=>JSON.stringify(l).toLowerCase().includes(qv)); if(fs) list=list.filter(l=> (l.status||'').toLowerCase()===fs.toLowerCase() || l.steps?.some(s=>s.name===fs && s.status==='done'));
-  if(!list.length) html=`<div class=card style="border-left:5px solid #facc15"><b>No Laundry LDY-</b><br><span style="font-size:12px;color:#94a3b8">Book from laundry.html — saves to Firestore collection laundry. Then track shows steps Received → Washing → Ironing → Ready → Delivered</span></div>`;
+  let list=[...LAUNDRY]; if(qv) list=list.filter(l=>JSON.stringify(l).toLowerCase().includes(qv)); if(fs) list=list.filter(l=> (l.status||'').toLowerCase()===fs.toLowerCase() || l.steps?.some(s=>s.name.toLowerCase()===fs.toLowerCase() && s.status==='done'));
+  if(!list.length) html=`<div class=card style="border-left:5px solid #facc15"><b>No Laundry LDY-</b><br><span style="font-size:12px;color:#94a3b8">Book from laundry.html — Till ${TILL}. Client sees steps Received → Washing → Ironing → Ready → Dispatched → Delivered</span></div>`;
   list.forEach(l=>{
-   let steps=l.steps||[
-     {name:"Received",status:"done"},{name:"Washing",status:"pending"},{name:"Ironing / Pressing",status:"pending"},{name:"Ready for Pickup",status:"pending"},{name:"Delivered",status:"pending"}
-   ];
+   let steps=l.steps||[{name:"Received",status:"done"},{name:"Washing",status:"pending"},{name:"Ironing / Pressing",status:"pending"},{name:"Ready for Pickup",status:"pending"},{name:"Dispatched",status:"pending"},{name:"Delivered",status:"pending"}];
+   let isPaid=!!l.paid; let isDispatched=l.status==='Dispatched'; let isDelivered=l.status==='Delivered';
    let stepBtns = steps.map((s,i)=>`<button class="stepBtn ${s.status==='done'?'done':''}" onclick="updateLaundryStep('${l.ticket||l.id}', ${i})">${s.status==='done'?'✅':'○'} ${s.name}</button>`).join(' ');
-   html+=`<div class=card style="border-left:4px solid #facc15">
-   <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px"><div><span class=kbd>${l.ticket||l.id}</span> <span class=badge style="background:#422006;color:#facc15">${l.status||'Received'}</span><br><b>${l.service||''}</b><br><span style="font-size:12px">${l.name||''} • ${l.phone||''} • ${l.location||''}</span><br><span style="font-size:12px;color:#facc15">🚚 ${l.delivery||''}</span></div><div style="text-align:right"><div style="font-size:20px;font-weight:900;color:#facc15">${l.total||''}</div><div style="font-size:11px;color:#94a3b8">${l.createdAt||''}</div></div></div>
-   <div style="margin:12px 0"><b style="font-size:11px;color:#facc15;letter-spacing:.8px">STEPS FROM ADMIN — CLIENT SEES ON TRACK:</b><br><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">${stepBtns}</div></div>
+   html+=`<div class=card style="border-left:4px solid ${isPaid?'#22c55e':'#facc15'}">
+   <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px"><div><span class=kbd>${l.ticket||l.id}</span> <span class=badge style="background:${isPaid?'#052e16':'#422006'};color:${isPaid?'#22c55e':'#facc15'}">${l.status||'Received'} ${isPaid?'✅ PAID':'❌ NOT PAID 🔒'}</span><br><b>${l.service||''}</b><br><span style="font-size:12px">${l.name||''} • ${l.phone||''} • ${l.location||''}</span><br><span style="font-size:12px;color:#facc15">🚚 ${l.delivery||''}</span></div><div style="text-align:right"><div style="font-size:20px;font-weight:900;color:#facc15">${l.total||''}</div><div style="font-size:11px;color:#94a3b8">${l.createdAt||''}<br>M-Pesa: ${l.mpesaCode||'—'}${l.rating?`<br>⭐ ${l.rating}/5 ${l.comment||''}`:''}</div></div></div>
+   <div style="margin:12px 0"><b style="font-size:11px;color:#facc15">STEPS — CLIENT SEES ON TRACK:</b><br><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">${stepBtns}</div></div>
+   <div style="padding:12px;border-radius:12px;border:1px solid ${isPaid?'#22c55e':'#ef4444'};background:${isPaid?'#052e16':'#450a0a'}">
+     <div style="font-weight:800">💰 Till ${TILL} • KES ${l.total} ${isPaid?'✅ PAID':'❌ NOT PAID — LOCKED 🔒'}</div>
+     <div style="font-size:11px;margin-top:4px">Code: ${l.mpesaCode||'awaiting client'} | ${l.rating?`Rating ⭐ ${l.rating} — ${l.comment}`:'No rating yet'}</div>
+     <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+       <button class="btn ${isPaid?'green':'gold'}" onclick="markLaundryPaid('${l.ticket||l.id}')">${isPaid?'✅ Payment Confirmed Till '+TILL:'💰 Payment Received — Confirm Till '+TILL}</button>
+       <button class="btn ${isPaid?'gold':'line'}" onclick="dispatchLaundry('${l.ticket||l.id}', ${isPaid})" ${!isPaid?'disabled':''} style="${!isPaid?'opacity:.4':''}">🚚 Dispatch — Unlock for Rider 🔓</button>
+     </div>
+     <div style="font-size:11px;margin-top:6px;color:${isDispatched?'#60a5fa': isDelivered?'#22c55e':'#ef4444'}">${isDelivered?'✅ DELIVERED + RATED': isDispatched?'🔓 UNLOCKED — Rider can collect now': '🔒 LOCKED — Do NOT release goods until Payment Received + Dispatch'}</div>
+   </div>
    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn gold" onclick="markNextStep('${l.ticket||l.id}')">⏭ Mark Next Step Done</button><a class="btn line" href="track.html?laundry=${l.ticket||l.id}" target="_blank" style="text-decoration:none;text-align:center">View as Client</a><button class="btn line" onclick="waLaundry('${l.ticket||l.id}')">WhatsApp Client</button><button class="btn red" onclick="delLaundry('${l.ticket||l.id}')">🗑 DELETE LDY</button></div>
    </div>`;
   });
  }
- if(TAB==='pillars'){
-  let pillars={}; JOBS.forEach(j=>{let p=j.pillar||'Unknown'; pillars[p]=(pillars[p]||0)+1});
-  html+=`<div class=card><h3 style="color:var(--gold)">7 Pillars + Laundry</h3>`+Object.entries(pillars).map(([k,v])=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #334155"><span>${k}</span><b style="color:var(--gold)">${v}</b></div>`).join('')+`<div style="display:flex;justify-content:space-between;padding:8px 0"><span>Laundry</span><b style="color:#facc15">${LAUNDRY.length}</b></div></div>`;
- }
+ if(TAB==='pillars'){ let pillars={}; JOBS.forEach(j=>{let p=j.pillar||'Unknown'; pillars[p]=(pillars[p]||0)+1}); html+=`<div class=card><h3 style="color:var(--gold)">7 Pillars + Laundry Till ${TILL}</h3>`+Object.entries(pillars).map(([k,v])=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #334155"><span>${k}</span><b style="color:var(--gold)">${v}</b></div>`).join('')+`<div style="display:flex;justify-content:space-between;padding:8px 0"><span>Laundry</span><b style="color:#facc15">${LAUNDRY.length}</b></div></div>`; }
  document.getElementById('list').innerHTML=html;
 }
 
-window.saveJob=async(id)=>{
- let j=JOBS.find(x=>x.id===id); if(!j) return;
- j.price=document.getElementById('p-'+id).value; j.status=document.getElementById('s-'+id).value; j.adminMessage=document.getElementById('m-'+id).value; j.revisionNote=document.getElementById('r-'+id).value;
- if(j.revisionNote && j.revisionNote.trim()!=='') j.status='Revision Needed';
- let local=JSON.parse(localStorage.getItem('veccta_jobs')||'[]'); let idx=local.findIndex(x=>x.id===id); if(idx>=0) local[idx]=j; else local.push(j); localStorage.setItem('veccta_jobs',JSON.stringify(local));
- if(j._docId){ try{await updateDoc(doc(db,'jobs',j._docId),{price:j.price,status:j.status,adminMessage:j.adminMessage,revisionNote:j.revisionNote});}catch(e){alert(e.message)} }
- renderStats(); render(); alert('✅ Saved');
-}
-window.waJob=id=>{let j=JOBS.find(x=>x.id===id); let msg=`Hello ${j.clientName}, ${j.id} is ${j.status}. Price KSH ${j.price}. ${j.adminMessage}`; window.open('https://wa.me/'+(j.clientPhone||'').replace(/[^0-9]/g,'')+'?text='+encodeURIComponent(msg))}
+window.saveJob=async(id)=>{ let j=JOBS.find(x=>x.id===id); if(!j) return; j.price=document.getElementById('p-'+id).value; j.status=document.getElementById('s-'+id).value; j.adminMessage=document.getElementById('m-'+id).value; j.revisionNote=document.getElementById('r-'+id).value; if(j.revisionNote && j.revisionNote.trim()!=='') j.status='Revision Needed'; let local=JSON.parse(localStorage.getItem('veccta_jobs')||'[]'); let idx=local.findIndex(x=>x.id===id); if(idx>=0) local[idx]=j; else local.push(j); localStorage.setItem('veccta_jobs',JSON.stringify(local)); if(j._docId){ try{await updateDoc(doc(db,'jobs',j._docId),{price:j.price,status:j.status,adminMessage:j.adminMessage,revisionNote:j.revisionNote});}catch(e){alert(e.message)} } renderStats(); render(); alert('✅ Job Saved Cloud'); }
+window.waJob=id=>{let j=JOBS.find(x=>x.id===id); let msg=`Hello ${j.clientName}, ${j.id} is ${j.status}. Price KSH ${j.price}. ${j.adminMessage||''}`; window.open('https://wa.me/'+(j.clientPhone||'').replace(/[^0-9]/g,'')+'?text='+encodeURIComponent(msg))}
 window.saveTicket=async id=>{ let t=TICKETS.find(x=>x.id===id); t.adminReply=document.getElementById('tr-'+id).value; t.status=document.getElementById('ts-'+id).value; if(t._docId){try{await updateDoc(doc(db,'tickets',t._docId),{adminReply:t.adminReply,status:t.status});}catch(e){alert(e.message)}} alert('✅ Ticket saved'); render(); }
 
 window.updateLaundryStep=async(ticketId, stepIdx)=>{
  let l=LAUNDRY.find(x=>(x.ticket||x.id)===ticketId); if(!l) return;
- if(!l.steps) l.steps=[{name:"Received",status:"done"},{name:"Washing",status:"pending"},{name:"Ironing / Pressing",status:"pending"},{name:"Ready for Pickup",status:"pending"},{name:"Delivered",status:"pending"}];
- l.steps[stepIdx].status = l.steps[stepIdx].status==='done'? 'pending' : 'done';
- l.steps[stepIdx].time = new Date().toLocaleString();
- l.steps[stepIdx].updatedBy = 'Admin';
- l.status = l.steps[stepIdx].name;
- // save local
+ if(!l.steps) l.steps=[{name:"Received",status:"done"},{name:"Washing",status:"pending"},{name:"Ironing / Pressing",status:"pending"},{name:"Ready for Pickup",status:"pending"},{name:"Dispatched",status:"pending"},{name:"Delivered",status:"pending"}];
+ l.steps[stepIdx].status = l.steps[stepIdx].status==='done'? 'pending' : 'done'; l.steps[stepIdx].time = new Date().toLocaleString(); l.steps[stepIdx].updatedBy = 'Admin'; l.status = l.steps[stepIdx].name;
  localStorage.setItem('order_'+ticketId, JSON.stringify(l));
- // save cloud
- try{ await updateDoc(doc(db,'laundry',ticketId),{steps:l.steps,status:l.status}); cloudSt.textContent=`✅ ${l.steps[stepIdx].name} updated for ${ticketId}`; }catch(e){
-   // if doc doesn't exist as update, try set
-   try{ const {setDoc}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"); await setDoc(doc(db,'laundry',ticketId), l); }catch(e2){ alert('Cloud save failed: '+e.message); }
- }
+ try{ await updateDoc(doc(db,'laundry',ticketId),{steps:l.steps,status:l.status}); cloudSt.textContent=`✅ ${l.steps[stepIdx].name} updated for ${ticketId}`; }catch(e){ try{ await setDoc(doc(db,'laundry',ticketId), l); }catch(e2){ alert('Cloud save failed: '+e.message); } }
  render();
 }
-
-window.markNextStep=async(ticketId)=>{
- let l=LAUNDRY.find(x=>(x.ticket||x.id)===ticketId); if(!l) return;
- let idx = l.steps.findIndex(s=>s.status!=='done'); if(idx===-1) return alert('All done — Delivered');
- await updateLaundryStep(ticketId, idx);
-}
-
-window.waLaundry=id=>{let l=LAUNDRY.find(x=>(x.ticket||x.id)===id); let msg=`Hi ${l.name}, Laundry ${id} is ${l.status}. Delivery: ${l.delivery}. Total ${l.total}. Track: track.html?laundry=${id}`; window.open('https://wa.me/'+(l.phone||'').replace(/[^0-9]/g,'')+'?text='+encodeURIComponent(msg))}
-
+window.markNextStep=async(ticketId)=>{ let l=LAUNDRY.find(x=>(x.ticket||x.id)===ticketId); if(!l) return; let idx = l.steps.findIndex(s=>s.status!=='done'); if(idx===-1) return alert('All done — Delivered'); await updateLaundryStep(ticketId, idx); }
+window.markLaundryPaid=async(id)=>{ if(!confirm('Confirm Payment Received on Till '+TILL+'? This allows Dispatch.')) return; let l=LAUNDRY.find(x=>(x.ticket||x.id)===id); l.paid=true; l.paidAt=new Date().toISOString(); localStorage.setItem('order_'+id, JSON.stringify(l)); try{ await updateDoc(doc(db,'laundry',id),{paid:true,paidAt:l.paidAt}); }catch(e){ await setDoc(doc(db,'laundry',id), l); } render(); alert('✅ Paid — now Dispatch to unlock'); }
+window.dispatchLaundry=async(id, isPaid)=>{ if(!isPaid){ alert('❌ Cannot Dispatch — Goods LOCKED. Payment not received yet.'); return; } if(!confirm('Dispatch '+id+'? This UNLOCKS goods for rider. Rider can now collect.')) return; let l=LAUNDRY.find(x=>(x.ticket||x.id)===id); l.status='Dispatched'; if(l.steps){ let d=l.steps.find(s=>s.name==='Dispatched'); if(d){ d.status='done'; d.time=new Date().toLocaleString(); } } localStorage.setItem('order_'+id, JSON.stringify(l)); try{ await updateDoc(doc(db,'laundry',id),{status:'Dispatched',steps:l.steps,dispatchedAt:new Date().toISOString()}); }catch(e){ await setDoc(doc(db,'laundry',id), l); } render(); }
+window.waLaundry=id=>{let l=LAUNDRY.find(x=>(x.ticket||x.id)===id); let msg=`Hi ${l.name}, Laundry ${id} is ${l.status}. Total KES ${l.total}. Till ${TILL}. ${l.paid?'PAID ✅ — dispatched':'Please pay Till '+TILL+'.'}. Track: track.html?laundry=${id}`; window.open('https://wa.me/'+(l.phone||'').replace(/[^0-9]/g,'')+'?text='+encodeURIComponent(msg))}
 window.delJob=async id=>{ let j=JOBS.find(x=>x.id===id); if(!confirm('DELETE JOB '+j.id+'?')) return; try{ if(j._docId) await deleteDoc(doc(db,'jobs',j._docId)); }catch(e){} JOBS=JOBS.filter(x=>x.id!==id); localStorage.setItem('veccta_jobs',JSON.stringify(JOBS)); renderStats(); render(); }
 window.delTicket=async id=>{ let t=TICKETS.find(x=>x.id===id); if(!confirm('DELETE TICKET '+t.id+'?')) return; try{ if(t._docId) await deleteDoc(doc(db,'tickets',t._docId)); }catch(e){} TICKETS=TICKETS.filter(x=>x.id!==id); render(); }
-window.delLaundry=async id=>{
- if(!confirm('🗑 DELETE LAUNDRY '+id+' PERMANENTLY? Client track will show NOT FOUND.')) return;
- try{ await deleteDoc(doc(db,'laundry',id)); }catch(e){ console.log(e); }
- LAUNDRY=LAUNDRY.filter(x=>(x.ticket||x.id)!==id); localStorage.removeItem('order_'+id);
- renderStats(); render(); alert('✅ '+id+' deleted');
-}
-
-window.exportCSV=()=>{let csv='ID,Name,Phone,Service,Total,Status,Delivery\n'+LAUNDRY.map(l=>`"${l.ticket||l.id}","${l.name||''}","${l.phone||''}","${l.service||''}","${l.total||''}","${l.status||''}","${l.delivery||''}"`).join('\n')+'\n\nJOBS\nID,Name,Phone,Pillar,Price,Status\n'+JOBS.map(j=>`"${j.id}","${j.clientName||''}","${j.clientPhone||''}","${j.pillar||''}","${j.price||''}","${j.status||''}"`).join('\n'); let b=new Blob([csv],{type:'text/csv'}); let a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='veccta_all.csv'; a.click()}
+window.delLaundry=async id=>{ if(!confirm('🗑 DELETE LAUNDRY '+id+' PERMANENTLY?')) return; try{ await deleteDoc(doc(db,'laundry',id)); }catch(e){} LAUNDRY=LAUNDRY.filter(x=>(x.ticket||x.id)!==id); localStorage.removeItem('order_'+id); renderStats(); render(); alert('✅ '+id+' deleted'); }
+window.exportCSV=()=>{let csv='ID,Name,Phone,Service,Total,Status,Paid,Code,Rating,Comment,Delivery\n'+LAUNDRY.map(l=>`"${l.ticket||l.id}","${l.name||''}","${l.phone||''}","${l.service||''}","${l.total||''}","${l.status||''}","${l.paid?'YES':'NO'}","${l.mpesaCode||''}","${l.rating||''}","${(l.comment||'').replace(/"/g,'')}","${l.delivery||''}"`).join('\n')+'\n\nJOBS\nID,Name,Phone,Pillar,Price,Status\n'+JOBS.map(j=>`"${j.id}","${j.clientName||''}","${j.clientPhone||''}","${j.pillar||''}","${j.price||''}","${j.status||''}"`).join('\n'); let b=new Blob([csv],{type:'text/csv'}); let a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='veccta_till1741514_all.csv'; a.click()}
 </script>
 </body></html>
