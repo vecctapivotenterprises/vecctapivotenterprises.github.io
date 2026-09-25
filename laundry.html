@@ -99,7 +99,7 @@
         <div style="display:grid;grid-template-columns:40% 60%;"><dt style="padding:10px;color:var(--muted);font-size:0.8rem;">LOCATION</dt><dd id="recLoc" style="padding:10px;border-left:1px solid var(--line);"></dd></div>
         <div style="display:grid;grid-template-columns:40% 60%;background:rgba(11,18,32,0.5);"><dt style="padding:10px;color:var(--muted);font-size:0.8rem;">TOTAL</dt><dd id="recTotal" style="padding:10px;border-left:1px solid var(--line);color:var(--gold);font-weight:700;"></dd></div>
       </dl>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;"><a class="btn gold" id="waTicketLink" target="_blank">Send to WhatsApp →</a></div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;"><a class="btn gold" id="waTicketLink" target="_blank">Send to WhatsApp →</a> <a class="btn" href="track.html" style="border:1px solid var(--line);">Track LDY- Ticket →</a></div>
     </section>
   </main>
 
@@ -120,12 +120,9 @@ function calc(){
   let raw=rate*qty;
   let final=isFlat?raw:Math.max(400,raw);
   totalEl.textContent=`KES ${final.toLocaleString()}`;
-  ruleEl.textContent=isFlat?`${qty} item(s)`:`${qty}kg x ${rate} = ${raw}`;
-
-  // 4HR LOGIC - ONLY IF CROSS 6PM (18:00) → NEXT DAY
+  ruleEl.textContent=isFlat?`${qty} item(s)`: `${qty}kg x ${rate} = ${raw}`;
   let pickHour=parseInt(pickupEl.value.split(':')[0]);
   let deliveryHour=pickHour+4;
-  
   if(deliveryHour > 18){
     deliveryEl.textContent=`Pickup ${pickupEl.value} + 4hrs = ${deliveryHour}:00 → Crosses 6PM closing → NEXT-DAY 08:00 AM Delivery`;
     deliveryEl.style.color='#ff9d66';
@@ -148,16 +145,47 @@ document.getElementById('laundSubmitBtn').addEventListener('click',()=>{
   if(!name||!phone||!loc){err.textContent='Fill name, phone, estate'; err.hidden=false; return;}
   err.hidden=true;
   let final=calc();
-  let ticket='VECCTA-'+Math.random().toString(36).substr(2,5).toUpperCase();
+  
+  // LAUNDRY UNIQUE IDENTIFIER - FOR LAUNDRY ONLY (like TIC-73612 / JOB-214220 samples)
+  const laundryExistingTickets = JSON.parse(localStorage.getItem('veccta_laundry_tickets') || '[]');
+  let ticket;
+  do {
+    let num = Math.floor(10000 + Math.random() * 90000); // 5 digits
+    ticket = `LDY-${num}`;
+  } while (laundryExistingTickets.includes(ticket));
+  laundryExistingTickets.push(ticket);
+  localStorage.setItem('veccta_laundry_tickets', JSON.stringify(laundryExistingTickets));
+
+  // SAVE FOR TRACKING PART - STEPS UPDATED BY ADMIN LATER
+  let orderData = {
+    ticket: ticket,
+    page: "laundry",
+    name: name,
+    phone: phone,
+    location: loc,
+    service: serviceEl.options[serviceEl.selectedIndex].text + ' x ' + qtyEl.value,
+    total: totalEl.textContent,
+    delivery: deliveryEl.textContent,
+    createdAt: new Date().toLocaleString(),
+    steps: [
+      { name: "Received", status: "done", time: new Date().toLocaleString(), updatedBy: "Admin" },
+      { name: "Washing", status: "pending", time: "", updatedBy: "" },
+      { name: "Ironing / Pressing", status: "pending", time: "", updatedBy: "" },
+      { name: "Ready for Pickup", status: "pending", time: "", updatedBy: "" },
+      { name: "Delivered", status: "pending", time: "", updatedBy: "" }
+    ]
+  };
+  localStorage.setItem('order_' + ticket, JSON.stringify(orderData));
+
   document.getElementById('ticketRefHeader').textContent=ticket;
   document.getElementById('recName').textContent=name+' ('+phone+')';
-  document.getElementById('recService').textContent=serviceEl.options[serviceEl.selectedIndex].text+' x '+qtyEl.value;
+  document.getElementById('recService').textContent=orderData.service;
   document.getElementById('recDateTime').textContent=deliveryEl.textContent;
   document.getElementById('recLoc').textContent=loc;
   document.getElementById('recTotal').textContent=totalEl.textContent;
   document.getElementById('qrcode').innerHTML='';
   new QRCode(document.getElementById('qrcode'),{text:ticket+'|'+totalEl.textContent,width:128,height:128});
-  let msg=encodeURIComponent(`VECCTAPIVOT Laundry\nTICKET ${ticket}\nName:${name}\nService:${serviceEl.options[serviceEl.selectedIndex].text} x ${qtyEl.value}\nTotal:${totalEl.textContent}\n${deliveryEl.textContent}\nLocation:${loc}\nTill 1741514`);
+  let msg=encodeURIComponent(`VECCTAPIVOT Laundry\nTICKET ${ticket}\nName:${name}\nService:${orderData.service}\nTotal:${totalEl.textContent}\n${deliveryEl.textContent}\nLocation:${loc}\nTill 1741514\nTrack: track.html`);
   document.getElementById('waTicketLink').href='https://wa.me/254788099685?text='+msg;
   document.getElementById('laundryTicketResult').hidden=false;
   document.getElementById('laundryTicketResult').scrollIntoView({behavior:'smooth'});
