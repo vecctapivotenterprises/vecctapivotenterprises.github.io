@@ -41,10 +41,10 @@
     </section>
 
     <!-- Operational Form Calculator Panel Matrix -->
-    <section class="formcard reveal" style="max-width: 600px; margin: 24px auto;">
-      <form id="olKalouLaundryForm" novalidate>
-        <fieldset>
-          <legend>1. Contact & Delivery Logistics</legend>
+    <section class="formcard reveal in" style="max-width: 600px; margin: 24px auto; display: block; opacity: 1; transform: none;">
+      <form id="olKalouLaundryForm" onsubmit="return false;" novalidate>
+        <fieldset style="border: 1px solid var(--line); padding: 16px; border-radius: 12px; margin-bottom: 18px;">
+          <legend style="color: var(--gold); font-weight: 700; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 1.8px; padding: 0 8px;">1. Contact & Delivery Logistics</legend>
           <div class="frow">
             <div class="field"><label for="laundName">Full Name</label><input type="text" id="laundName" required placeholder="e.g., Jane Wanjiku"></div>
             <div class="field"><label for="laundPhone">WhatsApp Phone</label><input type="tel" id="laundPhone" required placeholder="e.g., +254 7XX XXX XXX"></div>
@@ -69,11 +69,11 @@
           </div>
         </fieldset>
 
-        <fieldset>
-          <legend>2. Service Ingestion</legend>
+        <fieldset style="border: 1px solid var(--line); padding: 16px; border-radius: 12px; margin-bottom: 18px;">
+          <legend style="color: var(--gold); font-weight: 700; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 1.8px; padding: 0 8px;">2. Service Ingestion</legend>
           <div class="field">
             <label for="laundService">Select Service Category</label>
-            <select id="laundService">
+            <select id="laundService" style="width: 100%;">
               <option value="80" selected>Express Wash, Spin & Fold — KES 80 / kg</option>
               <option value="130">Executive Wash, Steam Press & Fold — KES 130 / kg</option>
               <option value="60">Premium Valet Steam Pressing — KES 60 / kg</option>
@@ -83,16 +83,16 @@
           </div>
           <div class="field">
             <label id="laundQtyLabel" for="laundQty">Estimated Weight (Kilograms)</label>
-            <input type="number" id="laundQty" value="5" min="1" max="40">
-            <p class="fieldhint" id="laundBaseHint" style="color: var(--gold);">📌 Minimum operational floor charge of KES 400 applies per transaction.</p>
+            <input type="number" id="laundQty" value="5" min="1" max="40" style="width: 100%;">
+            <p class="fieldhint" id="laundBaseHint" style="color: var(--gold); margin-top: 6px; font-size: 0.8rem;">📌 Minimum operational floor charge of KES 400 applies per transaction.</p>
           </div>
         </fieldset>
 
         <!-- Live Cost Summary Box -->
         <div style="margin: 20px 0; padding: 16px; background: var(--bg-2); border-radius: 10px; text-align: center; border: 1px solid var(--line);">
           <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); display: block;">Calculated Invoice Total</span>
-          <h2 id="laundTotalDisplay" style="color: var(--gold); font-size: 2.2rem; margin: 6px 0;">KES 400</h2>
-          <p id="laundRuleNotice" style="font-size: 0.78rem; color: var(--muted); margin-bottom: 8px; font-style: italic;"></p>
+          <h2 id="laundTotalDisplay" style="color: var(--gold); font-family: var(--font-display); font-size: 2.5rem; margin: 6px 0;">KES 400</h2>
+          <p id="laundRuleNotice" style="font-size: 0.82rem; color: var(--muted); margin-bottom: 8px; font-style: italic;"></p>
           
           <div style="margin-top: 10px; padding: 8px; background: rgba(37, 211, 102, 0.08); border: 1px dashed rgba(37, 211, 102, 0.4); border-radius: 8px; display: inline-flex; align-items: center; gap: 8px; justify-content: center; width: 100%;">
             <span style="color: #25d366; font-weight: 700; font-size: 0.85rem;">🟩 Lipa na M-Pesa:</span>
@@ -100,51 +100,25 @@
           </div>
         </div>
 
-        <button type="submit" class="btn gold big" id="laundSubmitBtn">Book Express Machine Slot &rarr;</button>
+        <p class="formerr" id="localFormErr" hidden style="background: rgba(180, 60, 60, 0.14); border: 1px solid rgba(220, 100, 100, 0.5); color: #f0b8b8; padding: 10px; border-radius: 8px; margin-bottom: 12px; font-size: 0.88rem;"></p>
+        <button type="button" class="btn gold big" id="laundSubmitBtn" style="width: 100%;">Book Express Machine Slot &rarr;</button>
       </form>
     </section>
 
     <!-- Dynamic Unique QR Ticket Frame (Hidden on Load) -->
     <section class="confcard" id="laundryTicketResult" hidden style="border: 1px solid var(--gold); padding: 24px; background: linear-gradient(165deg, var(--panel), var(--bg-2)); border-radius: var(--radius); text-align: center; max-width: 600px; margin: 24px auto;">
       <span class="kicker" style="color: var(--gold); letter-spacing: 2px; font-size: 0.8rem;">VECCTAPIVOT LAUNDRY DIGITAL RECEIPT</span>
-      <h2 id="ticketRefHeader" style="font-size: 2rem; color: var(--gold); margin: 6px 0 2px;">TKT-XXXX</h2>
+      <h2 id="ticketRefHeader" style="font-size: 2.2rem; color: var(--gold); margin: 6px 0 2px;">TKT-LOAD-XXXX</h2>
       
-      <div id="qrcode" style="background: #fff; padding: 12px; display: inline-block; border-radius: 8px; margin: 15px auto;"></div>
+      <div id="qrcode" style="background: #fff; padding: 12px; display: inline-block; border-radius: 8px; margin: 15px auto; box-shadow: 0 4px 14px rgba(0,0,0,0.3);"></div>
       
       <dl class="confdl" style="margin: 15px auto; max-width: 500px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; text-align: left;">
-        <div style="display: grid; grid-template-columns: 40% 60%; background: rgba(11, 18, 32, 0.4);"><dt style="padding: 10px; color: var(--muted); font-size: 0.8rem; font-weight:600;">CLIENT</dt><dd id="recName" style="padding: 10px; border-left: 1px solid var(--line); font-size: 0.9rem;"></dd></div>
-        <div style="display: grid; grid-template-columns: 40% 60%;"><dt style="padding: 10px; color: var(--muted); font-size: 0.8rem; font-weight:600;">SERVICE</dt><dd id="recService" style="padding: 10px; border-left: 1px solid var(--line); font-size: 0.9rem;"></dd></div>
-        <div style="display: grid; grid-template-columns: 40% 60%; background: rgba(11, 18, 32, 0.5);"><dt style="padding: 10px; color: var(--muted); font-size: 0.8rem; font-weight:600;">LOG TIME</dt><dd id="recDateTime" style="padding: 10px; border-left: 1px solid var(--line); font-size: 0.9rem; color: var(--gold-soft); font-weight:600;"></dd></div>
-        <div style="display: grid; grid-template-columns: 40% 60%;"><dt style="padding: 10px; color: var(--muted); font-size: 0.8rem; font-weight:600;">LOCATION</dt><dd id="recLoc" style="padding: 10px; border-left: 1px solid var(--line); font-size: 0.9rem;"></dd></div>
-        <div style="display: grid; grid-template-columns: 40% 60%; background: rgba(11, 18, 32, 0.5);"><dt style="padding: 10px; color: var(--muted); font-size: 0.8rem; font-weight:600;">TOTAL DUE</dt><dd id="recTotal" style="padding: 10px; border-left: 1px solid var(--line); font-size: 1.1rem; color: var(--gold); font-weight: 700;"></dd></div>
+        <div style="display: grid; grid-template-columns: 40% 60%; background: rgba(11, 18, 32, 0.4);"><dt style="padding: 10px; color: var(--muted); font-size: 0.8rem; font-weight:600; text-transform: uppercase;">CLIENT</dt><dd id="recName" style="padding: 10px; border-left: 1px solid var(--line); font-size: 0.9rem;"></dd></div>
+        <div style="display: grid; grid-template-columns: 40% 60%;"><dt style="padding: 10px; color: var(--muted); font-size: 0.8rem; font-weight:600; text-transform: uppercase;">SERVICE</dt><dd id="recService" style="padding: 10px; border-left: 1px solid var(--line); font-size: 0.9rem;"></dd></div>
+        <div style="display: grid; grid-template-columns: 40% 60%; background: rgba(11, 18, 32, 0.5);"><dt style="padding: 10px; color: var(--muted); font-size: 0.8rem; font-weight:600; text-transform: uppercase;">LOG TIME</dt><dd id="recDateTime" style="padding: 10px; border-left: 1px solid var(--line); font-size: 0.9rem; color: var(--gold-soft); font-weight:600;"></dd></div>
+        <div style="display: grid; grid-template-columns: 40% 60%;"><dt style="padding: 10px; color: var(--muted); font-size: 0.8rem; font-weight:600; text-transform: uppercase;">LOCATION</dt><dd id="recLoc" style="padding: 10px; border-left: 1px solid var(--line); font-size: 0.9rem;"></dd></div>
+        <div style="display: grid; grid-template-columns: 40% 60%; background: rgba(11, 18, 32, 0.5);"><dt style="padding: 10px; color: var(--muted); font-size: 0.8rem; font-weight:600; text-transform: uppercase;">TOTAL DUE</dt><dd id="recTotal" style="padding: 10px; border-left: 1px solid var(--line); font-size: 1.1rem; color: var(--gold); font-weight: 700;"></dd></div>
       </dl>
 
-      <div class="confbtns">
+      <div class="confbtns" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
         <a class="btn gold" id="waTicketLink" target="_blank" rel="noopener" href="#">Send Reference to WhatsApp &rarr;</a>
-      </div>
-    </section>
-  </main>
-
-  <script src="https://cloudflare.com"></script>
-  <script src="js/common.js"></script>
-  <script>
-    (function() {
-      var serviceSel = document.getElementById("laundService");
-      var qtyInput = document.getElementById("laundQty");
-      var pickupSel = document.getElementById("laundPickup");
-      var deliveryDisplay = document.getElementById("autoDeliveryDisplay");
-      var totalDisplay = document.getElementById("laundTotalDisplay");
-      var qtyLabel = document.getElementById("laundQtyLabel");
-      var baseHint = document.getElementById("laundBaseHint");
-      var ruleNotice = document.getElementById("laundRuleNotice");
-      var form = document.getElementById("olKalouLaundryForm");
-      var submitBtn = document.getElementById("laundSubmitBtn");
-      var ticketBox = document.getElementById("laundryTicketResult");
-      var calculatedDeliveryTime = "";
-
-      function calc() {
-        var mode = serviceSel.value;
-        var qty = parseFloat(qtyInput.value) || 0;
-        var pickupTime = pickupSel.value;
-        var total = 0;
-
