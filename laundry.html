@@ -1,124 +1,179 @@
-<!DOCTYPE html>
-<html lang="en-KE">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VECCTAPIVOT Laundry — Service Hub</title>
-  <meta name="description" content="Express home-first laundry drops, crisp steam ironing, flat-rate duvet processing, and sneaker care in Ol Kalou. Scoped, priced, and tracked through one pivot.">
-  <link rel="icon" href="logo.png">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="utility">
-    <div class="uwrap">
-      <span class="uitem"><span class="ubadge">BRS BN-AYSO8LRE</span></span>
-      <span class="uitem">Unified Cross-Border Service Architecture &middot; 64 services</span>
-      <a class="uitem" href="https://wa.me">WhatsApp +254 788 099 685</a>
-    </div>
-  </div>
-  
-  <header class="top">
-    <div class="navrow">
-      <a class="brand" href="index.html">
-        <img src="logo.png" alt="Vecctapivot logo">
-        <span class="brandname">Vecctapivot<em>Enterprises &middot; Service Desk</em></span>
-      </a>
-      <nav class="mainnav" aria-label="Primary">
-        <a href="index.html#services">Services</a>
-        <a href="index.html#process">How We Work</a>
-        <a href="track.html">Track</a>
-        <a href="index.html#faq">FAQ</a>
-      </nav>
-    </div>
-  </header>
-  
-  <main>
-    <p class="backline"><a href="index.html">&#8592; All Services</a></p>
-    <section class="deskhead">
-      <span class="kicker">Pillar 8 &middot; Express Service Desk</span>
-      <h1>VECCTAPIVOT Laundry</h1>
-      <p>Beat the Ol Kalou mist. Our express machine loops return laundry bundles bone-dry and fresh in under 4 hours, completely eliminating multi-day handwash drying backlogs.</p>
-    </section>
+<main>
+  <p class="backline"><a href="index.html">&#8592; All Services</a></p>
+  <section class="deskhead">
+    <span class="kicker">Pillar 8 &middot; Express Service Desk</span>
+    <h1>VECCTAPIVOT Laundry</h1>
+    <p>Beat the Ol Kalou mist. Express loops return bone-dry in under 4 hours — no more 3-day handwash backlogs.</p>
+  </section>
 
-    <!-- Operational Form Calculator Panel Matrix -->
-    <section class="formcard reveal in" style="max-width: 600px; margin: 24px auto; display: block; opacity: 1; transform: none;">
-      <form id="olKalouLaundryForm" onsubmit="return false;" novalidate>
-        <fieldset style="border: 1px solid var(--line); padding: 16px; border-radius: 12px; margin-bottom: 18px;">
-          <legend style="color: var(--gold); font-weight: 700; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 1.8px; padding: 0 8px;">1. Contact & Delivery Logistics</legend>
-          <div class="frow">
-            <div class="field"><label for="laundName">Full Name</label><input type="text" id="laundName" required placeholder="e.g., Jane Wanjiku"></div>
-            <div class="field"><label for="laundPhone">WhatsApp Phone</label><input type="tel" id="laundPhone" required placeholder="e.g., +254 7XX XXX XXX"></div>
-          </div>
-          <div class="frow">
-            <div class="field">
-              <label for="laundPickup">Select Your Pickup Time</label>
-              <select id="laundPickup" style="width:100%;">
-                <option value="08:00" selected>Morning Slot — 08:00 AM</option>
-                <option value="10:00">Mid-Morning Slot — 10:00 AM</option>
-                <option value="12:00">Noon Slot — 12:00 PM</option>
-                <option value="14:00">Early Afternoon Slot — 02:00 PM</option>
-                <option value="16:00">Late Afternoon — 04:00 PM (⚠️ Next-Day Delivery)</option>
-              </select>
-            </div>
-            <div class="field"><label for="laundLocation">Ol Kalou Estate</label><input type="text" id="laundLocation" required placeholder="e.g., Huruma Estate"></div>
-          </div>
-          <!-- Automated Delivery Commitment Indicator Frame -->
-          <div style="margin-top: 12px; padding: 12px; background: rgba(232, 185, 62, 0.05); border: 1px dashed var(--line); border-radius: 9px;">
-            <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); display: block;">🚚 AUTOMATED DELIVERY SCHEDULE:</span>
-            <span style="font-size: 0.92rem; color: var(--gold); font-weight: 700; display: block; margin-top: 2px;" id="autoDeliveryDisplay">Calculating schedule...</span>
-          </div>
-        </fieldset>
-
-        <fieldset style="border: 1px solid var(--line); padding: 16px; border-radius: 12px; margin-bottom: 18px;">
-          <legend style="color: var(--gold); font-weight: 700; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 1.8px; padding: 0 8px;">2. Service Ingestion</legend>
+  <section class="formcard reveal in" style="max-width:600px;margin:24px auto;display:block;">
+    <form id="olKalouLaundryForm" onsubmit="return false;" novalidate>
+      <fieldset style="border:1px solid var(--line);padding:16px;border-radius:12px;margin-bottom:18px;">
+        <legend style="color:var(--gold);font-weight:700;text-transform:uppercase;font-size:0.78rem;letter-spacing:1.8px;padding:0 8px;">1. Contact & Delivery Logistics</legend>
+        <div class="frow">
+          <div class="field"><label for="laundName">Full Name *</label><input type="text" id="laundName" required placeholder="Jane Wanjiku"></div>
+          <div class="field"><label for="laundPhone">WhatsApp Phone *</label><input type="tel" id="laundPhone" required placeholder="+254 7XX XXX XXX"></div>
+        </div>
+        <div class="frow">
           <div class="field">
-            <label for="laundService">Select Service Category</label>
-            <select id="laundService" style="width: 100%;">
-              <option value="80" selected>Express Wash, Spin & Fold — KES 80 / kg</option>
-              <option value="130">Executive Wash, Steam Press & Fold — KES 130 / kg</option>
-              <option value="60">Premium Valet Steam Pressing — KES 60 / kg</option>
-              <option value="400">Same-Day Duvet / Blanket Sleep Guarantee — KES 400 Flat</option>
-              <option value="150">Express Footwear Care & Deodorize — KES 150 / Pair</option>
+            <label for="laundPickup">Pickup Time *</label>
+            <select id="laundPickup" style="width:100%;">
+              <option value="08:00" selected>08:00 AM — Same Day 12:00 PM</option>
+              <option value="10:00">10:00 AM — Same Day 02:00 PM</option>
+              <option value="12:00">12:00 PM — Same Day 04:00 PM</option>
+              <option value="14:00">02:00 PM — Same Day 06:00 PM</option>
+              <option value="16:00">04:00 PM — ⚠️ Next-Day 10:00 AM</option>
             </select>
           </div>
-          <div class="field">
-            <label id="laundQtyLabel" for="laundQty">Estimated Weight (Kilograms)</label>
-            <input type="number" id="laundQty" value="5" min="1" max="40" style="width: 100%;">
-            <p class="fieldhint" id="laundBaseHint" style="color: var(--gold); margin-top: 6px; font-size: 0.8rem;">📌 Minimum operational floor charge of KES 400 applies per transaction.</p>
-          </div>
-        </fieldset>
-
-        <!-- Live Cost Summary Box -->
-        <div style="margin: 20px 0; padding: 16px; background: var(--bg-2); border-radius: 10px; text-align: center; border: 1px solid var(--line);">
-          <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); display: block;">Calculated Invoice Total</span>
-          <h2 id="laundTotalDisplay" style="color: var(--gold); font-family: var(--font-display); font-size: 2.5rem; margin: 6px 0;">KES 400</h2>
-          <p id="laundRuleNotice" style="font-size: 0.82rem; color: var(--muted); margin-bottom: 8px; font-style: italic;"></p>
-          
-          <div style="margin-top: 10px; padding: 8px; background: rgba(37, 211, 102, 0.08); border: 1px dashed rgba(37, 211, 102, 0.4); border-radius: 8px; display: inline-flex; align-items: center; gap: 8px; justify-content: center; width: 100%;">
-            <span style="color: #25d366; font-weight: 700; font-size: 0.85rem;">🟩 Lipa na M-Pesa:</span>
-            <span style="font-size: 0.85rem; color: var(--ink);">Buy Goods Till No: <strong style="color: var(--gold);">1741514</strong></span>
-          </div>
+          <div class="field"><label for="laundLocation">Ol Kalou Estate *</label><input type="text" id="laundLocation" required placeholder="e.g., Huruma, Kasuku"></div>
         </div>
+        <div style="margin-top:12px;padding:12px;background:rgba(232,185,62,0.05);border:1px dashed var(--line);border-radius:9px;">
+          <span style="font-size:0.72rem;text-transform:uppercase;color:var(--muted);">🚚 AUTOMATED DELIVERY SCHEDULE:</span>
+          <span id="autoDeliveryDisplay" style="font-size:0.92rem;color:var(--gold);font-weight:700;display:block;margin-top:2px;">Same Day 12:00 PM Delivery</span>
+        </div>
+      </fieldset>
 
-        <p class="formerr" id="localFormErr" hidden style="background: rgba(180, 60, 60, 0.14); border: 1px solid rgba(220, 100, 100, 0.5); color: #f0b8b8; padding: 10px; border-radius: 8px; margin-bottom: 12px; font-size: 0.88rem;"></p>
-        <button type="button" class="btn gold big" id="laundSubmitBtn" style="width: 100%;">Book Express Machine Slot &rarr;</button>
-      </form>
-    </section>
+      <fieldset style="border:1px solid var(--line);padding:16px;border-radius:12px;margin-bottom:18px;">
+        <legend style="color:var(--gold);font-weight:700;text-transform:uppercase;font-size:0.78rem;letter-spacing:1.8px;padding:0 8px;">2. Service Ingestion</legend>
+        <div class="field">
+          <label for="laundService">Service Category</label>
+          <select id="laundService" style="width:100%;">
+            <option value="80" data-label="Express Wash, Spin & Fold" selected>Express Wash, Spin & Fold — KES 80 / kg</option>
+            <option value="130" data-label="Executive Wash, Steam Press & Fold">Executive Wash, Steam Press — KES 130 / kg</option>
+            <option value="60" data-label="Premium Valet Steam Pressing">Valet Steam Pressing — KES 60 / kg</option>
+            <option value="400" data-label="Same-Day Duvet / Blanket">Same-Day Duvet / Blanket — KES 400 Flat</option>
+            <option value="150" data-label="Express Footwear Care">Footwear Care — KES 150 / Pair</option>
+          </select>
+        </div>
+        <div class="field">
+          <label id="laundQtyLabel" for="laundQty">Estimated Weight (Kg)</label>
+          <input type="number" id="laundQty" value="5" min="1" max="40" style="width:100%;">
+          <p id="laundBaseHint" style="color:var(--gold);margin-top:6px;font-size:0.8rem;">📌 Minimum floor KES 400 applies</p>
+        </div>
+      </fieldset>
 
-    <!-- Dynamic Unique QR Ticket Frame (Hidden on Load) -->
-    <section class="confcard" id="laundryTicketResult" hidden style="border: 1px solid var(--gold); padding: 24px; background: linear-gradient(165deg, var(--panel), var(--bg-2)); border-radius: var(--radius); text-align: center; max-width: 600px; margin: 24px auto;">
-      <span class="kicker" style="color: var(--gold); letter-spacing: 2px; font-size: 0.8rem;">VECCTAPIVOT LAUNDRY DIGITAL RECEIPT</span>
-      <h2 id="ticketRefHeader" style="font-size: 2.2rem; color: var(--gold); margin: 6px 0 2px;">TKT-LOAD-XXXX</h2>
-      
-      <div id="qrcode" style="background: #fff; padding: 12px; display: inline-block; border-radius: 8px; margin: 15px auto; box-shadow: 0 4px 14px rgba(0,0,0,0.3);"></div>
-      
-      <dl class="confdl" style="margin: 15px auto; max-width: 500px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; text-align: left;">
-        <div style="display: grid; grid-template-columns: 40% 60%; background: rgba(11, 18, 32, 0.4);"><dt style="padding: 10px; color: var(--muted); font-size: 0.8rem; font-weight:600; text-transform: uppercase;">CLIENT</dt><dd id="recName" style="padding: 10px; border-left: 1px solid var(--line); font-size: 0.9rem;"></dd></div>
-        <div style="display: grid; grid-template-columns: 40% 60%;"><dt style="padding: 10px; color: var(--muted); font-size: 0.8rem; font-weight:600; text-transform: uppercase;">SERVICE</dt><dd id="recService" style="padding: 10px; border-left: 1px solid var(--line); font-size: 0.9rem;"></dd></div>
-        <div style="display: grid; grid-template-columns: 40% 60%; background: rgba(11, 18, 32, 0.5);"><dt style="padding: 10px; color: var(--muted); font-size: 0.8rem; font-weight:600; text-transform: uppercase;">LOG TIME</dt><dd id="recDateTime" style="padding: 10px; border-left: 1px solid var(--line); font-size: 0.9rem; color: var(--gold-soft); font-weight:600;"></dd></div>
-        <div style="display: grid; grid-template-columns: 40% 60%;"><dt style="padding: 10px; color: var(--muted); font-size: 0.8rem; font-weight:600; text-transform: uppercase;">LOCATION</dt><dd id="recLoc" style="padding: 10px; border-left: 1px solid var(--line); font-size: 0.9rem;"></dd></div>
-        <div style="display: grid; grid-template-columns: 40% 60%; background: rgba(11, 18, 32, 0.5);"><dt style="padding: 10px; color: var(--muted); font-size: 0.8rem; font-weight:600; text-transform: uppercase;">TOTAL DUE</dt><dd id="recTotal" style="padding: 10px; border-left: 1px solid var(--line); font-size: 1.1rem; color: var(--gold); font-weight: 700;"></dd></div>
-      </dl>
+      <div style="margin:20px 0;padding:16px;background:var(--bg-2);border-radius:10px;text-align:center;border:1px solid var(--line);">
+        <span style="font-size:0.72rem;text-transform:uppercase;color:var(--muted);">Calculated Invoice Total</span>
+        <h2 id="laundTotalDisplay" style="color:var(--gold);font-size:2.5rem;margin:6px 0;">KES 400</h2>
+        <p id="laundRuleNotice" style="font-size:0.82rem;color:var(--muted);font-style:italic;"></p>
+        <div style="margin-top:10px;padding:8px;background:rgba(37,211,102,0.08);border:1px dashed rgba(37,211,102,0.4);border-radius:8px;">
+          <span style="color:#25d366;font-weight:700;font-size:0.85rem;">🟩 Lipa na M-Pesa: </span>
+          <span style="font-size:0.85rem;">Buy Goods Till <strong style="color:var(--gold);">1741514</strong></span>
+        </div>
+      </div>
 
-      <div class="confbtns" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-        <a class="btn gold" id="waTicketLink" target="_blank" rel="noopener" href="#">Send Reference to WhatsApp &rarr;</a>
+      <p class="formerr" id="localFormErr" hidden style="background:rgba(180,60,60,0.14);border:1px solid rgba(220,100,100,0.5);color:#f0b8b8;padding:10px;border-radius:8px;margin-bottom:12px;font-size:0.88rem;"></p>
+      <button type="button" class="btn gold big" id="laundSubmitBtn" style="width:100%;">Book Express Slot &rarr;</button>
+    </form>
+  </section>
+
+  <section class="confcard" id="laundryTicketResult" hidden style="border:1px solid var(--gold);padding:24px;background:linear-gradient(165deg,var(--panel),var(--bg-2));border-radius:var(--radius);text-align:center;max-width:600px;margin:24px auto;">
+    <span class="kicker" style="color:var(--gold);">VECCTAPIVOT DIGITAL RECEIPT</span>
+    <h2 id="ticketRefHeader" style="font-size:2.2rem;color:var(--gold);margin:6px 0;">TKT-LOAD-XXXX</h2>
+    <div id="qrcode" style="background:#fff;padding:12px;display:inline-block;border-radius:8px;margin:15px auto;"></div>
+    <dl class="confdl" style="margin:15px auto;max-width:500px;border:1px solid var(--line);border-radius:10px;text-align:left;">
+      <div style="display:grid;grid-template-columns:40% 60%;background:rgba(11,18,32,0.4);"><dt style="padding:10px;color:var(--muted);font-size:0.8rem;">CLIENT</dt><dd id="recName" style="padding:10px;border-left:1px solid var(--line);"></dd></div>
+      <div style="display:grid;grid-template-columns:40% 60%;"><dt style="padding:10px;color:var(--muted);font-size:0.8rem;">SERVICE</dt><dd id="recService" style="padding:10px;border-left:1px solid var(--line);"></dd></div>
+      <div style="display:grid;grid-template-columns:40% 60%;background:rgba(11,18,32,0.5);"><dt style="padding:10px;color:var(--muted);font-size:0.8rem;">LOG TIME</dt><dd id="recDateTime" style="padding:10px;border-left:1px solid var(--line);color:var(--gold-soft);font-weight:600;"></dd></div>
+      <div style="display:grid;grid-template-columns:40% 60%;"><dt style="padding:10px;color:var(--muted);font-size:0.8rem;">LOCATION</dt><dd id="recLoc" style="padding:10px;border-left:1px solid var(--line);"></dd></div>
+      <div style="display:grid;grid-template-columns:40% 60%;background:rgba(11,18,32,0.5);"><dt style="padding:10px;color:var(--muted);font-size:0.8rem;">TOTAL DUE</dt><dd id="recTotal" style="padding:10px;border-left:1px solid var(--line);color:var(--gold);font-weight:700;"></dd></div>
+    </dl>
+    <div class="confbtns" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <a class="btn gold" id="waTicketLink" target="_blank" rel="noopener" href="#">Send to WhatsApp &rarr;</a>
+      <button class="btn" onclick="window.print()">Print Receipt</button>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script>
+const serviceEl = document.getElementById('laundService');
+const qtyEl = document.getElementById('laundQty');
+const pickupEl = document.getElementById('laundPickup');
+const totalEl = document.getElementById('laundTotalDisplay');
+const ruleEl = document.getElementById('laundRuleNotice');
+const deliveryEl = document.getElementById('autoDeliveryDisplay');
+const qtyLabel = document.getElementById('laundQtyLabel');
+const hintEl = document.getElementById('laundBaseHint');
+let qr;
+
+function calc(){
+  let rate = parseInt(serviceEl.value);
+  let qty = parseInt(qtyEl.value) || 1;
+  let label = serviceEl.options[serviceEl.selectedIndex].dataset.label;
+  let isFlat = label.includes('Duvet');
+  let isPair = label.includes('Footwear');
+
+  if(isFlat){
+    qtyLabel.textContent = 'Quantity (Duvets)';
+    hintEl.textContent = 'Flat rate per duvet.';
+    qtyEl.max = 10;
+  } else if(isPair){
+    qtyLabel.textContent = 'Pairs';
+    hintEl.textContent = 'Rate per pair.';
+    qtyEl.max = 20;
+  } else {
+    qtyLabel.textContent = 'Estimated Weight (Kg)';
+    hintEl.textContent = '📌 Minimum operational floor charge KES 400 applies';
+    qtyEl.max = 40;
+  }
+
+  let raw = rate * qty;
+  let finalTotal = raw;
+  if(!isFlat){
+    finalTotal = Math.max(400, raw);
+    ruleEl.textContent = finalTotal === 400 && raw < 400? `Floor applied: KES ${raw} < KES 400 minimum` : `${qty} ${isPair? 'pair(s)' : 'kg'} x ${rate} = KES ${raw}`;
+  } else {
+    ruleEl.textContent = `${qty} x ${label}`;
+  }
+  totalEl.textContent = `KES ${finalTotal.toLocaleString()}`;
+
+  // Delivery logic
+  const isNextDay = pickupEl.value === '16:00';
+  if(isNextDay){
+    deliveryEl.textContent = 'Next-Day Delivery — Tomorrow 10:00 AM (Late slot)';
+    deliveryEl.style.color = '#ff9d66';
+  } else {
+    let deliverHour = parseInt(pickupEl.value.split(':')[0]) + 4;
+    deliveryEl.textContent = `Same-Day Delivery — Today ${deliverHour}:00`;
+    deliveryEl.style.color = 'var(--gold)';
+  }
+  return {finalTotal, label, qty, isFlat, isPair};
+}
+serviceEl.addEventListener('change', calc);
+qtyEl.addEventListener('input', calc);
+pickupEl.addEventListener('change', calc);
+calc();
+
+document.getElementById('laundSubmitBtn').addEventListener('click', () => {
+  const name = document.getElementById('laundName').value.trim();
+  const phone = document.getElementById('laundPhone').value.trim();
+  const loc = document.getElementById('laundLocation').value.trim();
+  const errEl = document.getElementById('localFormErr');
+
+  if(!name ||!phone ||!loc){
+    errEl.textContent = 'Fill Name, WhatsApp Phone and Estate to book slot.';
+    errEl.hidden = false; return;
+  }
+  errEl.hidden = true;
+  const {finalTotal, label, qty} = calc();
+  const ticket = 'VECCTA-' + Math.random().toString(36).substring(2,7).toUpperCase();
+  const now = new Date().toLocaleString('en-KE', {dateStyle:'medium', timeStyle:'short'});
+
+  document.getElementById('ticketRefHeader').textContent = ticket;
+  document.getElementById('recName').textContent = name + ' (' + phone + ')';
+  document.getElementById('recService').textContent = `${qty} x ${label} | Pickup ${pickupEl.value}`;
+  document.getElementById('recDateTime').textContent = now + ' — ' + deliveryEl.textContent;
+  document.getElementById('recLoc').textContent = loc;
+  document.getElementById('recTotal').textContent = totalEl.textContent;
+
+  document.getElementById('qrcode').innerHTML = '';
+  qr = new QRCode(document.getElementById('qrcode'), {text: `${ticket}|${name}|${label}|${totalEl.textContent}|${loc}`, width:128, height:128});
+
+  const waMsg = encodeURIComponent(`Hello Vecctapivot Laundry%0A%0A*TICKET: ${ticket}*%0AName: ${name}%0APhone: ${phone}%0ALocation: ${loc}%0AService: ${label} x ${qty}%0ATotal: ${totalEl.textContent}%0APickup: ${pickupEl.value}%0A${deliveryEl.textContent}%0A%0APayment: Till 1741514%0AReceipt: ${ticket}`);
+  document.getElementById('waTicketLink').href = `https://wa.me/254788099685?text=${waMsg}`;
+
+  document.getElementById('laundryTicketResult').hidden = false;
+  document.getElementById('laundryTicketResult').scrollIntoView({behavior:'smooth'});
+});
+</script>
