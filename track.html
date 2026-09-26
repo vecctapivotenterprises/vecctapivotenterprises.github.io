@@ -12,21 +12,20 @@
 .timeline{display:flex;gap:8px;overflow-x:auto;padding:8px 0}.step{min-width:110px;text-align:center;padding:10px;border-radius:12px;border:1px solid #334155;background:#0f172a;opacity:.5;font-size:12px}.step.active{opacity:1;border-color:#facc15;background:#422006;color:#facc15;font-weight:800}
 .kbd{font-family:ui-monospace;font-size:22px;color:#facc15;font-weight:900}.small{font-size:11px;color:#94a3b8}.btn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:800;cursor:pointer}
 </style></head><body>
-<div class="utility"><div class="uwrap"><span class="uitem"><span class="ubadge">TRACK LIVE</span></span><span class="uitem">LDY | JOB | TIC | Till 1741514</span><a class="uitem" href="https://wa.me/254788099685">Help</a></div></div>
-<header class="top"><div class="navrow"><a class="brand" href="index.html"><img src="logo.png"><span class="brandname">Vecctapivot<em>Track</em></span></a><div class="navcta"><a class="btn line sm2" href="laundry.html">New Booking</a></div></div></header>
+<div class="utility"><div class="uwrap"><span class="uitem"><span class="ubadge">TRACK LIVE — ALL</span></span><span class="uitem">LDY | JOB | TIC | Till 1741514</span><a class="uitem" href="https://wa.me/254788099685">Help</a></div></div>
+<header class="top"><div class="navrow"><a class="brand" href="index.html"><img src="logo.png"><span class="brandname">Vecctapivot<em>Track</em></span></a><div class="navcta"><a class="btn line sm2" href="laundry.html">New Booking</a><a class="btn gold sm2" href="request-job.html">Request Job</a></div></div></header>
 <main class="wrap">
-<div class="top-card"><h2 class="h">Track — Till 1741514</h2><p class="sub">Enter LDY- / JOB- / TIC- — websuite live tracking + stars</p><div class="search"><input id="q" class="input" placeholder="LDY-12345 or JOB-123 or TIC-123"><button class="btn-gold" onclick="doTrack()">TRACK →</button></div><div id="cloudSt" class="small" style="text-align:center;margin-top:8px;color:#22c55e">● LIVE | Auto-Update ON | All tickets</div></div>
+<div class="top-card"><h2 class="h">Track — Till 1741514</h2><p class="sub">Enter LDY- / JOB- / TIC- — websuite live tracking + stars</p><div class="search"><input id="q" class="input" placeholder="LDY-12345 or JOB-123 or TIC-123"><button class="btn-gold" onclick="doTrack()">TRACK →</button></div><div id="cloudSt" class="small" style="text-align:center;margin-top:8px;color:#22c55e">● LIVE | Auto-Update ON | All collections</div></div>
 <div id="out"></div><div id="rateBox"></div>
 </main>
 <script type="module">
 import { db } from './firebase.js';
-import { doc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, query, where, getDocs, doc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const TILL=1741514;
 window.currentLaundry=null; let unsub=null;
 function laundryTimeline(steps){ if(!steps) return ''; return `<div class=timeline>${steps.map(s=>`<div class="step ${s.status==='done'?'active':''}">${s.status==='done'?'✅':'○'} ${s.name}<br><span class=small>${s.time||''}</span></div>`).join('')}</div>`;}
 function genUniqueReceipt(){ let d=new Date(); let date=d.toISOString().slice(0,10).replace(/-/g,''); let rand=Math.floor(1000+Math.random()*9000); return `RCP-${date}-${rand}`; }
 
-// RENDER LAUNDRY
 function renderLaundry(l){
  window.currentLaundry=l;
  let curStep=l.steps? [...l.steps].reverse().find(s=>s.status==='done')?.name : (l.status||'Received');
@@ -37,57 +36,78 @@ function renderLaundry(l){
  else if(isDispatched) h+=`<div class="well blue"><b>🚚 DISPATCHED — Rider has laundry</b><br><div style="background:#0f172a;padding:10px;border-radius:10px;margin-top:8px;line-height:1.8">Reg: ${l.ticket}<br><b style="color:#facc15">Receipt No (UNIQUE): ${l.receiptNo}</b><br>Rider: ${l.riderName||'-'}<br>Tel: ${l.riderTel||'-'}<br>Plate: ${l.riderPlate||'-'}<br>Close: ${l.closeTime||''}<br>Sign: ${l.signature||''}</div><div style="display:flex;gap:8px;margin-top:10px"><button class="btn" style="background:#facc15;color:#000;flex:1" onclick="generateReceipt()">📄 Download Receipt</button><button class="btn" style="background:#0f172a;border:1px solid #facc15;color:#facc15;flex:1" onclick="shareReceipt()">Share</button></div><button class="btn" style="background:#22c55e;color:#000;margin-top:12px" onclick="markReceived('${l._docId}','laundry')">✅ RECEIVED — Rate ⭐</button></div>`;
  else if(isDelivered) h+=`<div class="well green"><b>✅ DELIVERED</b><br>Reg ${l.ticket} | RCP ${l.receiptNo||''}<br>${l.rating?`<b style="color:#facc15">${'★'.repeat(l.rating)}${'☆'.repeat(5-l.rating)} ${l.rating}/5</b> <i>${l.comment||''}</i><br>`:''}<button class="btn" style="background:#facc15;color:#000;margin-top:8px" onclick="generateReceipt()">📄 Receipt Again</button></div>`;
  if(!isDelivered||isDispatched) h+=`<div id="rateBoxInner"></div>`;
- h+=`<div class=card><a href="https://wa.me/254788099685?text=Hi%20about%20${l.ticket}%20RCP%20${l.receiptNo||''}" style="background:#22c55e;color:#000;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:800;display:block">WhatsApp</a></div>`;
+ h+=`<div class=card><a href="https://wa.me/254788099685?text=Hi%20about%20${l.ticket}%20RCP%20${l.receiptNo||''}" style="background:#22c55e;color:#000;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:800;display:block">WhatsApp Support</a></div>`;
  document.getElementById('out').innerHTML=h;
 }
 
-// RENDER JOB — Different
 function renderJob(j){
  window.currentLaundry=j;
- let h=`<div class=card><span class=kbd>${j.ticket||j.id}</span><br><span class=badge>💼 JOB • ${j.status||'Open'}</span><br><span class=small>${j.title||j.service||''}</span>${laundryTimeline(j.steps)}</div>`;
- h+=`<div class="well blue"><b>💼 JOB Details</b><br>Client: ${j.name||''}<br>Service: ${j.service||j.title||''}<br>Status: ${j.status||''}<br>Assigned: ${j.assignedTo||j.riderName||'-'}<br>Due: ${j.dueDate||j.closeTime||'-'}<br></div>`;
- if(j.status!=='Completed'&&j.status!=='Delivered') h+=`<button class="btn" style="background:#facc15;color:#000" onclick="markReceived('${j._docId}','jobs')">✅ Mark Complete & Rate ⭐</button>`;
- if(j.rating) h+=`<div class="well green"><b style="color:#facc15">${'★'.repeat(j.rating)}${'☆'.repeat(5-j.rating)} ${j.rating}/5</b> — ${j.comment||''}</div>`;
+ let h=`<div class=card><span class=kbd>${j.id||j.ticket}</span><br><span class=badge>💼 JOB • ${j.status||'Logged'}</span><br><span class=small>${j.fullService||j.title||j.service||''}</span>${laundryTimeline(j.steps||[{name:"Logged",status:"done",time:j.logged},{name:"Quoted",status:j.price?"done":"pending"},{name:"Paid",status:j.status==='Paid'?"done":"pending"},{name:"In Progress",status:"pending"},{name:"Done",status:j.status==='Done'?"done":"pending"}])}</div>`;
+ h+=`<div class="well blue"><b>💼 JOB Details</b><br>Client: ${j.clientName||j.name||''} • ${j.clientPhone||j.phone||''}<br>Service: ${j.fullService||''}<br>Price: ${j.price? 'KSH '+j.price:'Pending quote'}<br>Status: ${j.status||''}<br>${j.adminMessage?`<div style="background:#052e16;border:1px solid #22c55e;padding:8px;border-radius:8px;margin-top:6px">💬 Admin: ${j.adminMessage}</div>`:''}${j.revisionNote?`<div style="background:#450a0a;border:1px solid #ef4444;padding:8px;border-radius:8px;margin-top:6px">🔴 ${j.revisionNote}</div>`:''}</div>`;
+ if(j.status!=='Done') h+=`<button class="btn" style="background:#facc15;color:#000" onclick="markReceived('${j._docId}','jobs')">✅ Mark Done & Rate ⭐</button>`;
+ if(j.rating) h+=`<div class="well green"><b style="color:#facc15">${'★'.repeat(j.rating)}${'☆'.repeat(5-j.rating)} ${j.rating}/5</b> — ${j.comment||''}<br><small>${j.receiptNo||''} ${j.mpesaCode||''}</small></div>`;
+ h+=`<div class=card><a href="https://wa.me/254788099685?text=Hi%20about%20${j.id}" style="background:#22c55e;color:#000;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:800;display:block">WhatsApp</a></div>`;
  document.getElementById('out').innerHTML=h;
 }
 
-// RENDER TIC — Different
 function renderTic(t){
  window.currentLaundry=t;
- let h=`<div class=card><span class=kbd>${t.ticket||t.id}</span><br><span class=badge>🎫 TIC • ${t.status||'Open'}</span><br><span class=small>${t.issue||t.service||''}</span>${laundryTimeline(t.steps)}</div>`;
- h+=`<div class="well gray"><b>🎫 Ticket Info</b><br>Customer: ${t.name||''}<br>Issue: ${t.issue||t.description||''}<br>Priority: ${t.priority||'Normal'}<br>Status: ${t.status||''}<br>Agent: ${t.agent||t.riderName||'-'}<br></div>`;
- if(t.status!=='Closed'&&t.status!=='Resolved') h+=`<button class="btn" style="background:#facc15;color:#000" onclick="markReceived('${t._docId}','tickets')">✅ Resolve & Rate ⭐</button>`;
+ let h=`<div class=card><span class=kbd>${t.id||t.ticket}</span><br><span class=badge>🎫 TIC • ${t.status||'Open'}</span><br><span class=small>${t.subject||t.issue||t.service||''}</span>${laundryTimeline(t.steps||[{name:"Open",status:"done"},{name:"In Progress",status:t.status==='In Progress'?"done":"pending"},{name:"Admin Reply",status:t.adminReply?"done":"pending"},{name:"Closed",status:t.status==='Closed'?"done":"pending"}])}</div>`;
+ h+=`<div class="well gray"><b>🎫 Ticket Info</b><br>Customer: ${t.clientName||t.name||''}<br>Issue: ${t.message||t.description||t.issue||''}<br>Status: ${t.status||''}<br>${t.adminReply?`<div style="background:#052e16;padding:8px;border-radius:8px;margin-top:6px;color:#22c55e">Admin: ${t.adminReply}</div>`:''}</div>`;
+ if(t.status!=='Closed') h+=`<button class="btn" style="background:#facc15;color:#000" onclick="markReceived('${t._docId}','tickets')">✅ Resolve & Rate ⭐</button>`;
  if(t.rating) h+=`<div class="well green"><b style="color:#facc15">${'★'.repeat(t.rating)}${'☆'.repeat(5-t.rating)} ${t.rating}/5</b> — ${t.comment||''}</div>`;
  document.getElementById('out').innerHTML=h;
 }
 
+// === FIXED TRACK — SEARCH BY FIELD id + docId fallback ===
 window.doTrack=async()=>{
- let id=(q.value||new URLSearchParams(location.search).get('ldy')||new URLSearchParams(location.search).get('ticket')||'').toUpperCase().trim(); 
+ let id=(q.value||new URLSearchParams(location.search).get('ldy')||new URLSearchParams(location.search).get('job')||new URLSearchParams(location.search).get('ticket')||new URLSearchParams(location.search).get('id')||'').toUpperCase().trim(); 
  if(!id){alert('Enter LDY- / JOB- / TIC-');return}
  q.value=id;
- document.getElementById('out').innerHTML='<div class=card>⏳ Checking websuite...</div>'; document.getElementById('rateBox').innerHTML='';
- if(unsub) unsub();
- let collections = id.startsWith('JOB')?['jobs','laundry','tickets'] : id.startsWith('TIC')?['tickets','jobs','laundry'] : ['laundry','jobs','tickets'];
- let tryIndex=0;
- function tryNext(){
-   if(tryIndex>=collections.length){ document.getElementById('out').innerHTML=`<div class=card>❌ ${id} not found in websuite (checked ${collections.join(', ')})</div>`; return; }
-   let col=collections[tryIndex++];
-   unsub=onSnapshot(doc(db,col,id),(snap)=>{
-     if(!snap.exists()){ tryNext(); return; }
-     let data={...snap.data(),_docId:snap.id,ticket:snap.data().ticket||id};
-     if(col==='laundry') renderLaundry(data);
-     else if(col==='jobs') renderJob(data);
-     else if(col==='tickets') renderTic(data);
-   });
+ document.getElementById('out').innerHTML='<div class=card>⏳ Checking websuite cloud for '+id+'...</div>'; document.getElementById('rateBox').innerHTML='';
+ if(unsub) {unsub(); unsub=null;}
+ let collections = id.startsWith('JOB')?['jobs','tickets','laundry'] : id.startsWith('TIC')?['tickets','jobs','laundry'] : ['laundry','jobs','tickets'];
+ let idx=0;
+ async function tryNextCol(){
+  if(idx>=collections.length){ document.getElementById('out').innerHTML=`<div class=card style="border-color:#ef4444;background:#450a0a">❌ ${id} not found in websuite<br><small>Checked: ${collections.join(', ')} — check spelling or save again to cloud</small></div>`; return; }
+  let col=collections[idx++];
+  try{
+   // 1. query where id == code (for jobs saved with addDoc)
+   let qs=await getDocs(query(collection(db,col), where('id','==',id)));
+   if(!qs.empty){
+    let first=qs.docs[0]; let data={...first.data(), _docId:first.id, ticket:first.data().ticket||first.data().id||id};
+    unsub=onSnapshot(doc(db,col,first.id), snap=>{
+     if(!snap.exists()) return;
+     let d={...snap.data(), _docId:snap.id, ticket:snap.data().ticket||snap.data().id||id};
+     if(col==='laundry') renderLaundry(d); else if(col==='jobs') renderJob(d); else renderTic(d);
+    });
+    return;
+   }
+   // 2. also try where ticket == code
+   let qs2=await getDocs(query(collection(db,col), where('ticket','==',id)));
+   if(!qs2.empty){
+    let first=qs2.docs[0]; let data={...first.data(), _docId:first.id, ticket:first.data().ticket||id};
+    unsub=onSnapshot(doc(db,col,first.id), snap=>{
+     let d={...snap.data(), _docId:snap.id, ticket:snap.data().ticket||id};
+     if(col==='laundry') renderLaundry(d); else if(col==='jobs') renderJob(d); else renderTic(d);
+    });
+    return;
+   }
+   // 3. try direct doc id (for laundry saved with LDY- as doc id)
+   onSnapshot(doc(db,col,id), snap=>{
+    if(!snap.exists()){ tryNextCol(); return; }
+    let d={...snap.data(), _docId:snap.id, ticket:snap.data().ticket||snap.data().id||id};
+    if(col==='laundry') renderLaundry(d); else if(col==='jobs') renderJob(d); else renderTic(d);
+   }, err=>{ tryNextCol(); });
+  }catch(e){ tryNextCol(); }
  }
- tryNext();
+ tryNextCol();
 }
 
-window.submitCode=async(docId,ticket)=>{ let code=document.getElementById('mpesaCode')?.value.trim().toUpperCase(); if(!code)return alert('Enter code'); await updateDoc(doc(db,'laundry',docId),{ mpesaCode:code, status:'Paid', paid:true }); alert('Saved'); }
+window.submitCode=async(docId,ticket)=>{ let code=document.getElementById('mpesaCode')?.value.trim().toUpperCase(); if(!code)return alert('Enter code'); await updateDoc(doc(db,'laundry',docId),{ mpesaCode:code, status:'Paid', paid:true }); alert('Saved Till 1741514'); }
 window.generateReceipt=async()=>{ let l=window.currentLaundry; if(!l.receiptNo){ let r=genUniqueReceipt(); l.receiptNo=r; try{ await updateDoc(doc(db,'laundry',l._docId),{ receiptNo:r }); }catch(e){} } const { jsPDF }=window.jspdf; const docu=new jsPDF(); docu.setFillColor(15,23,42); docu.rect(0,0,210,35,'F'); docu.setTextColor(250,204,21); docu.setFontSize(16); docu.setFont('helvetica','bold'); docu.text('VECCTAPIVOT LAUNDRY SERVICES',10,14); docu.setFontSize(9); docu.setTextColor(148,163,184); docu.text('Valet • Steam Press • Till 1741514',10,22); docu.setTextColor(0,0,0); docu.setFontSize(12); docu.setFont('helvetica','bold'); docu.text(`Reg: ${l.ticket||l.id}`,10,42); docu.text(`Receipt No (UNIQUE): ${l.receiptNo}`,10,50); docu.setFont('helvetica','normal'); docu.setFontSize(10); let y=60; docu.text(`Customer: ${l.name||''} Phone: ${l.phone||''}`,10,y); y+=6; docu.text(`Total KES ${l.total} Till ${TILL} Code ${l.mpesaCode||''}`,10,y); y+=6; docu.text(`Rider ${l.riderName||''} Tel ${l.riderTel||''} Plate ${l.riderPlate||''}`,10,y); y+=6; docu.text(`Sign ${l.signature||''} Close ${l.closeTime||''}`,10,y); y+=6; if(l.rating) { docu.text(`Rating ${l.rating}/5 ${l.comment||''}`,10,y); y+=6; } docu.save(`${l.receiptNo}_Receipt.pdf`); }
 window.shareReceipt=()=>{ let l=window.currentLaundry; let txt=`*VECCTAPIVOT*%0AReg ${l.ticket}%0ARCP ${l.receiptNo}%0AKES ${l.total} Till ${TILL}%0ARider ${l.riderName} ${l.riderTel} ${l.riderPlate}%0ASign ${l.signature}`; window.open('https://wa.me/?text='+txt,'_blank'); }
 
-// FIXED STARS — 5 clickable spans — works for LDY/JOB/TIC
 window.markReceived=async(docId,colName)=>{
  document.getElementById('rateBox').innerHTML=`
  <div class="card" style="border-color:#facc15;text-align:center">
@@ -111,11 +131,11 @@ window.markReceived=async(docId,colName)=>{
    let r=document.getElementById('starRow').dataset.rating||rating;
    let c=document.getElementById('rateComment').value;
    if(!r){alert('Tap a star first');return;}
-   let statusVal = cName==='laundry'?'Delivered': cName==='jobs'?'Completed':'Resolved';
+   let statusVal = cName==='laundry'?'Delivered': cName==='jobs'?'Done':'Closed';
    await updateDoc(doc(db,cName,id),{ rating:parseInt(r), comment:c, status:statusVal, receivedAt:new Date().toISOString() });
    alert('Thanks! Rated '+r+'/5 ⭐');
    document.getElementById('rateBox').innerHTML=''; doTrack();
  };
 }
-window.onload=()=>{ let p=new URLSearchParams(location.search); let t=p.get('ldy')||p.get('ticket'); if(t){ q.value=t.toUpperCase(); doTrack(); } }
+window.onload=()=>{ let p=new URLSearchParams(location.search); let t=p.get('ldy')||p.get('job')||p.get('ticket')||p.get('id')||p.get('laundry'); if(t){ q.value=t.toUpperCase(); doTrack(); } }
 </script></body></html>
