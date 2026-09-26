@@ -1,158 +1,71 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin SECURE FULL — VECCTAPIVOT — Till 1741514</title><link rel="icon" href="logo.png"><link rel="stylesheet" href="style.css">
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin — Websuite</title><link rel="stylesheet" href="style.css">
 <style>
-:root{--gold:#facc15;--gold2:#eab308;--green:#22c55e;--red:#ef4444;--blue:#60a5fa;--bg:#070a14;--card:#1e293b;--line:#334155}
-*{box-sizing:border-box}body{background:radial-gradient(1200px 600px at 20% -10%,#1e293b 0%,#0f172a 40%,var(--bg) 100%);color:#fff;font-family:Inter,system-ui;margin:0;min-height:100vh}
-.topbar{background:linear-gradient(90deg,#000,#111);border-bottom:2px solid var(--gold);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;flex-wrap:wrap;gap:8px}
-.page{max-width:1320px;margin:0 auto;padding:14px}
-.stats{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin:12px 0}@media(max-width:900px){.stats{grid-template-columns:repeat(3,1fr)}}
-.s{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}.s b{font-size:22px;display:block;color:var(--gold)}.s small{color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:.6px}
-.tabs{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}.tab{padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:#0f172a;color:#cbd5e1;font-weight:800;cursor:pointer;font-size:12px}.tab.active{background:linear-gradient(90deg,var(--gold),#fde047);color:#000;border-color:var(--gold)}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;align-items:center}
-.input,.select,.textarea{padding:11px 12px;border-radius:10px;background:#0f172a;border:1px solid var(--line);color:#fff;box-sizing:border-box;outline:none;width:100%}
-.card{background:linear-gradient(180deg,rgba(30,41,59,.95),rgba(15,23,42,.9));border:1px solid var(--line);border-radius:18px;padding:14px;margin:12px 0}
-.badge{padding:4px 10px;border-radius:999px;font-size:10px;font-weight:900}
-.grid2{display:grid;grid-template-columns:1fr 340px;gap:12px}@media(max-width:1000px){.grid2{grid-template-columns:1fr}}
-.btn{padding:10px 14px;border-radius:10px;border:none;font-weight:800;cursor:pointer;font-size:12px}.gold{background:linear-gradient(90deg,var(--gold),#fde047);color:#000}.green{background:var(--green);color:#000}.red{background:var(--red);color:#fff}.line{background:transparent;border:1px solid var(--line);color:#fff}
-.kbd{font-family:ui-monospace;font-weight:900;color:var(--gold)}
-.stepBtn{padding:8px 10px;border-radius:999px;border:1px solid #334155;background:#0f172a;color:#fff;font-size:11px;font-weight:800;cursor:pointer;margin:2px}.stepBtn.done{background:#052e16;border-color:#22c55e;color:#22c55e}
-.editBox{background:#0f172a;border:1px dashed #facc15;border-radius:12px;padding:12px;margin-top:10px}
-</style>
-</head><body>
-<div class="topbar">
-<div style="display:flex;gap:10px;align-items:center"><img src="logo.png" style="height:28px"><b style="color:var(--gold)">VECCTAPIVOT ADMIN SECURE — Till 1741514 — RCP Unique</b><span id="cloudSt" style="font-size:11px;color:#94a3b8">● Secure Auth Required</span></div>
-<div style="display:flex;gap:6px"><button class="btn line" onclick="loadCloud()">↻ Cloud</button><button class="btn line" id="logoutBtn" hidden onclick="doLogout()">Logout</button></div>
-</div>
-<div class="page">
-<div id="loginBox" class="card" style="max-width:420px;margin:60px auto;text-align:center"><h3 style="color:var(--gold)">Secure Login</h3><input id="email" class="input" type="email" placeholder="admin@vecctapivot.com" style="margin-bottom:8px"><input id="pw" type="password" class="input" placeholder="Password"><button class="btn gold" style="width:100%;margin-top:10px;padding:12px" onclick="doLogin()">Login SECURE</button><div id="loginMsg" style="font-size:11px;color:#ef4444;margin-top:8px"></div></div>
-
-<div id="panel" hidden>
-<div class="stats">
-<div class="s"><b id="cTotal">0</b><small>Total Jobs</small></div>
-<div class="s"><b id="cNew">0</b><small>New</small></div>
-<div class="s"><b id="cRev">0</b><small>Revision</small></div>
-<div class="s"><b id="cPaid">0</b><small>Paid</small></div>
-<div class="s"><b id="cTic">0</b><small>Tickets</small></div>
-<div class="s"><b id="cLaund">0</b><small>Laundry LDY</small></div>
-<div class="s"><b id="cMoney">0</b><small>KSH</small></div>
-</div>
+.wrap{max-width:1100px;margin:12px auto;padding:0 12px}
+.tabs{display:flex;gap:8px;margin:12px 0}
+.tab{padding:10px 16px;border-radius:999px;border:1px solid #334155;background:#0f172a;color:#94a3b8;cursor:pointer;font-weight:800}
+.tab.active{background:#facc15;color:#000;border-color:#facc15}
+.card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:14px;margin:10px 0}
+.badge{padding:4px 10px;border-radius:999px;font-size:10px;font-weight:900;background:#422006;color:#facc15;border:1px solid #facc15}
+.input{padding:10px;border-radius:10px;background:#0f172a;color:#fff;border:1px solid #334155;width:100%;box-sizing:border-box;margin:4px 0}
+.btn{padding:10px;border:none;border-radius:10px;font-weight:800;cursor:pointer}.gold{background:#facc15;color:#000}.green{background:#22c55e;color:#000}
+.kbd{font-family:ui-monospace;color:#facc15;font-weight:900}
+</style></head><body>
+<main class="wrap">
+<h2 style="color:#facc15">Websuite Admin — Till 1741514</h2>
+<div id="avgBox" class="card" style="border-color:#facc15;text-align:center;color:#facc15;font-weight:900">⭐ Loading reviews...</div>
 <div class="tabs">
-<span class="tab active" id="tab-jobs" onclick="setTab('jobs')">📦 Jobs</span>
-<span class="tab" id="tab-tickets" onclick="setTab('tickets')">🎫 Tickets</span>
-<span class="tab" id="tab-laundry" onclick="setTab('laundry')">👕 Laundry Till 1741514</span>
+<button class="tab active" onclick="switchTab('laundry')" id="tab-laundry">🧺 Laundry (<span id="c-laundry">0</span>)</button>
+<button class="tab" onclick="switchTab('jobs')" id="tab-jobs">💼 Jobs (<span id="c-jobs">0</span>)</button>
+<button class="tab" onclick="switchTab('tickets')" id="tab-tickets">🎫 Tickets (<span id="c-tickets">0</span>)</button>
 </div>
-<div class="toolbar">
-<input id="q" class="input" placeholder="Search JOB-, TIC-, LDY-..." oninput="render()" style="flex:1;min-width:220px">
-<select id="fStat" class="select" onchange="render()"><option value="">All Status</option><option>Logged</option><option>Quoted</option><option>Paid</option><option>Dispatched</option><option>Delivered</option><option>Received</option><option>Washing</option><option>Ready for Pickup</option></select>
-</div>
-<div id="list"></div>
-</div>
-</div>
-
+<div id="out">Loading...</div>
+</main>
 <script type="module">
-import { db, auth } from './firebase.js';
-import { collection, getDocs, doc, updateDoc, deleteDoc, query, orderBy, limit, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-const TILL = 1741514;
-let JOBS=[], TICKETS=[], LAUNDRY=[], TAB='jobs';
-
-onAuthStateChanged(auth, (user)=>{ if(user){ loginBox.hidden=true; panel.hidden=false; logoutBtn.hidden=false; cloudSt.textContent='● '+user.email+' | Till '+TILL; loadCloud(); } else{ loginBox.hidden=false; panel.hidden=true; logoutBtn.hidden=true; } });
-window.doLogin=async()=>{ let e=email.value.trim(), p=pw.value.trim(); if(!e||!p){ loginMsg.textContent='Enter email & password'; return; } try{ await signInWithEmailAndPassword(auth,e,p); }catch(err){ loginMsg.textContent=err.message; } }
-window.doLogout=async()=>{ await signOut(auth); location.reload(); }
-
-function getLocal(){ try{ let a=JSON.parse(localStorage.getItem('veccta_jobs')||'[]'); let b=JSON.parse(localStorage.getItem('karanu_jobs')||'[]'); let m=[...a,...b]; let map=new Map(); m.forEach(j=>{if(!map.has(j.id)) map.set(j.id,j)}); return Array.from(map.values()); }catch(e){return []} }
-function genUniqueReceipt(){ let d=new Date(); let date=d.toISOString().slice(0,10).replace(/-/g,''); let rand=Math.floor(1000+Math.random()*9000); return `RCP-${date}-${rand}`; }
-
-window.loadCloud=async()=>{
- cloudSt.textContent='● Syncing...';
- try{
-  let snap=await getDocs(query(collection(db,'jobs'), orderBy('createdAt','desc'), limit(300))); let cloud=[]; snap.forEach(d=>{cloud.push({...d.data(),_docId:d.id})});
-  let snap2=await getDocs(query(collection(db,'tickets'), orderBy('createdAt','desc'), limit(200))); let cloudT=[]; snap2.forEach(d=>{cloudT.push({...d.data(),_docId:d.id})});
-  let snap3=await getDocs(query(collection(db,'laundry'), orderBy('createdAt','desc'), limit(200))); let cloudL=[]; snap3.forEach(d=>{cloudL.push({...d.data(),_docId:d.id})});
-  let local=getLocal(); let map=new Map(); local.forEach(j=>map.set(j.id,j)); cloud.forEach(j=>map.set(j.id,j));
-  JOBS=Array.from(map.values()); TICKETS=cloudT; LAUNDRY=cloudL;
-  cloudSt.textContent=`● Cloud LIVE — ${cloud.length} jobs / ${cloudT.length} tickets / ${cloudL.length} laundry | Till ${TILL}`;
- }catch(e){ cloudSt.textContent='● Local only — '+e.message; JOBS=getLocal(); TICKETS=JSON.parse(localStorage.getItem('veccta_tickets')||'[]'); LAUNDRY=[]; for(let i=0;i<localStorage.length;i++){let k=localStorage.key(i); if(k.startsWith('order_LDY-')){ try{ LAUNDRY.push(JSON.parse(localStorage.getItem(k))); }catch{} } } }
- renderStats(); render();
+import { db } from './firebase.js';
+import { collection, onSnapshot, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+let allLaundry=[], allJobs=[], allTics=[], current='laundry';
+window.switchTab=(t)=>{
+ current=t; document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active')); document.getElementById('tab-'+t).classList.add('active'); render();
 }
-function renderStats(){ cTotal.textContent=JOBS.length; cLaund.textContent=LAUNDRY.length; cTic.textContent=TICKETS.length; cPaid.textContent=JOBS.filter(j=>['Paid','Done'].includes(j.status)).length; cNew.textContent=JOBS.filter(j=>j.status==='Logged').length; cRev.textContent=JOBS.filter(j=>['Revision Needed'].includes(j.status)).length; cMoney.textContent='KSH '+(JOBS.reduce((s,j)=>s+(parseInt(j.price)||0),0).toLocaleString()); }
-window.setTab=t=>{ TAB=t; document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); document.getElementById('tab-'+t).classList.add('active'); render(); }
+function calcAvg(){
+ let all=[...allLaundry,...allJobs,...allTics].filter(x=>x.rating>0);
+ let avg=all.length? (all.reduce((a,b)=>a+b.rating,0)/all.length).toFixed(1):0;
+ document.getElementById('avgBox').innerHTML=`⭐ Avg Rating ${avg}/5 from ${all.length} reviews — Laundry ${allLaundry.filter(x=>x.rating).length} | Jobs ${allJobs.filter(x=>x.rating).length} | Tickets ${allTics.filter(x=>x.rating).length}`;
+}
+function render(){
+ let list = current==='laundry'?allLaundry: current==='jobs'?allJobs:allTics;
+ let html='';
+ if(!list.length) html=`<div class=card>No ${current} yet</div>`;
+ list.forEach(l=>{
+   let stars = l.rating ? `<div style="background:#422006;border:1px solid #facc15;padding:8px;border-radius:10px;margin-top:6px"><b style="color:#facc15">${'★'.repeat(l.rating)}${'☆'.repeat(5-l.rating)} ${l.rating}/5</b> <span style="color:#fff">“${l.comment||'No comment'}”</span><br><span style="font-size:11px;color:#94a3b8">${l.receivedAt||''} ${l.receiptNo?`• RCP ${l.receiptNo}`:''}</span></div>` : `<div style="color:#94a3b8;font-size:11px;margin-top:6px">⭐ No review yet</div>`;
+   if(current==='laundry'){
+     html+=`<div class=card><div style="display:flex;justify-content:space-between"><span class=kbd>${l.ticket}</span><span class=badge>${l.status||''} • KES ${l.total||0}</span></div><div style="font-size:12px;color:#cbd5e1">Name: ${l.name||''} Phone: ${l.phone||''} Code: ${l.mpesaCode||''}</div><div style="font-size:12px">Rider <input id="rn-${l.id}" class="input" placeholder="Rider name" value="${l.riderName||''}"> Tel <input id="rt-${l.id}" class="input" value="${l.riderTel||''}"> Plate <input id="rp-${l.id}" class="input" value="${l.riderPlate||''}"> Sign <input id="sg-${l.id}" class="input" value="${l.signature||''}"> Close <input id="ct-${l.id}" class="input" value="${l.closeTime||''}"></div><button class="btn gold" onclick="dispatch('${l.id}')">🚚 Dispatch + Gen RCP</button> ${stars}</div>`;
+   } else if(current==='jobs'){
+     html+=`<div class=card><span class=kbd>${l.ticket}</span> <span class=badge>💼 ${l.status}</span><br>Title: ${l.title||l.service||''}<br>Client: ${l.name||''} ${l.phone||''}<br>Assigned <input id="rn-${l.id}" class="input" value="${l.assignedTo||l.riderName||''}" placeholder="Assigned to"><br>Status <select id="st-${l.id}" class="input"><option ${l.status==='Open'?'selected':''}>Open</option><option ${l.status==='In Progress'?'selected':''}>In Progress</option><option ${l.status==='Completed'?'selected':''}>Completed</option></select><button class="btn gold" onclick="updateJob('${l.id}')">Save</button> ${stars}</div>`;
+   } else {
+     html+=`<div class=card><span class=kbd>${l.ticket}</span> <span class=badge>🎫 ${l.status}</span><br>Issue: ${l.issue||l.description||''}<br>Customer: ${l.name||''} ${l.phone||''}<br>Priority ${l.priority||''}<br>Agent <input id="rn-${l.id}" class="input" value="${l.agent||''}" placeholder="Agent"><br>Status <select id="st-${l.id}" class="input"><option ${l.status==='Open'?'selected':''}>Open</option><option ${l.status==='In Progress'?'selected':''}>In Progress</option><option ${l.status==='Resolved'?'selected':''}>Resolved</option><option ${l.status==='Closed'?'selected':''}>Closed</option></select><button class="btn gold" onclick="updateTic('${l.id}')">Save</button> ${stars}</div>`;
+   }
+ });
+ document.getElementById('out').innerHTML=html;
+}
+function genRCP(){ let d=new Date(); return `RCP-${d.toISOString().slice(0,10).replace(/-/g,'')}-${Math.floor(1000+Math.random()*9000)}`; }
+window.dispatch=async(id)=>{
+ let rn=document.getElementById('rn-'+id).value; let rt=document.getElementById('rt-'+id).value; let rp=document.getElementById('rp-'+id).value; let sg=document.getElementById('sg-'+id).value; let ct=document.getElementById('ct-'+id).value;
+ let rcp=genRCP();
+ await updateDoc(doc(db,'laundry',id),{ riderName:rn, riderTel:rt, riderPlate:rp, signature:sg, closeTime:ct, status:'Dispatched', receiptNo:rcp, steps: [{name:'Received',status:'done',time:new Date().toLocaleString()},{name:'Paid',status:'done',time:new Date().toLocaleString()},{name:'Dispatched',status:'done',time:new Date().toLocaleString()},{name:'Delivered',status:'todo',time:''}] });
+ alert('Dispatched + RCP '+rcp);
+}
+window.updateJob=async(id)=>{ let a=document.getElementById('rn-'+id).value; let s=document.getElementById('st-'+id).value; await updateDoc(doc(db,'jobs',id),{assignedTo:a,status:s}); alert('Job saved'); }
+window.updateTic=async(id)=>{ let a=document.getElementById('rn-'+id).value; let s=document.getElementById('st-'+id).value; await updateDoc(doc(db,'tickets',id),{agent:a,status:s}); alert('Ticket saved'); }
 
-window.render=()=>{
- let qv=(q.value||'').toLowerCase(), fs=fStat.value; let html='';
- if(TAB==='jobs'){
-  let list=[...JOBS]; if(qv) list=list.filter(j=>JSON.stringify(j).toLowerCase().includes(qv)); if(fs) list=list.filter(j=>j.status===fs);
-  if(!list.length) html=`<div class=card>No jobs</div>`;
-  list.forEach(j=>{ html+=`<div class=card><span class=kbd>${j.id}</span> <span class=badge>${j.status}</span> — ${j.clientName||''}<br><input id="p-${j.id}" class=input value="${j.price||''}" placeholder="Price"><select id="s-${j.id}" class=select><option ${j.status==='Logged'?'selected':''}>Logged</option><option ${j.status==='Quoted'?'selected':''}>Quoted</option><option ${j.status==='Paid'?'selected':''}>Paid</option><option ${j.status==='Done'?'selected':''}>Done</option></select><button class="btn gold" onclick="saveJob('${j.id}')">Save</button></div>`; });
- }
- if(TAB==='laundry'){
-  let list=[...LAUNDRY]; if(qv) list=list.filter(l=>JSON.stringify(l).toLowerCase().includes(qv)); if(fs) list=list.filter(l=>(l.status||'').toLowerCase()===fs.toLowerCase());
-  if(!list.length) html=`<div class=card>No Laundry LDY-</div>`;
-  list.forEach(l=>{
-   let steps=l.steps||[{name:"Received",status:"done"},{name:"Washing",status:"pending"},{name:"Ironing / Pressing",status:"pending"},{name:"Ready for Pickup",status:"pending"},{name:"Dispatched",status:"pending"},{name:"Delivered",status:"pending"}];
-   let isPaid=!!l.paid; let stepBtns = steps.map((s,i)=>`<button class="stepBtn ${s.status==='done'?'done':''}" onclick="updateLaundryStep('${l.ticket||l.id}', ${i})">${s.status==='done'?'✅':'○'} ${s.name}</button>`).join(' ');
-   html+=`<div class=card style="border-left:4px solid ${isPaid?'#22c55e':'#facc15'}">
-   <div style="display:flex;justify-content:space-between;flex-wrap:wrap"><div><span class=kbd>${l.ticket||l.id}</span> <span class=badge style="background:${isPaid?'#052e16':'#422006'};color:${isPaid?'#22c55e':'#facc15'}">${l.status||'Received'} ${isPaid?'✅ PAID':'❌ NOT PAID'}</span><br><b>Reg No:</b> ${l.ticket||l.id} | <b style="color:#facc15">Receipt No: ${l.receiptNo||'Not yet — on dispatch'}</b><br>${l.service||''} — ${l.name||''} • ${l.phone||''}</div><div style="text-align:right"><b style="font-size:20px;color:#facc15">KES ${l.total}</b><br><span style="font-size:11px">Code: ${l.mpesaCode||'-'}</span></div></div>
-   <div style="margin:10px 0">${stepBtns}</div>
-   <div class="editBox">
-     <b style="color:#facc15;font-size:12px">EDIT RECEIPT (Client sees only after dispatch — NOT editing receipt):</b>
-     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
-       <div><label style="font-size:10px;color:#94a3b8">Rider Name</label><input id="rn-${l.ticket}" class="input" value="${l.riderName||''}" placeholder="Brian Otieno"></div>
-       <div><label style="font-size:10px;color:#94a3b8">Rider Tel</label><input id="rt-${l.ticket}" class="input" value="${l.riderTel||''}" placeholder="0712345678"></div>
-       <div><label style="font-size:10px;color:#94a3b8">Number Plate</label><input id="rp-${l.ticket}" class="input" value="${l.riderPlate||''}" placeholder="KMFB 123X"></div>
-       <div><label style="font-size:10px;color:#94a3b8">Close Time</label><input id="ct-${l.ticket}" class="input" value="${l.closeTime||''}" placeholder="2025-09-25 14:30"></div>
-       <div><label style="font-size:10px;color:#facc15">Admin Initials (Sign)</label><input id="sg-${l.ticket}" class="input" value="${l.signature||''}" placeholder="FN" maxlength="4" style="text-transform:uppercase;font-weight:900;text-align:center"></div>
-       <div><label style="font-size:10px;color:#94a3b8">Service Edit</label><input id="sv-${l.ticket}" class="input" value="${l.service||''}"></div>
-     </div>
-     <button class="btn gold" style="width:100%;margin-top:10px" onclick="saveLaundryEdits('${l.ticket||l.id}')">💾 Save Edits (Receipt)</button>
-   </div>
-   <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-     <button class="btn ${isPaid?'green':'gold'}" onclick="markLaundryPaid('${l.ticket||l.id}')">${isPaid?'✅ Paid Confirmed':'💰 Confirm Paid Till '+TILL}</button>
-     <button class="btn gold" onclick="dispatchLaundry('${l.ticket||l.id}', ${isPaid})" ${!isPaid?'disabled':''} style="${!isPaid?'opacity:.4':''}">🚚 Dispatch + Generate Unique RCP 🔓</button>
-     <a class="btn line" href="track.html?ldy=${l.ticket||l.id}" target="_blank" style="text-decoration:none">View Client</a>
-     <button class="btn red" onclick="delLaundry('${l.ticket||l.id}')">🗑 DELETE</button>
-   </div>
-   </div>`;
-  });
- }
- document.getElementById('list').innerHTML=html;
-}
-
-window.saveJob=async(id)=>{ let j=JOBS.find(x=>x.id===id); j.price=document.getElementById('p-'+id).value; j.status=document.getElementById('s-'+id).value; if(j._docId){ await updateDoc(doc(db,'jobs',j._docId),{price:j.price,status:j.status}); } alert('Saved'); }
-window.updateLaundryStep=async(ticketId, stepIdx)=>{
- let l=LAUNDRY.find(x=>(x.ticket||x.id)===ticketId); if(!l.steps) l.steps=[{name:"Received",status:"done"},{name:"Washing",status:"pending"},{name:"Ironing / Pressing",status:"pending"},{name:"Ready for Pickup",status:"pending"},{name:"Dispatched",status:"pending"},{name:"Delivered",status:"pending"}];
- l.steps[stepIdx].status = l.steps[stepIdx].status==='done'? 'pending':'done'; l.steps[stepIdx].time=new Date().toLocaleString(); l.status=l.steps[stepIdx].name;
- try{ await updateDoc(doc(db,'laundry',ticketId),{steps:l.steps,status:l.status}); }catch(e){ await setDoc(doc(db,'laundry',ticketId), l); } render();
-}
-window.saveLaundryEdits=async(id)=>{
- let l=LAUNDRY.find(x=>(x.ticket||x.id)===id);
- let riderName=document.getElementById(`rn-${l.ticket}`).value;
- let riderTel=document.getElementById(`rt-${l.ticket}`).value;
- let riderPlate=document.getElementById(`rp-${l.ticket}`).value;
- let closeTime=document.getElementById(`ct-${l.ticket}`).value || new Date().toLocaleString();
- let signature=document.getElementById(`sg-${l.ticket}`).value.toUpperCase().replace(/[^A-Z]/g,'').slice(0,4);
- let service=document.getElementById(`sv-${l.ticket}`).value;
- if(signature.length<2){ alert('Enter initials e.g. FN'); return; }
- try{ await updateDoc(doc(db,'laundry',id),{ riderName, riderTel, riderPlate, rider:`${riderName} - ${riderTel} [${riderPlate}]`, closeTime, signature, service }); alert('✅ Edits saved — Rider: '+riderName+' Tel: '+riderTel+' Plate: '+riderPlate+' Sign: '+signature); render(); }catch(e){ alert(e.message); }
-}
-window.markLaundryPaid=async(id)=>{ if(!confirm('Confirm Paid Till '+TILL+'?')) return; try{ await updateDoc(doc(db,'laundry',id),{paid:true,paidAt:new Date().toISOString()}); }catch(e){ await setDoc(doc(db,'laundry',id),{paid:true},{merge:true}); } render(); }
-window.dispatchLaundry=async(id, isPaid)=>{
- if(!isPaid){ alert('❌ Not paid — LOCKED'); return; }
- let l=LAUNDRY.find(x=>(x.ticket||x.id)===id);
- let riderName=document.getElementById(`rn-${l.ticket}`)?.value||l.riderName||'';
- let riderTel=document.getElementById(`rt-${l.ticket}`)?.value||l.riderTel||'';
- let riderPlate=document.getElementById(`rp-${l.ticket}`)?.value||l.riderPlate||'';
- let signature=document.getElementById(`sg-${l.ticket}`)?.value||l.signature||'';
- if(!riderName||!riderTel||!riderPlate){ alert('Fill Rider Name + Tel + Plate first'); return; }
- if(!signature||signature.length<2){ alert('Fill Initials e.g. FN'); return; }
- let receiptNo = l.receiptNo || genUniqueReceipt();
- let closeTime = document.getElementById(`ct-${l.ticket}`)?.value || new Date().toLocaleString();
- if(!confirm(`Dispatch ${id}? Unique Receipt: ${receiptNo}\nRider: ${riderName} Tel: ${riderTel} Plate: ${riderPlate}\nSign: ${signature}`)) return;
- try{
-   await updateDoc(doc(db,'laundry',id),{ receiptNo, riderName, riderTel, riderPlate, rider:`${riderName} - ${riderTel} [${riderPlate}]`, closeTime, signature, status:'Dispatched', dispatchedAt:new Date().toISOString(), steps:l.steps });
-   // mark dispatched step done
-   let dStep = l.steps?.find(s=>s.name==='Dispatched'); if(dStep){ dStep.status='done'; dStep.time=new Date().toLocaleString(); await updateDoc(doc(db,'laundry',id),{steps:l.steps}); }
- }catch(e){ await setDoc(doc(db,'laundry',id),{ receiptNo, riderName, riderTel, riderPlate, signature, closeTime, status:'Dispatched' },{merge:true}); }
- alert('🚚 DISPATCHED — Unique Receipt: '+receiptNo+' — Client now sees receipt with Rider details + Initials'); render();
-}
-window.delLaundry=async id=>{ if(!confirm('DELETE '+id+'?')) return; try{ await deleteDoc(doc(db,'laundry',id)); }catch(e){} LAUNDRY=LAUNDRY.filter(x=>(x.ticket||x.id)!==id); renderStats(); render(); }
+// LIVE listeners for all 3 collections
+onSnapshot(collection(db,'laundry'), snap=>{
+ allLaundry=snap.docs.map(d=>({id:d.id,...d.data()})); document.getElementById('c-laundry').innerText=allLaundry.length; calcAvg(); if(current==='laundry')render();
+});
+onSnapshot(collection(db,'jobs'), snap=>{
+ allJobs=snap.docs.map(d=>({id:d.id,...d.data()})); document.getElementById('c-jobs').innerText=allJobs.length; calcAvg(); if(current==='jobs')render();
+});
+onSnapshot(collection(db,'tickets'), snap=>{
+ allTics=snap.docs.map(d=>({id:d.id,...d.data()})); document.getElementById('c-tickets').innerText=allTics.length; calcAvg(); if(current==='tickets')render();
+});
 </script></body></html>
