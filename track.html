@@ -11,111 +11,111 @@
 .badge{padding:4px 10px;border-radius:999px;font-size:10px;font-weight:900;background:#422006;color:#facc15;border:1px solid #facc15}
 .timeline{display:flex;gap:8px;overflow-x:auto;padding:8px 0}.step{min-width:110px;text-align:center;padding:10px;border-radius:12px;border:1px solid #334155;background:#0f172a;opacity:.5;font-size:12px}.step.active{opacity:1;border-color:#facc15;background:#422006;color:#facc15;font-weight:800}
 .kbd{font-family:ui-monospace;font-size:22px;color:#facc15;font-weight:900}.small{font-size:11px;color:#94a3b8}.btn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:800;cursor:pointer}
-.star{font-size:36px;cursor:pointer;letter-spacing:6px}
 </style></head><body>
-<div class="utility"><div class="uwrap"><span class="uitem"><span class="ubadge">TRACK LIVE</span></span><span class="uitem">LDY | Till 1741514 LOCK</span><a class="uitem" href="https://wa.me/254788099685">Help</a></div></div>
+<div class="utility"><div class="uwrap"><span class="uitem"><span class="ubadge">TRACK LIVE</span></span><span class="uitem">LDY | JOB | TIC | Till 1741514</span><a class="uitem" href="https://wa.me/254788099685">Help</a></div></div>
 <header class="top"><div class="navrow"><a class="brand" href="index.html"><img src="logo.png"><span class="brandname">Vecctapivot<em>Track</em></span></a><div class="navcta"><a class="btn line sm2" href="laundry.html">New Booking</a></div></div></header>
 <main class="wrap">
-<div class="top-card"><h2 class="h">Track Laundry — Till 1741514</h2><p class="sub">Enter LDY-xxxxx — pay unlocks goods — RCP Unique Receipt + Stars</p><div class="search"><input id="q" class="input" placeholder="LDY-12345"><button class="btn-gold" onclick="doTrack()">TRACK →</button></div><div id="cloudSt" class="small" style="text-align:center;margin-top:8px;color:#22c55e">● LIVE | Till 1741514 🔒 Auto-Update ON</div></div>
-<div id="out"></div>
-<div id="rateBox"></div>
+<div class="top-card"><h2 class="h">Track — Till 1741514</h2><p class="sub">Enter LDY- / JOB- / TIC- — websuite live tracking + stars</p><div class="search"><input id="q" class="input" placeholder="LDY-12345 or JOB-123 or TIC-123"><button class="btn-gold" onclick="doTrack()">TRACK →</button></div><div id="cloudSt" class="small" style="text-align:center;margin-top:8px;color:#22c55e">● LIVE | Auto-Update ON | All tickets</div></div>
+<div id="out"></div><div id="rateBox"></div>
 </main>
 <script type="module">
 import { db } from './firebase.js';
 import { doc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-const TILL = 1741514;
-window.currentLaundry = null; window.currentLaundryTotal = 0; let unsub = null;
+const TILL=1741514;
+window.currentLaundry=null; let unsub=null;
 function laundryTimeline(steps){ if(!steps) return ''; return `<div class=timeline>${steps.map(s=>`<div class="step ${s.status==='done'?'active':''}">${s.status==='done'?'✅':'○'} ${s.name}<br><span class=small>${s.time||''}</span></div>`).join('')}</div>`;}
 function genUniqueReceipt(){ let d=new Date(); let date=d.toISOString().slice(0,10).replace(/-/g,''); let rand=Math.floor(1000+Math.random()*9000); return `RCP-${date}-${rand}`; }
 
+// RENDER LAUNDRY
 function renderLaundry(l){
- window.currentLaundry=l; window.currentLaundryTotal=(l.total+'').replace(/[^0-9]/g,'')||l.total;
- let curStep = l.steps? [...l.steps].reverse().find(s=>s.status==='done')?.name : (l.status||'Received');
- let isPaid =!!l.paid || l.status==='Paid' || l.status==='PAID_VERIFIED' ||!!l.mpesaCode;
- let isDispatched = (l.status==='Dispatched' || curStep==='Dispatched'); let isDelivered = (l.status==='Delivered');
- let h=`<div class=card><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px"><div><span class=kbd style="color:#facc15">${l.ticket||l.id}</span><br><span class="badge">${isPaid?'✅ PAID Till '+TILL:'❌ NOT PAID Till '+TILL} • ${curStep}</span><br><span class=small>Reg No: ${l.ticket||l.id}</span><br><span class=small>Receipt No: <b style="color:#facc15">${l.receiptNo||'Pending on dispatch'}</b></span><br><span class=small>${l.createdAt||''}</span></div><div style="text-align:right"><div class=small>Total</div><div style="font-size:22px;font-weight:900;color:#facc15">KES ${l.total}</div><div class=small>${l.location||''} • ${l.name||''}</div></div></div>${laundryTimeline(l.steps)}</div>`;
+ window.currentLaundry=l;
+ let curStep=l.steps? [...l.steps].reverse().find(s=>s.status==='done')?.name : (l.status||'Received');
+ let isPaid=!!l.paid||l.status==='Paid'||!!l.mpesaCode; let isDispatched=(l.status==='Dispatched'||curStep==='Dispatched'); let isDelivered=(l.status==='Delivered');
+ let h=`<div class=card><div style="display:flex;justify-content:space-between;flex-wrap:wrap"><div><span class=kbd>${l.ticket||l.id}</span><br><span class=badge>🧺 LAUNDRY • ${curStep} • ${isPaid?'PAID Till '+TILL:'NOT PAID'}</span><br><span class=small>Receipt: <b style="color:#facc15">${l.receiptNo||'Pending'}</b></span></div><div style="text-align:right"><div class=small>Total</div><div style="font-size:22px;font-weight:900;color:#facc15">KES ${l.total}</div></div></div>${laundryTimeline(l.steps)}</div>`;
+ if(!isPaid) h+=`<div class="well yellow"><b>🧺 READY — PAY Till ${TILL} to unlock</b><br>KES ${l.total}<br><input id="mpesaCode" class="input" style="margin-top:8px" placeholder="M-Pesa Code"><button class="btn" style="background:#facc15;color:#000;margin-top:8px" onclick="submitCode('${l._docId}', '${l.ticket||l.id}')">✅ I Paid</button></div>`;
+ else if(isPaid&&!isDispatched&&!isDelivered) h+=`<div class="well green"><b>✅ Paid — ${l.mpesaCode}</b><br>Reg ${l.ticket}<br>🧾 Receipt in process — Goods LOCKED — Awaiting dispatch</div>`;
+ else if(isDispatched) h+=`<div class="well blue"><b>🚚 DISPATCHED — Rider has laundry</b><br><div style="background:#0f172a;padding:10px;border-radius:10px;margin-top:8px;line-height:1.8">Reg: ${l.ticket}<br><b style="color:#facc15">Receipt No (UNIQUE): ${l.receiptNo}</b><br>Rider: ${l.riderName||'-'}<br>Tel: ${l.riderTel||'-'}<br>Plate: ${l.riderPlate||'-'}<br>Close: ${l.closeTime||''}<br>Sign: ${l.signature||''}</div><div style="display:flex;gap:8px;margin-top:10px"><button class="btn" style="background:#facc15;color:#000;flex:1" onclick="generateReceipt()">📄 Download Receipt</button><button class="btn" style="background:#0f172a;border:1px solid #facc15;color:#facc15;flex:1" onclick="shareReceipt()">Share</button></div><button class="btn" style="background:#22c55e;color:#000;margin-top:12px" onclick="markReceived('${l._docId}','laundry')">✅ RECEIVED — Rate ⭐</button></div>`;
+ else if(isDelivered) h+=`<div class="well green"><b>✅ DELIVERED</b><br>Reg ${l.ticket} | RCP ${l.receiptNo||''}<br>${l.rating?`<b style="color:#facc15">${'★'.repeat(l.rating)}${'☆'.repeat(5-l.rating)} ${l.rating}/5</b> <i>${l.comment||''}</i><br>`:''}<button class="btn" style="background:#facc15;color:#000;margin-top:8px" onclick="generateReceipt()">📄 Receipt Again</button></div>`;
+ if(!isDelivered||isDispatched) h+=`<div id="rateBoxInner"></div>`;
+ h+=`<div class=card><a href="https://wa.me/254788099685?text=Hi%20about%20${l.ticket}%20RCP%20${l.receiptNo||''}" style="background:#22c55e;color:#000;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:800;display:block">WhatsApp</a></div>`;
+ document.getElementById('out').innerHTML=h;
+}
 
- if(!isPaid){
-   h+=`<div class="well yellow"><b style="color:#facc15">🧺 READY — PAY TO UNLOCK 🔒</b><br>Amount KES ${l.total} Till ${TILL}<br><div style="margin-top:10px"><input id="mpesaCode" class="input" placeholder="M-Pesa Code e.g QGH7..."><button class="btn" style="background:#facc15;color:#000;margin-top:8px" onclick="submitCode('${l._docId||l.ticket||l.id}')">✅ I Paid — Submit Code</button></div></div>`;
- }
- else if(isPaid &&!isDispatched &&!isDelivered){
-   h+=`<div class="well green"><b style="color:#22c55e">✅ Payment Received — KES ${l.total} — Till ${TILL}</b><br>Code: ${l.mpesaCode||'-'}<br>Reg No: ${l.ticket}<br><br><b>🧾 Receipt in process</b><br><span class=small>Goods 🔒 LOCKED at store. Awaiting dispatch. Unique receipt + rider details will appear after dispatch.</span></div>`;
- }
- else if(isDispatched){
-   h+=`<div class="well blue"><b style="color:#60a5fa">🚚 DISPATCHED — Rider has your laundry 🔓</b><br><div style="margin-top:8px;background:#0f172a;padding:10px;border-radius:10px;font-size:13px;line-height:1.7">
-   <b>Reg No / Ticket:</b> ${l.ticket||l.id}<br>
-   <b style="color:#facc15">Receipt No (UNIQUE): ${l.receiptNo||''}</b><br>
-   <b>Rider Name:</b> ${l.riderName||'-'}<br>
-   <b>Rider Tel:</b> ${l.riderTel||'-'}<br>
-   <b>Number Plate:</b> ${l.riderPlate||'-'}<br>
-   <b>Close Time:</b> ${l.closeTime||''}<br>
-   <b>Sign (Initials):</b> ${l.signature||''}
-   </div><div style="margin-top:12px;display:flex;gap:8px"><button class="btn" style="background:#facc15;color:#000;flex:1;padding:14px" onclick="generateReceipt()">📄 Download Receipt</button><button class="btn" style="background:#0f172a;border:1px solid #facc15;color:#facc15;flex:1" onclick="shareReceipt()">📲 Share</button></div><button class="btn" style="background:#22c55e;color:#000;margin-top:12px;padding:14px" onclick="markReceived('${l._docId||l.ticket||l.id}')">✅ I HAVE RECEIVED — Rate ⭐</button></div>`;
- }
- else if(isDelivered){
-   h+=`<div class="well green"><b>✅ DELIVERED</b><br>Reg: ${l.ticket} | Receipt: ${l.receiptNo||''}<br>${l.rating?`<b style="color:#facc15">⭐ ${'★'.repeat(l.rating)}${'☆'.repeat(5-l.rating)} ${l.rating}/5</b><br><i>${l.comment||''}</i><br>`:''}<button class="btn" style="background:#facc15;color:#000;margin-top:8px" onclick="generateReceipt()">📄 Download Receipt Again</button></div>`;
- }
- h+=`<div class=card><a href="https://wa.me/254788099685?text=Hi%20about%20${l.ticket||l.id}%20Receipt%20${l.receiptNo||''}%20Till%20${TILL}" style="background:#22c55e;color:#000;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:800;display:block">WhatsApp Support</a></div>`;
+// RENDER JOB — Different
+function renderJob(j){
+ window.currentLaundry=j;
+ let h=`<div class=card><span class=kbd>${j.ticket||j.id}</span><br><span class=badge>💼 JOB • ${j.status||'Open'}</span><br><span class=small>${j.title||j.service||''}</span>${laundryTimeline(j.steps)}</div>`;
+ h+=`<div class="well blue"><b>💼 JOB Details</b><br>Client: ${j.name||''}<br>Service: ${j.service||j.title||''}<br>Status: ${j.status||''}<br>Assigned: ${j.assignedTo||j.riderName||'-'}<br>Due: ${j.dueDate||j.closeTime||'-'}<br></div>`;
+ if(j.status!=='Completed'&&j.status!=='Delivered') h+=`<button class="btn" style="background:#facc15;color:#000" onclick="markReceived('${j._docId}','jobs')">✅ Mark Complete & Rate ⭐</button>`;
+ if(j.rating) h+=`<div class="well green"><b style="color:#facc15">${'★'.repeat(j.rating)}${'☆'.repeat(5-j.rating)} ${j.rating}/5</b> — ${j.comment||''}</div>`;
+ document.getElementById('out').innerHTML=h;
+}
+
+// RENDER TIC — Different
+function renderTic(t){
+ window.currentLaundry=t;
+ let h=`<div class=card><span class=kbd>${t.ticket||t.id}</span><br><span class=badge>🎫 TIC • ${t.status||'Open'}</span><br><span class=small>${t.issue||t.service||''}</span>${laundryTimeline(t.steps)}</div>`;
+ h+=`<div class="well gray"><b>🎫 Ticket Info</b><br>Customer: ${t.name||''}<br>Issue: ${t.issue||t.description||''}<br>Priority: ${t.priority||'Normal'}<br>Status: ${t.status||''}<br>Agent: ${t.agent||t.riderName||'-'}<br></div>`;
+ if(t.status!=='Closed'&&t.status!=='Resolved') h+=`<button class="btn" style="background:#facc15;color:#000" onclick="markReceived('${t._docId}','tickets')">✅ Resolve & Rate ⭐</button>`;
+ if(t.rating) h+=`<div class="well green"><b style="color:#facc15">${'★'.repeat(t.rating)}${'☆'.repeat(5-t.rating)} ${t.rating}/5</b> — ${t.comment||''}</div>`;
  document.getElementById('out').innerHTML=h;
 }
 
 window.doTrack=async()=>{
- let id=(q.value||new URLSearchParams(location.search).get('ldy')||'').toUpperCase().trim(); if(!id){alert('Enter LDY-');return} q.value=id;
- document.getElementById('out').innerHTML='<div class=card>⏳ Checking LIVE...</div>'; document.getElementById('rateBox').innerHTML='';
- if(id.startsWith('LDY')){
-   if(unsub) unsub();
-   unsub = onSnapshot(doc(db,'laundry',id), (snap)=>{
-     if(!snap.exists()){ document.getElementById('out').innerHTML=`<div class=card>Laundry ${id} not found</div>`; return;}
-     let l={...snap.data(),_docId:snap.id}; renderLaundry(l);
+ let id=(q.value||new URLSearchParams(location.search).get('ldy')||new URLSearchParams(location.search).get('ticket')||'').toUpperCase().trim(); 
+ if(!id){alert('Enter LDY- / JOB- / TIC-');return}
+ q.value=id;
+ document.getElementById('out').innerHTML='<div class=card>⏳ Checking websuite...</div>'; document.getElementById('rateBox').innerHTML='';
+ if(unsub) unsub();
+ let collections = id.startsWith('JOB')?['jobs','laundry','tickets'] : id.startsWith('TIC')?['tickets','jobs','laundry'] : ['laundry','jobs','tickets'];
+ let tryIndex=0;
+ function tryNext(){
+   if(tryIndex>=collections.length){ document.getElementById('out').innerHTML=`<div class=card>❌ ${id} not found in websuite (checked ${collections.join(', ')})</div>`; return; }
+   let col=collections[tryIndex++];
+   unsub=onSnapshot(doc(db,col,id),(snap)=>{
+     if(!snap.exists()){ tryNext(); return; }
+     let data={...snap.data(),_docId:snap.id,ticket:snap.data().ticket||id};
+     if(col==='laundry') renderLaundry(data);
+     else if(col==='jobs') renderJob(data);
+     else if(col==='tickets') renderTic(data);
    });
  }
+ tryNext();
 }
-window.submitCode=async(docId)=>{ let code=document.getElementById('mpesaCode')?.value.trim().toUpperCase(); if(!code)return alert('Enter code'); await updateDoc(doc(db,'laundry',docId),{ mpesaCode:code, status:'Paid', paid:true }); alert('Code saved'); }
 
-window.generateReceipt=async()=>{
- let l=window.currentLaundry;
- if(!l.receiptNo){ let newRcp=genUniqueReceipt(); l.receiptNo=newRcp; try{ await updateDoc(doc(db,'laundry',l._docId),{ receiptNo:newRcp }); }catch(e){} }
- const { jsPDF }=window.jspdf; const docu=new jsPDF();
- docu.setFillColor(15,23,42); docu.rect(0,0,210,35,'F');
- docu.setTextColor(250,204,21); docu.setFontSize(16); docu.setFont('helvetica','bold'); docu.text('VECCTAPIVOT LAUNDRY SERVICES',10,14);
- docu.setFontSize(9); docu.setTextColor(148,163,184); docu.text('Valet • Steam Press • Till 1741514 • 0740899185',10,22);
- docu.setTextColor(0,0,0); docu.setFontSize(14); docu.setFont('helvetica','bold'); docu.text('RECEIPT / INVOICE',10,42);
- docu.setFontSize(11); docu.setFont('helvetica','normal'); docu.text(`Reg No / Ticket No: ${l.ticket||l.id}`,10,50);
- docu.setFontSize(12); docu.setTextColor(180,0,0); docu.setFont('helvetica','bold'); docu.text(`Receipt No (UNIQUE): ${l.receiptNo}`,10,58);
- docu.setTextColor(0,0,0); docu.setFontSize(10); docu.setFont('helvetica','normal'); let y=66;
- docu.text(`Customer: ${l.name||''} | Phone: ${l.phone||''}`,10,y); y+=6;
- docu.text(`Location: ${l.location||''}`,10,y); y+=6;
- docu.text(`Service Received: ${l.service||''}`,10,y); y+=6;
- docu.text(`Amount Paid: KES ${l.total} via Till ${TILL}`,10,y); y+=6;
- docu.text(`M-Pesa Code: ${l.mpesaCode||''}`,10,y); y+=8;
- docu.text(`Ticket Book Time: ${l.createdAt||''}`,10,y); y+=6;
- docu.text(`Service Close Time: ${l.closeTime||''}`,10,y); y+=8;
- docu.setFont('helvetica','bold'); docu.text('RIDER DETAILS:',10,y); y+=6; docu.setFont('helvetica','normal');
- docu.text(`Rider Name: ${l.riderName||'-'}`,10,y); y+=6;
- docu.text(`Rider Tel: ${l.riderTel||'-'}`,10,y); y+=6;
- docu.text(`Rider Number Plate: ${l.riderPlate||'-'}`,10,y); y+=8;
- if(l.rating){ docu.text(`Rating: ${l.rating}/5 stars — ${l.comment||''}`,10,y); y+=6; }
- docu.setFontSize(13); docu.setFont('helvetica','bold'); docu.text(`Authorized Sign (Initials): ${l.signature||''}`,10,y); y+=10;
- docu.setFontSize(9); docu.setFont('helvetica','normal'); docu.text(`Unique receipt for documentation. Till 1741514 LOCKED`,10,y);
- docu.save(`${l.receiptNo}_Receipt.pdf`);
-}
-window.shareReceipt=()=>{ let l=window.currentLaundry; let txt=`*VECCTAPIVOT RECEIPT*%0AReg No: ${l.ticket}%0AReceipt No (UNIQUE): ${l.receiptNo}%0AAmount: KES ${l.total} Till ${TILL}%0ACode: ${l.mpesaCode}%0ARider: ${l.riderName} Tel: ${l.riderTel} Plate: ${l.riderPlate}%0ASign: ${l.signature}%0A${l.rating?`Rating: ${l.rating}/5 ${l.comment||''}`:''}`; window.open('https://wa.me/?text='+txt,'_blank'); }
+window.submitCode=async(docId,ticket)=>{ let code=document.getElementById('mpesaCode')?.value.trim().toUpperCase(); if(!code)return alert('Enter code'); await updateDoc(doc(db,'laundry',docId),{ mpesaCode:code, status:'Paid', paid:true }); alert('Saved'); }
+window.generateReceipt=async()=>{ let l=window.currentLaundry; if(!l.receiptNo){ let r=genUniqueReceipt(); l.receiptNo=r; try{ await updateDoc(doc(db,'laundry',l._docId),{ receiptNo:r }); }catch(e){} } const { jsPDF }=window.jspdf; const docu=new jsPDF(); docu.setFillColor(15,23,42); docu.rect(0,0,210,35,'F'); docu.setTextColor(250,204,21); docu.setFontSize(16); docu.setFont('helvetica','bold'); docu.text('VECCTAPIVOT LAUNDRY SERVICES',10,14); docu.setFontSize(9); docu.setTextColor(148,163,184); docu.text('Valet • Steam Press • Till 1741514',10,22); docu.setTextColor(0,0,0); docu.setFontSize(12); docu.setFont('helvetica','bold'); docu.text(`Reg: ${l.ticket||l.id}`,10,42); docu.text(`Receipt No (UNIQUE): ${l.receiptNo}`,10,50); docu.setFont('helvetica','normal'); docu.setFontSize(10); let y=60; docu.text(`Customer: ${l.name||''} Phone: ${l.phone||''}`,10,y); y+=6; docu.text(`Total KES ${l.total} Till ${TILL} Code ${l.mpesaCode||''}`,10,y); y+=6; docu.text(`Rider ${l.riderName||''} Tel ${l.riderTel||''} Plate ${l.riderPlate||''}`,10,y); y+=6; docu.text(`Sign ${l.signature||''} Close ${l.closeTime||''}`,10,y); y+=6; if(l.rating) { docu.text(`Rating ${l.rating}/5 ${l.comment||''}`,10,y); y+=6; } docu.save(`${l.receiptNo}_Receipt.pdf`); }
+window.shareReceipt=()=>{ let l=window.currentLaundry; let txt=`*VECCTAPIVOT*%0AReg ${l.ticket}%0ARCP ${l.receiptNo}%0AKES ${l.total} Till ${TILL}%0ARider ${l.riderName} ${l.riderTel} ${l.riderPlate}%0ASign ${l.signature}`; window.open('https://wa.me/?text='+txt,'_blank'); }
 
-window.markReceived=async(docId)=>{
- document.getElementById('rateBox').innerHTML=`<div class="card" style="border-color:#facc15"><b style="color:#facc15">⭐ Rate your laundry — Tap stars</b><br><div id="starRow" class="star">☆☆☆☆☆</div><div class=small>Tap 1-5 stars</div><input id="rateComment" class="input" placeholder="Comment e.g. Very fresh, fast!" style="margin-top:10px"><button class="btn" style="background:#facc15;color:#000;margin-top:10px" onclick="submitRating('${docId}')">Submit Rating ⭐</button></div>`;
+// FIXED STARS — 5 clickable spans — works for LDY/JOB/TIC
+window.markReceived=async(docId,colName)=>{
+ document.getElementById('rateBox').innerHTML=`
+ <div class="card" style="border-color:#facc15;text-align:center">
+ <b style="color:#facc15">⭐ Rate — Tap a star (1-5)</b>
+ <div style="font-size:46px;margin:12px 0;letter-spacing:8px" id="starRow">
+ <span onclick="setStars(1)">☆</span><span onclick="setStars(2)">☆</span><span onclick="setStars(3)">☆</span><span onclick="setStars(4)">☆</span><span onclick="setStars(5)">☆</span>
+ </div>
+ <div id="starText" class=small>Tap to rate</div>
+ <input id="rateComment" class="input" placeholder="Comment e.g. Excellent service!" style="margin-top:10px">
+ <button class="btn" style="background:#facc15;color:#000;margin-top:10px" onclick="submitRating('${docId}','${colName}')">Submit ⭐</button>
+ </div>`;
  let rating=0;
- let row=document.getElementById('starRow');
- row.onclick=(e)=>{
-   let stars = ['☆☆☆☆','★☆☆☆☆','★★☆☆☆','★★★☆☆','★★★★☆','★★★★★'];
-   let rect=row.getBoundingClientRect(); let x=e.clientX-rect.left; let w=rect.width; let r=Math.ceil((x/w)*5); if(r<1) r=1; if(r>5) r=5;
-   rating=r; row.innerText=stars[r]; row.dataset.rating=r;
+ window.setStars=(n)=>{
+   rating=n;
+   let row=document.getElementById('starRow'); row.dataset.rating=n;
+   let spans=row.querySelectorAll('span');
+   spans.forEach((s,i)=>{ s.innerText=i<n?'★':'☆'; s.style.color=i<n?'#facc15':'#555'; });
+   document.getElementById('starText').innerText = n===1?'😡 1 — Poor':n===2?'😐 2 — Fair':n===3?'🙂 3 — Good':n===4?'😊 4 — Very Good':'🤩 5 — Excellent!';
  };
- window.submitRating=async(id)=>{
-   let r=row.dataset.rating||rating; let c=document.getElementById('rateComment').value;
-   if(!r){alert('Tap stars first'); return;}
-   await updateDoc(doc(db,'laundry',id),{ rating:parseInt(r), comment:c, status:'Delivered', receivedAt:new Date().toISOString(), steps: window.currentLaundry.steps?.map(s=> s.name==='Delivered'? {...s,status:'done',time:new Date().toLocaleString()} : s ) });
-   alert('Thanks! You rated '+r+' stars'); document.getElementById('rateBox').innerHTML=''; doTrack();
+ window.submitRating=async(id,cName)=>{
+   let r=document.getElementById('starRow').dataset.rating||rating;
+   let c=document.getElementById('rateComment').value;
+   if(!r){alert('Tap a star first');return;}
+   let statusVal = cName==='laundry'?'Delivered': cName==='jobs'?'Completed':'Resolved';
+   await updateDoc(doc(db,cName,id),{ rating:parseInt(r), comment:c, status:statusVal, receivedAt:new Date().toISOString() });
+   alert('Thanks! Rated '+r+'/5 ⭐');
+   document.getElementById('rateBox').innerHTML=''; doTrack();
  };
 }
-window.onload=()=>{ let p=new URLSearchParams(location.search); let l=p.get('ldy'); if(l){q.value=l.toUpperCase(); doTrack()} }
+window.onload=()=>{ let p=new URLSearchParams(location.search); let t=p.get('ldy')||p.get('ticket'); if(t){ q.value=t.toUpperCase(); doTrack(); } }
 </script></body></html>
