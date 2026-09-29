@@ -2,79 +2,65 @@
 <html lang="en-KE">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VECCTAPIVOT Laundry — All Combos Visible + Footer</title>
+<title>VECCTAPIVOT Laundry — Cart Fixed</title>
 <link rel="icon" href="logo.png"><link rel="stylesheet" href="style.css">
 <style>
 :root{--gold:#e8b93e;--gold2:#ffcf4d}
 .laundry-wrap{max-width:1100px;margin:0 auto;padding:12px}
 .hero-lively{background:radial-gradient(120% 120% at 10% 10%, rgba(232,185,62,.22), transparent 40%), linear-gradient(165deg, var(--panel), var(--bg-2));border:1px solid var(--line);border-radius:20px;padding:18px;margin:10px auto;max-width:600px;text-align:center}
-.kicker-live{display:inline-flex;background:rgba(232,185,62,.15);border:1px solid rgba(232,185,62,.3);color:var(--gold);padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700}
 .pickup-note{background:linear-gradient(90deg, rgba(232,185,62,.12), rgba(37,211,102,.08));border:1px solid rgba(232,185,62,.22);color:var(--text);padding:12px;border-radius:12px;margin:14px auto;max-width:600px;text-align:center;font-size:13px}
-
-/* COMBOS FULLY VISIBLE - NO INNER SCROLL */
-.combo-grid{ display:grid; grid-template-columns:1fr; gap:14px; max-width:600px; margin:0 auto; padding:8px; }
-@media(min-width:500px){.combo-grid{grid-template-columns:1fr 1fr} }
-.combo-card{border:1px solid var(--line);background:linear-gradient(180deg, var(--panel), rgba(0,0,0,.2));border-radius:18px;padding:14px;position:relative;transition:.25s}
-.combo-card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 10px 30px rgba(0,0,0,.4)}
-.combo-card.best{border-color:var(--gold);background:linear-gradient(165deg, rgba(232,185,62,.15), var(--panel))}
-.combo-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.combo-badge{background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px}
+.combo-grid{display:grid;grid-template-columns:1fr;gap:14px;max-width:600px;margin:0 auto;padding:8px}
+@media(min-width:500px){.combo-grid{grid-template-columns:1fr 1fr}}
+.combo-card{border:1px solid var(--line);background:linear-gradient(180deg, var(--panel), rgba(0,0,0,.2));border-radius:18px;padding:14px;position:relative}
+.combo-card.best{border-color:var(--gold)}.combo-badge{background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px}
 .combo-card h3{margin:6px 0 2px;font-size:17px;color:var(--text)}.combo-card p{color:var(--muted);font-size:12px}
 .combo-price b{color:var(--gold);font-size:20px}.combo-price s{color:var(--muted);opacity:.5;font-size:12px}
 .combo-btn{width:100%;padding:11px;border-radius:12px;border:0;background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;font-weight:800;cursor:pointer}
-
 .subs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px auto;max-width:600px}
-.sub-card{border:1px solid var(--line);background:linear-gradient(180deg, var(--bg-2), var(--panel));border-radius:16px;padding:16px;cursor:pointer;transition:.25s}
-.sub-card:hover{border-color:rgba(232,185,62,.4);transform:translateY(-2px)}
-.sub-card h4{color:var(--text);font-size:13px}
+.sub-card{border:1px solid var(--line);background:linear-gradient(180deg, var(--bg-2), var(--panel));border-radius:16px;padding:16px;cursor:pointer}
+.sub-card.active{border-color:var(--gold);background:linear-gradient(165deg, rgba(232,185,62,.15), var(--panel))}
 .sub-items{display:none;margin:10px auto 20px;max-width:600px;border:1px dashed var(--line);border-radius:14px;padding:14px;background:var(--panel)}.sub-items.open{display:block}
-.item-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}.item-add{border:1px solid var(--gold);background:rgba(232,185,62,.12);color:var(--gold);padding:6px 12px;border-radius:20px;font-weight:700;cursor:pointer}
-.cart-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(15,23,42,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:14px 16px;display:none;justify-content:space-between;z-index:99}.cart-bar.show{display:flex}
-.date-sel,.time-sel{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.date-sel button,.time-sel button{padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg-2);color:var(--muted);font-size:11px;cursor:pointer;min-width:68px}.date-sel button.active,.time-sel button.active{background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;border-color:var(--gold);transform:scale(1.05)}
+.item-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}.item-add{border:1px solid var(--gold);background:rgba(232,185,62,.12);color:var(--gold);padding:6px 12px;border-radius:20px;font-weight:700;cursor:pointer}
+.cart-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(15,23,42,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:14px 16px;display:none;justify-content:space-between;align-items:center;z-index:99}.cart-bar.show{display:flex}
+.date-sel,.time-sel{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.date-sel button,.time-sel button{padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg-2);color:var(--muted);font-size:11px;cursor:pointer;min-width:68px}.date-sel button.active,.time-sel button.active{background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;border-color:var(--gold)}
 .formcard-lively{background:linear-gradient(180deg, var(--panel), var(--bg-2));border:1px solid var(--line);border-radius:18px;padding:18px}
 .btn-lively{width:100%;padding:15px;border-radius:14px;background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;font-weight:900;font-size:16px;border:0;cursor:pointer;box-shadow:0 8px 22px rgba(232,185,62,.35)}
-
-/* FOOTER GOOD WORDS */
 .footer-lively{max-width:600px;margin:40px auto 90px;text-align:center;padding:24px 16px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(165deg, var(--panel), var(--bg-2))}
-.footer-lively h3{color:var(--gold);margin:6px 0;font-size:18px}
-.footer-lively p{color:var(--muted);font-size:13px;line-height:1.6}
 </style>
 </head>
 <body>
-<div class="utility"><div class="uwrap"><span class="uitem"><span class="ubadge">BRS BN-AYSO8LRE</span></span><span class="uitem">✨ All Combos Visible</span></div></div>
+<div class="utility"><div class="uwrap"><span class="uitem">✨ Cart Fixed · 7 Days Lock</span><a class="uitem" href="https://wa.me/254788099685">WhatsApp</a></div></div>
 <header class="top"><div class="navrow"><a class="brand" href="index.html"><img src="logo.png"><span class="brandname">Vecctapivot<em>Laundry</em></span></a><nav class="mainnav"><a href="track.html">Track & Amend</a></nav></div></header>
 <main class="laundry-wrap">
-<div class="hero-lively">
-<span class="kicker-live">🔥 LIVE · 4-HR EXPRESS</span>
-<h1 style="margin:10px 0 4px;color:var(--text);font-size:26px">Laundry that <span style="color:var(--gold)">Sparkles ✨</span></h1>
-<p style="color:var(--muted);font-size:13px">Scroll down — all combos & services fully visible. No hidden scroll.</p>
-</div>
+<div class="hero-lively"><h1 style="margin:10px 0 4px;color:var(--text);font-size:26px">Laundry that <span style="color:var(--gold)">Sparkles ✨</span></h1><p style="color:var(--muted);font-size:13px">Cart now corresponds — what you add = what you pay</p></div>
+<div class="pickup-note">📅 Pickup: <b style="color:var(--gold)">Today → 7 days only</b> · FREE within Olk · Beyond Olk 70% rider</div>
 
-<div class="pickup-note">📅 Pickup: <b style="color:var(--gold)">Today → 7 days only</b> · Future tickets amendable to more current date</div>
-
-<h3 style="max-width:600px;margin:18px auto 8px;color:var(--text)">🔥 Top 5 Combos — Fully Visible, Scroll Down</h3>
+<h3 style="max-width:600px;margin:18px auto 8px;color:var(--text)">🔥 Top 5 Combos — Fully Visible</h3>
 <div class="combo-grid" id="comboGrid"></div>
 
-<h3 style="max-width:600px;margin:22px auto 8px;color:var(--text)">🧺 All Services — 5 Subs (tap to open)</h3>
+<h3 style="max-width:600px;margin:22px auto 8px;color:var(--text)">🧺 All Services — First Opens</h3>
 <div class="subs-grid" id="subsGrid"></div><div id="subItemsWrap"></div>
 
 <section class="formcard-lively" style="max-width:600px;margin:24px auto;display:block;">
 <form onsubmit="return false;">
 <fieldset style="border:1px solid var(--line);padding:16px;border-radius:14px;margin-bottom:18px;">
 <legend style="color:var(--gold);font-weight:800;font-size:.78rem;padding:0 8px;">1. ✨ PICKUP — 7 DAYS LOCK</legend>
-<div class="frow"><div class="field"><label>Full Name</label><input id="laundName" placeholder="Jane Wanjiku" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)"></div><div class="field"><label>Phone</label><input id="laundPhone" placeholder="+254 7XX" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)"></div></div>
-<div class="field"><label>📅 Pickup Date — Next 7 Days Only</label><div class="date-sel" id="dateSel"></div><input type="hidden" id="laundDate"></div>
+<div class="frow"><div class="field"><label>Full Name</label><input id="laundName" placeholder="Jane" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)"></div><div class="field"><label>Phone</label><input id="laundPhone" placeholder="+254 7XX" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)"></div></div>
+<div class="field"><label>📅 Pickup Date — 7 Days Only</label><div class="date-sel" id="dateSel"></div><input type="hidden" id="laundDate"></div>
 <div class="field"><label>⏰ Pickup Time</label><div class="time-sel" id="timeSel"><button data-time="10:00 AM">☀️ 10AM</button><button data-time="2:00 PM" class="active">🌤️ 2PM</button><button data-time="4:00 PM">🌆 4PM</button><button data-time="6:00 PM">🌙 6PM</button></div></div>
 <div class="frow"><div class="field"><label>📍 Area</label><select id="laundArea" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"><option value="olk">Within Olk — FREE</option><option value="beyond">Beyond Olk — Pay 70% Rider</option></select></div><div class="field"><label>Estate</label><input id="laundLocation" placeholder="Olk Town" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"></div></div>
 <div style="padding:12px;background:rgba(232,185,62,.06);border:1px dashed rgba(232,185,62,.25);border-radius:12px;text-align:center;margin-top:12px"><span style="font-size:.72rem;color:var(--muted)">🚚 DELIVERY TIME</span><span id="autoDeliveryDisplay" style="display:block;color:var(--gold);font-weight:800;margin-top:4px;font-size:15px"></span></div>
 </fieldset>
+
 <fieldset style="border:1px solid var(--line);padding:16px;border-radius:14px;margin-bottom:18px;">
-<legend style="color:var(--gold);font-weight:800;font-size:.78rem;padding:0 8px;">2. 🛒 Cart</legend>
-<div id="cartPreview" style="font-size:13px;color:var(--muted)">Add combos/services — all visible as you scroll down.</div>
-<div class="field" style="margin-top:12px"><label>Custom (if cart empty)</label><select id="laundService" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"><option value="80">Express Wash 80/kg</option><option value="130">Executive 130/kg</option><option value="400">Duvet 400 Flat</option><option value="150">Shoes 150/pair</option></select></div>
-<div class="field"><label>Qty</label><input type="number" id="laundQty" value="5" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"></div>
+<legend style="color:var(--gold);font-weight:800;font-size:.78rem;padding:0 8px;">2. 🛒 Cart — Corresponds</legend>
+<div id="cartPreview" style="font-size:13px;color:var(--muted);line-height:1.6">No items yet. Add combos or subs above.</div>
+<div id="cartBreakdown" style="margin-top:10px;font-size:12px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px"></div>
+<div class="field" style="margin-top:12px"><label>Custom (only if cart empty)</label><select id="laundService" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"><option value="80">Express Wash 80/kg</option><option value="130">Executive 130/kg</option><option value="400">Duvet 400 Flat</option><option value="150">Shoes 150/pair</option></select></div>
+<div class="field"><label>Qty / KG</label><input type="number" id="laundQty" value="5" min="1" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"></div>
 </fieldset>
-<div style="text-align:center;border:1px solid rgba(232,185,62,.2);border-radius:14px;padding:16px;background:linear-gradient(180deg, rgba(232,185,62,.08), var(--bg-2))"><span style="font-size:.72rem;color:var(--muted)">💰 INVOICE TOTAL</span><h2 id="laundTotalDisplay" style="color:var(--gold);font-size:2.6rem;margin:6px 0">KES 0</h2><p id="deliveryFeeText" style="font-size:12px;color:var(--muted)"></p><div style="margin-top:8px;font-size:12px">Till <b style="color:var(--gold)">1741514</b> 🟩</div></div>
+
+<div style="text-align:center;border:1px solid rgba(232,185,62,.2);border-radius:14px;padding:16px;background:linear-gradient(180deg, rgba(232,185,62,.08), var(--bg-2))"><span style="font-size:.72rem;color:var(--muted)">💰 INVOICE TOTAL — Same as Cart + Rider</span><h2 id="laundTotalDisplay" style="color:var(--gold);font-size:2.6rem;margin:6px 0">KES 0</h2><p id="deliveryFeeText" style="font-size:12px;color:var(--muted)"></p><div style="margin-top:8px;font-size:12px">Till <b style="color:var(--gold)">1741514</b> 🟩</div></div>
 <p id="localFormErr" hidden style="background:rgba(180,60,60,.14);border:1px solid rgba(220,100,100,.5);color:#f0b8b8;padding:10px;border-radius:10px;margin:12px 0"></p>
 <button type="button" id="laundSubmitBtn" class="btn-lively">🎟️ BOOK TICKET FIRST →</button>
 <p id="cloudStatus" style="text-align:center;color:#94a3b8;font-size:12px;margin-top:10px"></p>
@@ -87,9 +73,8 @@
 <div style="display:grid;grid-template-columns:35% 65%;background:rgba(11,18,32,.4)"><dt style="padding:10px;color:var(--muted)">CLIENT</dt><dd id="recName" style="padding:10px;border-left:1px solid var(--line)"></dd></div>
 <div style="display:grid;grid-template-columns:35% 65%"><dt style="padding:10px;color:var(--muted)">SERVICES</dt><dd id="recService" style="padding:10px;border-left:1px solid var(--line)"></dd></div>
 <div style="display:grid;grid-template-columns:35% 65%;background:rgba(11,18,32,.5)"><dt style="padding:10px;color:var(--muted)">PICKUP</dt><dd id="recDateTime" style="padding:10px;border-left:1px solid var(--line);color:var(--gold)"></dd></div>
-<div style="display:grid;grid-template-columns:35% 65%"><dt style="padding:10px;color:var(--muted)">TOTAL</dt><dd id="recTotal" style="padding:10px;border-left:1px solid var(--line);color:var(--gold);font-weight:800"></dd></div>
+<div style="display:grid;grid-template-columns:35% 65%"><dt style="padding:10px;color:var(--muted)">TOTAL PAID</dt><dd id="recTotal" style="padding:10px;border-left:1px solid var(--line);color:var(--gold);font-weight:800"></dd></div>
 </div>
-<p style="font-size:12px;color:var(--muted)">Ticket booked first. Now optional:</p>
 <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px">
 <a id="waTicketLink" target="_blank" style="background:#25D366;color:#fff;padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:800">💬 Share to WhatsApp</a>
 <a id="trackLink" href="track.html" style="border:1px solid var(--line);padding:12px 18px;border-radius:12px;color:var(--text);text-decoration:none;background:var(--bg-2)">📍 Track & Amend Date →</a>
@@ -99,24 +84,31 @@
 <div class="footer-lively">
 <h3>💛 Vecctapivot Enterprises — Olk Laundry</h3>
 <p>We don't just wash clothes, we bring back freshness, confidence and comfort. Every fold is care, every press is pride.</p>
-<p style="margin-top:10px"><b style="color:var(--gold)">BRS BN-AYSO8LRE</b> · 64 Services · Pillar 8 Express</p>
-<p style="margin-top:8px;font-size:11px">🌟 "Clean clothes, clear mind. Fresh wear, fresh day."<br>🚚 FREE within Olk · Beyond Olk pay 70% rider, we cover 30% · ⏱️ 4HR TAT · 🎟️ Track LDY- globally</p>
+<p style="margin-top:10px"><b style="color:var(--gold)">64 Services · Pillar 8 Express</b></p>
+<p style="margin-top:8px;font-size:11px">🌟 "Clean clothes, clear mind. Fresh wear, fresh day."<br>🚚 FREE within Olk · Beyond Olk pay 70% rider · ⏱️ 4HR TAT · 🎟️ Track LDY- globally</p>
 <p style="margin-top:12px"><a href="https://wa.me/254788099685" style="color:var(--gold);text-decoration:none;font-weight:700">WhatsApp +254 788 099 685 →</a> · Till 1741514</p>
+<p style="margin-top:10px;font-size:11px;color:var(--muted)">✨ Freshness delivered, happiness returned.</p>
 </div>
-
 </main>
-<div class="cart-bar" id="cartBar"><span id="cartText"></span><button id="cartCheckout" style="background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;border:0;padding:10px 16px;border-radius:10px;font-weight:800"></button></div>
+
+<div class="cart-bar" id="cartBar">
+<div>
+<div id="cartText" style="font-weight:700"></div>
+<div id="cartSub" style="font-size:11px;color:var(--muted)"></div>
+</div>
+<button id="cartCheckout" style="background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;border:0;padding:10px 16px;border-radius:10px;font-weight:800"></button>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script type="module">
 import { db } from './firebase.js';
 import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const combos=[
-{id:'c1',name:'FAMILY FRESH',price:999,normal:1250,save:251,off:'20% OFF',desc:'10KG Wash & Fold + Duvet 5x6 — Family power pack',badge:'🔥 BEST SELLER',tat:'8HRS',emoji:'👨‍👩‍👧‍👦'},
-{id:'c2',name:'BEDROOM RESET',price:799,normal:990,save:191,off:'19% OFF',desc:'Duvet 5x6 + Bedsheet + Towel x2 — Sleep fresh',badge:'🛏️ SAVE 191',tat:'12HRS',emoji:'🛏️'},
-{id:'c3',name:'HOME SHINE',price:549,normal:660,save:111,desc:'Curtains 5KG + Mat x2 — Home glow up',badge:'✨ SAVE 111',tat:'12HRS',emoji:'🏠'},
-{id:'c4',name:'OFFICE READY',price:449,normal:600,save:151,off:'25% OFF',desc:'Iron 15 items + Shoes 1 Pair — Boss look',badge:'⚡ EXPRESS',tat:'4HRS',emoji:'👔'},
-{id:'c5',name:'PREMIUM DEEP',price:549,normal:690,save:141,off:'20% OFF',desc:'Jackets 3KG + Shoes 2 Pair — Premium care',badge:'💎 SAVE 141',tat:'24HRS',emoji:'💎'}
+{id:'c1',name:'FAMILY FRESH',price:999,normal:1250,save:251,off:'20% OFF',desc:'10KG Wash & Fold + Duvet 5x6',badge:'🔥 BEST SELLER',tat:'8HRS'},
+{id:'c2',name:'BEDROOM RESET',price:799,normal:990,save:191,off:'19% OFF',desc:'Duvet 5x6 + Bedsheet + Towel x2',badge:'🛏️ SAVE 191',tat:'12HRS'},
+{id:'c3',name:'HOME SHINE',price:549,normal:660,save:111,desc:'Curtains 5KG + Mat x2',badge:'✨ SAVE 111',tat:'12HRS'},
+{id:'c4',name:'OFFICE READY',price:449,normal:600,save:151,off:'25% OFF',desc:'Iron 15 items + Shoes 1 Pair',badge:'⚡ EXPRESS',tat:'4HRS'},
+{id:'c5',name:'PREMIUM DEEP',price:549,normal:690,save:141,off:'20% OFF',desc:'Jackets 3KG + Shoes 2 Pair',badge:'💎 SAVE 141',tat:'24HRS'}
 ];
 const subs=[
 {key:'everyday',name:'EVERYDAY FRESH',from:'80/kg',icon:'👕',items:[{name:'Wash & Fold Light 5KG',price:400},{name:'Wash & Fold 10KG',price:800}]},
@@ -129,43 +121,115 @@ let cart=[],selectedTime='2:00 PM',selectedDate='',ticketId='';
 const dates=[]; for(let i=0;i<7;i++){let d=new Date();d.setDate(d.getDate()+i);let iso=d.toISOString().split('T')[0];let label=i===0?'Today':i===1?'Tomorrow':d.toLocaleDateString('en-KE',{weekday:'short',day:'numeric'});dates.push({iso,label}); if(i===0)selectedDate=iso;}
 const dateSelEl=document.getElementById('dateSel');
 dateSelEl.innerHTML=dates.map((d,i)=>`<button data-date="${d.iso}" class="${i===0?'active':''}"><span style="font-weight:800">${d.label}</span><br><small style="font-size:9px">${d.iso.slice(5)}</small></button>`).join('');
-function renderCombos(){document.getElementById('comboGrid').innerHTML=combos.map(c=>`<div class="combo-card ${c.id==='c1'?'best':''}"><div class="combo-top"><span class="combo-badge">${c.badge}</span><span style="color:var(--gold);font-size:11px;font-weight:700">${c.emoji} SAVE ${c.save} ${c.off?'| '+c.off:''}</span></div><h3>${c.name}</h3><p>${c.desc}</p><div class="combo-price"><b>KES ${c.price}</b> <s>${c.normal}</s> <small>⏱️ ${c.tat}</small></div><button class="combo-btn" onclick="addCombo('${c.id}')">➕ Add — KES ${c.price}</button></div>`).join('');}
-function renderSubs(){document.getElementById('subsGrid').innerHTML=subs.map(s=>`<div class="sub-card" onclick="openSub('${s.key}')"><span style="font-size:20px">${s.icon}</span><br><small>${s.from}</small><h4>${s.name}</h4><small style="color:var(--gold)">Tap →</small></div>`).join('');document.getElementById('subItemsWrap').innerHTML=subs.map(s=>`<div class="sub-items" id="sub-${s.key}"><h4>${s.icon} ${s.name}</h4>${s.items.map(it=>`<div class="item-row"><span>${it.name}<br><b style="color:var(--gold)">KES ${it.price}</b></span><button class="item-add" onclick="addItem('${it.name}',${it.price})">Add +</button></div>`).join('')}<button onclick="closeSub('${s.key}')" style="margin-top:10px;padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)">Close</button></div>`).join('');}
-window.openSub=k=>{document.querySelectorAll('.sub-items').forEach(d=>d.classList.remove('open'));document.getElementById('sub-'+k).classList.add('open')};window.closeSub=k=>document.getElementById('sub-'+k).classList.remove('open');
-window.addCombo=id=>{const c=combos.find(x=>x.id===id);cart.push({name:c.name,price:c.price});updateCart()};window.addItem=(n,p)=>{cart.push({name:n,price:p});updateCart()};
-function updateCart(){const total=cart.reduce((s,i)=>s+i.price,0);const bar=document.getElementById('cartBar');if(cart.length>0){bar.classList.add('show');document.getElementById('cartText').textContent=`🛒 ${cart.length} items — KES ${total}`;document.getElementById('cartCheckout').textContent=cart.length===1?'🎟️ Book Ticket':'Checkout';document.getElementById('cartPreview').innerHTML=cart.map(i=>`✨ ${i.name} — KES ${i.price}`).join('<br>');}else{bar.classList.remove('show');document.getElementById('cartPreview').textContent='Add combos/services — all visible as you scroll.';}calc();}
-const serviceEl=document.getElementById('laundService'),qtyEl=document.getElementById('laundQty'),areaEl=document.getElementById('laundArea'),totalEl=document.getElementById('laundTotalDisplay'),deliveryEl=document.getElementById('autoDeliveryDisplay'),submitBtn=document.getElementById('laundSubmitBtn'),deliveryFeeText=document.getElementById('deliveryFeeText');
-function calc(){let subtotal=cart.length?cart.reduce((s,i)=>s+i.price,0):Math.max(400,parseInt(serviceEl.value)*(parseInt(qtyEl.value)||1));let area=areaEl.value,delivery=area==='beyond'?Math.round(200*0.7):0;deliveryFeeText.textContent=area==='olk'?'✅ FREE within Olk':'🚚 Beyond Olk you pay 70% = KES '+delivery+' (we pay 30%)';let grand=subtotal+delivery;totalEl.textContent='KES '+grand.toLocaleString();let pickHour=selectedTime.includes('10')?10:selectedTime.includes('2')?14:selectedTime.includes('4')?16:18;let delHour=pickHour+4;let isToday=selectedDate===dates[0].iso;deliveryEl.textContent=isToday?(delHour>18?'✨ Today '+selectedTime+' → Tomorrow 9AM':'⚡ Today '+selectedTime+' → Today '+(delHour>12?delHour-12:delHour)+'PM'):`📅 ${selectedDate} ${selectedTime} → same day`;submitBtn.textContent=`🎟️ BOOK TICKET — ${selectedDate} ${selectedTime} → KES ${grand}`;return grand;}
-dateSelEl.addEventListener('click',e=>{let btn=e.target.closest('button');if(!btn)return;document.querySelectorAll('#dateSel button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedDate=btn.dataset.date;calc();});
-document.getElementById('timeSel').addEventListener('click',e=>{let btn=e.target.closest('button');if(!btn)return;document.querySelectorAll('#timeSel button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedTime=btn.dataset.time;calc();});
-serviceEl.addEventListener('change',calc);qtyEl.addEventListener('input',calc);areaEl.addEventListener('change',calc);
+
+function renderCombos(){document.getElementById('comboGrid').innerHTML=combos.map(c=>`<div class="combo-card ${c.id==='c1'?'best':''}"><div style="display:flex;justify-content:space-between"><span class="combo-badge">${c.badge}</span><span style="color:var(--gold);font-size:11px">SAVE ${c.save}</span></div><h3>${c.name}</h3><p>${c.desc}</p><div class="combo-price"><b>KES ${c.price}</b> <s>${c.normal}</s> <small>⏱️ ${c.tat}</small></div><button class="combo-btn" onclick="addCombo('${c.id}')">➕ Add — KES ${c.price}</button></div>`).join('');}
+
+function renderSubs(){
+  document.getElementById('subsGrid').innerHTML=subs.map((s,i)=>`<div class="sub-card ${i===0?'active':''}" id="card-${s.key}" onclick="openSub('${s.key}')"><span style="font-size:20px">${s.icon}</span><br><small>${s.from}</small><h4>${s.name}</h4><small style="color:var(--gold)">${i===0?'Open ✓':'Tap →'}</small></div>`).join('');
+  document.getElementById('subItemsWrap').innerHTML=subs.map((s,i)=>`<div class="sub-items ${i===0?'open':''}" id="sub-${s.key}"><h4>${s.icon} ${s.name}</h4>${s.items.map(it=>`<div class="item-row"><span>${it.name}<br><b style="color:var(--gold)">KES ${it.price}</b></span><button class="item-add" onclick="addItem('${it.name}',${it.price})">Add +</button></div>`).join('')}<button onclick="closeSub('${s.key}')" style="margin-top:10px;padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)">Close</button></div>`).join('');
+}
+window.openSub=k=>{
+  document.querySelectorAll('.sub-items').forEach(d=>d.classList.remove('open'));
+  document.querySelectorAll('.sub-card').forEach(c=>c.classList.remove('active'));
+  document.getElementById('sub-'+k).classList.add('open');
+  document.getElementById('card-'+k).classList.add('active');
+};
+window.closeSub=k=>{
+  document.getElementById('sub-'+k).classList.remove('open');
+  document.getElementById('card-'+k).classList.remove('active');
+};
+window.addCombo=id=>{const c=combos.find(x=>x.id===id);cart.push({name:c.name,price:c.price,qty:1});updateCart()};
+window.addItem=(n,p)=>{cart.push({name:n,price:p,qty:1});updateCart()};
+window.removeCartIndex=i=>{cart.splice(i,1);updateCart()};
+
+function calcTotals(){
+  let area=document.getElementById('laundArea').value;
+  let delivery = area==='beyond'? Math.round(200*0.7) : 0;
+  let subtotal, breakdown;
+  if(cart.length>0){
+    subtotal = cart.reduce((s,it)=>s+it.price*it.qty,0);
+    breakdown = cart.map((it,idx)=>`${idx+1}. ${it.name} ×${it.qty} = KES ${it.price*it.qty} <a onclick="removeCartIndex(${idx})" style="color:#ff8a8a;cursor:pointer">[x]</a>`).join('<br>');
+    breakdown += `<br>Subtotal: KES ${subtotal}<br>Rider: KES ${delivery} ${delivery===0?'(FREE)':'(70% you pay)'}`;
+  }else{
+    let unit = parseInt(document.getElementById('laundService').value);
+    let qty = parseInt(document.getElementById('laundQty').value)||1;
+    subtotal = Math.max(400, unit*qty);
+    let svcName = document.getElementById('laundService').options[document.getElementById('laundService').selectedIndex].text;
+    breakdown = `Custom: ${svcName} × ${qty} = KES ${subtotal}<br>Rider: KES ${delivery}`;
+  }
+  let grand = subtotal + delivery;
+  return {subtotal, delivery, grand, breakdown};
+}
+
+function updateCart(){
+  let {subtotal, delivery, grand, breakdown} = calcTotals();
+  const bar=document.getElementById('cartBar');
+  const preview=document.getElementById('cartPreview');
+  const breakdownEl=document.getElementById('cartBreakdown');
+  const totalEl=document.getElementById('laundTotalDisplay');
+  const deliveryFeeText=document.getElementById('deliveryFeeText');
+  const cartText=document.getElementById('cartText');
+  const cartSub=document.getElementById('cartSub');
+  const checkout=document.getElementById('cartCheckout');
+
+  if(cart.length>0){
+    bar.classList.add('show');
+    preview.innerHTML = cart.map((it,i)=>`✨ ${i+1}. ${it.name} — KES ${it.price}`).join('<br>');
+    breakdownEl.innerHTML = breakdown;
+    cartText.textContent = `🛒 ${cart.length} items — KES ${grand.toLocaleString()}`;
+    cartSub.textContent = `Subtotal ${subtotal} + Rider ${delivery}`;
+    checkout.textContent = `Book KES ${grand}`;
+  }else{
+    bar.classList.remove('show');
+    let svc = document.getElementById('laundService').options[document.getElementById('laundService').selectedIndex].text;
+    let qty = document.getElementById('laundQty').value;
+    preview.textContent = `No cart items — using Custom: ${svc} × ${qty}`;
+    breakdownEl.innerHTML = breakdown;
+  }
+  totalEl.textContent = `KES ${grand.toLocaleString()}`;
+  deliveryFeeText.textContent = delivery===0?'✅ FREE within Olk — Cart = Invoice':`🚚 Beyond Olk — you pay 70% = KES ${delivery} (we pay 30%) — Cart = Invoice`;
+  // delivery time
+  let pickHour=selectedTime.includes('10')?10:selectedTime.includes('2')?14:selectedTime.includes('4')?16:18;
+  let delHour=pickHour+4;
+  let isToday=selectedDate===dates[0].iso;
+  document.getElementById('autoDeliveryDisplay').textContent = isToday?(delHour>18?'Today '+selectedTime+' → Tomorrow 9AM':'Today '+selectedTime+' → Today '+ (delHour>12?delHour-12:delHour)+'PM'):`${selectedDate} ${selectedTime} → same day`;
+  document.getElementById('laundSubmitBtn').textContent = `🎟️ BOOK TICKET — ${selectedDate} ${selectedTime} → KES ${grand.toLocaleString()}`;
+  return grand;
+}
+
+dateSelEl.addEventListener('click',e=>{let btn=e.target.closest('button');if(!btn)return;document.querySelectorAll('#dateSel button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedDate=btn.dataset.date;updateCart();});
+document.getElementById('timeSel').addEventListener('click',e=>{let btn=e.target.closest('button');if(!btn)return;document.querySelectorAll('#timeSel button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedTime=btn.dataset.time;updateCart();});
+document.getElementById('laundService').addEventListener('change',updateCart);
+document.getElementById('laundQty').addEventListener('input',updateCart);
+document.getElementById('laundArea').addEventListener('change',updateCart);
+
 document.getElementById('laundSubmitBtn').addEventListener('click',async()=>{
-let name=document.getElementById('laundName').value.trim(),phone=document.getElementById('laundPhone').value.trim(),loc=document.getElementById('laundLocation').value.trim(),area=areaEl.value;
+let name=document.getElementById('laundName').value.trim(),phone=document.getElementById('laundPhone').value.trim(),loc=document.getElementById('laundLocation').value.trim(),area=document.getElementById('laundArea').value;
 let err=document.getElementById('localFormErr');
 if(!name||!phone||!loc||!selectedDate){err.textContent='Fill name, phone, estate, date';err.hidden=false;return;}err.hidden=true;
-let final=calc();
+let {subtotal, delivery, grand, breakdown} = calcTotals();
+let finalTotal = grand;
 const existing=JSON.parse(localStorage.getItem('veccta_laundry_tickets')||'[]');
 do{let n=Math.floor(10000+Math.random()*90000);ticketId='LDY-'+n;}while(existing.includes(ticketId));
 existing.push(ticketId);localStorage.setItem('veccta_laundry_tickets',JSON.stringify(existing));
-let serviceText=cart.length?cart.map(i=>i.name+' '+i.price).join(' + '):serviceEl.options[serviceEl.selectedIndex].text+' x '+qtyEl.value;
-let orderData={id:ticketId,ticket:ticketId,page:"laundry",name,phone,location:loc,pickupDate:selectedDate,pickupTime:selectedTime,originalPickupDate:selectedDate,amendable:true,area:area==='olk'?'Within Olk FREE':'Beyond Olk 70% rider',service:serviceText,total:totalEl.textContent,delivery:deliveryEl.innerText,cart,createdAt:new Date().toLocaleString(),createdAtTS:serverTimestamp(),status:"Received",steps:[{name:"Received",status:"done",time:new Date().toLocaleString()},{name:"Washing",status:"pending"},{name:"Ironing",status:"pending"},{name:"Ready",status:"pending"},{name:"Delivered",status:"pending"}]};
+let serviceText = cart.length>0? cart.map(it=>`${it.name} KES ${it.price}`).join(' + ') + ` | Subtotal ${subtotal} + Rider ${delivery} = ${grand}` : `${document.getElementById('laundService').options[document.getElementById('laundService').selectedIndex].text} x ${document.getElementById('laundQty').value} = ${grand}`;
+let orderData={id:ticketId,ticket:ticketId,page:"laundry",name,phone,location:loc,pickupDate:selectedDate,pickupTime:selectedTime,originalPickupDate:selectedDate,amendable:true,area:area==='olk'?'Within Olk FREE':'Beyond Olk 70% rider = '+delivery,service:serviceText,subtotal,deliveryFee:delivery,total:`KES ${grand}`,delivery:document.getElementById('autoDeliveryDisplay').innerText,cart,createdAt:new Date().toLocaleString(),createdAtTS:serverTimestamp(),status:"Received",steps:[{name:"Received",status:"done",time:new Date().toLocaleString()},{name:"Washing",status:"pending"},{name:"Ironing",status:"pending"},{name:"Ready",status:"pending"},{name:"Delivered",status:"pending"}]};
 localStorage.setItem('order_'+ticketId,JSON.stringify(orderData));
-try{document.getElementById('cloudStatus').textContent='⏳ Saving... ✨';await setDoc(doc(db,'laundry',ticketId),orderData);document.getElementById('cloudStatus').textContent='✅ Saved — amendable in Track 📍';}catch(e){document.getElementById('cloudStatus').textContent='⚠️ Local only';}
+try{document.getElementById('cloudStatus').textContent='⏳ Saving... ✨';await setDoc(doc(db,'laundry',ticketId),orderData);document.getElementById('cloudStatus').textContent='✅ Saved — Cart = Invoice = Ticket';}catch(e){document.getElementById('cloudStatus').textContent='⚠️ Local only';}
 document.getElementById('ticketRefHeader').textContent=ticketId;
 document.getElementById('recName').textContent=name+' ('+phone+')';
 document.getElementById('recService').textContent=serviceText;
-document.getElementById('recDateTime').textContent=selectedDate+' '+selectedTime+' — '+deliveryEl.innerText+' (amendable to more current date)';
-document.getElementById('recLoc').textContent=loc;
-document.getElementById('recTotal').textContent=totalEl.textContent;
-document.getElementById('qrcode').innerHTML='';new QRCode(document.getElementById('qrcode'),{text:ticketId+'|'+totalEl.textContent,width:128,height:128});
-let waMsg=`✨ VECCTAPIVOT Laundry TICKET ${ticketId} BOOKED 🎉\nName:${name}\nServices:${serviceText}\nTotal:${totalEl.textContent}\nPickup:${selectedDate} ${selectedTime}\nLocation:${loc}\nTrack: track.html?laundry=${ticketId}`;
+document.getElementById('recDateTime').textContent=selectedDate+' '+selectedTime+' — '+document.getElementById('autoDeliveryDisplay').innerText;
+document.getElementById('recTotal').textContent=`KES ${grand} (corresponds)`;
+document.getElementById('qrcode').innerHTML='';new QRCode(document.getElementById('qrcode'),{text:ticketId+'|KES '+grand,width:128,height:128});
+let waMsg=`✨ VECCTAPIVOT Laundry TICKET ${ticketId} BOOKED\nName:${name}\n${serviceText}\nPickup:${selectedDate} ${selectedTime}\nLocation:${loc}\nTrack: track.html?laundry=${ticketId}`;
 let waLink=`https://wa.me/254788099685?text=${encodeURIComponent(waMsg)}`;
 document.getElementById('waTicketLink').href=waLink;
 document.getElementById('trackLink').href='track.html?laundry='+ticketId+'&amend=1';
 document.getElementById('laundryTicketResult').hidden=false;
 document.getElementById('laundryTicketResult').scrollIntoView({behavior:'smooth'});
 });
-renderCombos();renderSubs();calc();
+renderCombos();renderSubs();updateCart();
 </script>
 </body>
 </html>
