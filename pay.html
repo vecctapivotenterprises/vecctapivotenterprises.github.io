@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lipa na M-Pesa - Veccta Pivot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body{font-family:Arial; background:#f4f4f4; display:flex; justify-content:center; align-items:center; min-height:100vh; margin:0}
+    .box{background:white; padding:25px; border-radius:12px; width:90%; max-width:400px; box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+    h2{color:#00a651; text-align:center}
+    input,button{width:100%; padding:14px; margin:10px 0; border-radius:8px; border:1px solid #ddd; box-sizing:border-box; font-size:16px}
+    button{background:#00a651; color:white; border:none; font-weight:bold; cursor:pointer}
+    button:disabled{background:gray}
+    #result{margin-top:15px; padding:10px; border-radius:8px; text-align:center; display:none}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Lipa na M-Pesa TILL</h2>
+    <p style="text-align:center; color:gray">Veccta Pivot Enterprises</p>
+    <input type="tel" id="phone" placeholder="Phone 2547XXXXXXXX" value="254708374149">
+    <input type="number" id="amount" placeholder="Amount" value="1">
+    <button id="payBtn" onclick="pay()">LIPA NA M-PESA</button>
+    <div id="result"></div>
+  </div>
+
+<script>
+async function pay(){
+  const phone = document.getElementById('phone').value.trim();
+  const amount = document.getElementById('amount').value.trim();
+  const btn = document.getElementById('payBtn');
+  const resDiv = document.getElementById('result');
+
+  if(!phone || !amount){ alert("Enter phone and amount"); return; }
+
+  btn.disabled = true;
+  btn.innerText = "Sending STK...";
+  resDiv.style.display = "block";
+  resDiv.innerText = "⏳ Sending request to M-Pesa...";
+  resDiv.style.background = "#fff3cd";
+
+  try{
+    // Change this URL after Netlify deploy to your Netlify function URL
+    const response = await fetch('/.netlify/functions/mpesa', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ phone, amount })
+    });
+    
+    const data = await response.json();
+    console.log(data);
+    
+    if(data.ResponseCode == "0"){
+      resDiv.innerText = "✅ " + data.CustomerMessage + " - Check phone to complete";
+      resDiv.style.background = "#d4edda";
+    } else {
+      resDiv.innerText = "❌ Error: " + (data.errorMessage || data.error || JSON.stringify(data));
+      resDiv.style.background = "#f8d7da";
+    }
+  } catch(e){
+    resDiv.innerText = "❌ Network Error: " + e.message + " - Are you on Netlify? Use Netlify URL not GitHub Pages for test";
+    resDiv.style.background = "#f8d7da";
+  }
+  
+  btn.disabled = false;
+  btn.innerText = "LIPA NA M-PESA";
+}
+</script>
+</body>
+</html>
