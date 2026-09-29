@@ -2,110 +2,126 @@
 <html lang="en-KE">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vecctapivot Laundry — Freshness Folded with Love</title>
+<title>Vecctapivot Laundry — Olkalou Nyandarua Plug</title>
 <link rel="icon" href="logo.png"><link rel="stylesheet" href="style.css">
 <style>
 :root{--gold:#e8b93e;--gold2:#ffcf4d;--panel:rgba(22,33,62,.9);--bg-2:#0f172a;--line:rgba(255,255,255,.1);--text:#e2e8f0;--muted:#94a3b8}
 .laundry-wrap{max-width:1100px;margin:0 auto;padding:12px}
-.hero-lively{background:radial-gradient(140% 140% at 10% 15%, rgba(232,185,62,.24), transparent 45%), linear-gradient(165deg, var(--panel), var(--bg-2));border:1px solid rgba(232,185,62,.18);border-radius:22px;padding:22px;margin:12px auto;max-width:600px;text-align:center}
-.pickup-note{background:linear-gradient(90deg, rgba(232,185,62,.1), rgba(37,211,102,.07));border:1px solid rgba(232,185,62,.18);padding:11px;border-radius:12px;margin:14px auto;max-width:600px;text-align:center;font-size:12.5px;color:var(--text)}
+.hero-killer{background:radial-gradient(140% 140% at 10% 15%, rgba(232,185,62,.24), transparent 45%), linear-gradient(165deg, var(--panel), var(--bg-2));border:1px solid rgba(232,185,62,.22);border-radius:24px;padding:24px;margin:12px auto;max-width:600px;text-align:center;position:relative;overflow:hidden}
+.hero-killer:before{content:"";position:absolute;top:-40px;right:-40px;width:140px;height:140px;background:radial-gradient(circle, rgba(232,185,62,.2), transparent);filter:blur(10px)}
+.pickup-note{background:linear-gradient(90deg, rgba(232,185,62,.14), rgba(37,211,102,.08));border:1px solid rgba(232,185,62,.22);padding:11px;border-radius:12px;margin:14px auto;max-width:600px;text-align:center;font-size:12.5px;color:var(--text);font-weight:600}
 .combo-grid{display:grid;grid-template-columns:1fr;gap:14px;max-width:600px;margin:0 auto;padding:8px}
 @media(min-width:520px){.combo-grid{grid-template-columns:1fr 1fr}}
 .combo-card{border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg, rgba(22,33,62,.95), rgba(15,23,42,.9));border-radius:20px;padding:15px;transition:.35s;position:relative;overflow:hidden}
-.combo-card::after{content:'';position:absolute;top:-30%;right:-30%;width:80%;height:80%;background:radial-gradient(circle, rgba(232,185,62,.12), transparent 60%);pointer-events:none}
-.combo-card.best{border-color:rgba(232,185,62,.35);box-shadow:0 0 0 1px rgba(232,185,62,.15), 0 10px 24px rgba(0,0,0,.25)}
+.combo-card.best{border-color:rgba(232,185,62,.4);box-shadow:0 0 0 1px rgba(232,185,62,.18), 0 10px 24px rgba(0,0,0,.25)}
 .combo-card:hover{transform:translateY(-4px);border-color:rgba(232,185,62,.35)}
-.combo-badge{background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;font-size:9.5px;font-weight:900;letter-spacing:.6px;padding:5px 10px;border-radius:20px}
+.combo-badge{background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;font-size:9.5px;font-weight:900;padding:5px 10px;border-radius:20px;letter-spacing:.3px}
 .combo-btn{width:100%;padding:11px;border-radius:12px;border:0;background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;font-weight:900;cursor:pointer}
-
-/* PREMIUM COLOURED DANCING CATEGORIES */
 .front-section{max-width:600px;margin:0 auto}
-.menu-title{margin:28px auto 12px;color:var(--text);font-size:18px;font-weight:800;letter-spacing:.2px;display:flex;align-items:center;gap:8px}
+.menu-title{margin:28px auto 12px;color:var(--text);font-size:18px;font-weight:900;letter-spacing:.2px}
 .menu-sub{color:var(--muted);font-size:12.5px;margin:-6px auto 14px;max-width:600px}
 .subs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:0 auto 18px;max-width:600px}
-.sub-card{position:relative;overflow:hidden;border-radius:22px;padding:18px 14px;cursor:pointer;background:rgba(22,33,62,.88);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);min-height:132px;transition:all.5s cubic-bezier(.22,1,.36,1);animation:smartFloat 4s ease-in-out infinite}
+.sub-card{position:relative;overflow:hidden;border-radius:22px;padding:18px 14px;cursor:pointer;backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);min-height:145px;transition:all.5s cubic-bezier(.22,1,.36,1);animation:smartFloat 4.2s ease-in-out infinite}
 .sub-card:nth-child(2){animation-delay:.3s}.sub-card:nth-child(3){animation-delay:.6s}.sub-card:nth-child(4){animation-delay:.9s}.sub-card:nth-child(5){animation-delay:1.2s}
-@keyframes smartFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-.sub-card:hover{animation:none;transform:translateY(-8px) scale(1.03);box-shadow:0 22px 40px rgba(0,0,0,.4), 0 0 0 1px var(--glow)}
-.sub-card.icon-wrap{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:22px;box-shadow:0 4px 18px rgba(0,0,0,.25), inset 0 0 16px rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.18)}
-.sub-card h4{margin:12px 0 3px;font-size:14.5px;font-weight:900;color:#fff}
-.sub-card p{margin:0;font-size:11px;line-height:1.4;color:rgba(255,255,255,.7)}
-.sub-card.arrow{position:absolute;bottom:12px;right:12px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#fff;transition:.3s}
-.sub-card:hover.arrow{transform:translateX(4px) scale(1.1);background:#fff;color:#111}
-.sub-card[data-key="everyday"]{--glow:rgba(96,165,250,.35);background:linear-gradient(165deg, rgba(59,130,246,.22), rgba(22,33,62,.92));border-color:rgba(96,165,250,.25)}
-.sub-card[data-key="everyday"].icon-wrap{background:linear-gradient(180deg, #60a5fa, #3b82f6)}
-.sub-card[data-key="ironing"]{--glow:rgba(168,85,247,.35);background:linear-gradient(165deg, rgba(168,85,247,.22), rgba(22,33,62,.92));border-color:rgba(168,85,247,.25)}
-.sub-card[data-key="ironing"].icon-wrap{background:linear-gradient(180deg, #c084fc, #a855f7)}
-.sub-card[data-key="bedding"]{--glow:rgba(251,146,60,.35);background:linear-gradient(165deg, rgba(251,146,60,.22), rgba(22,33,62,.92));border-color:rgba(251,146,60,.25)}
-.sub-card[data-key="bedding"].icon-wrap{background:linear-gradient(180deg, #fdba74, #fb923c)}
-.sub-card[data-key="home"]{--glow:rgba(52,211,153,.35);background:linear-gradient(165deg, rgba(52,211,153,.2), rgba(22,33,62,.92));border-color:rgba(52,211,153,.25)}
-.sub-card[data-key="home"].icon-wrap{background:linear-gradient(180deg, #6ee7b7, #34d399)}
-.sub-card[data-key="premium"]{--glow:rgba(232,185,62,.45);background:linear-gradient(165deg, rgba(232,185,62,.28), rgba(22,33,62,.92));border-color:rgba(232,185,62,.35)}
-.sub-card[data-key="premium"].icon-wrap{background:linear-gradient(180deg, #ffcf4d, #e8b93e);color:#111}
-
-/* INSIDE VIEW */
+@keyframes smartFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.sub-card:hover{animation:none;transform:translateY(-8px) scale(1.03);box-shadow:0 18px 36px rgba(0,0,0,.35), 0 0 18px var(--glow)}
+.sub-card.icon-wrap{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:22px;border:1px solid rgba(255,255,255,.18)}
+.sub-card h4{margin:12px 0 3px;font-size:14.5px;font-weight:900;color:#fff;letter-spacing:.2px}
+.sub-card p{margin:0;font-size:11px;line-height:1.5;color:rgba(255,255,255,.72)}
+.sub-card.arrow{position:absolute;bottom:12px;right:12px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);color:#fff}
+.sub-card[data-key="everyday"]{--glow:rgba(96,165,250,.45);background:linear-gradient(165deg, rgba(59,130,246,.28), rgba(22,33,62,.94));border-color:rgba(96,165,250,.34)}
+.sub-card[data-key="everyday"].icon-wrap{background:linear-gradient(180deg, #93c5fd, #3b82f6)}
+.sub-card[data-key="ironing"]{--glow:rgba(168,85,247,.45);background:linear-gradient(165deg, rgba(168,85,247,.28), rgba(22,33,62,.94));border-color:rgba(168,85,247,.34)}
+.sub-card[data-key="ironing"].icon-wrap{background:linear-gradient(180deg, #d8b4fe, #a855f7)}
+.sub-card[data-key="bedding"]{--glow:rgba(251,146,60,.48);background:linear-gradient(165deg, rgba(251,146,60,.28), rgba(22,33,62,.94));border-color:rgba(251,146,60,.34)}
+.sub-card[data-key="bedding"].icon-wrap{background:linear-gradient(180deg, #fed7aa, #fb923c)}
+.sub-card[data-key="home"]{--glow:rgba(52,211,153,.42);background:linear-gradient(165deg, rgba(52,211,153,.26), rgba(22,33,62,.94));border-color:rgba(52,211,153,.34)}
+.sub-card[data-key="home"].icon-wrap{background:linear-gradient(180deg, #a7f3d0, #34d399)}
+.sub-card[data-key="premium"]{--glow:rgba(232,185,62,.52);background:linear-gradient(165deg, rgba(232,185,62,.34), rgba(22,33,62,.94));border-color:rgba(232,185,62,.44)}
+.sub-card[data-key="premium"].icon-wrap{background:linear-gradient(180deg, #ffe082, #e8b93e)}
 .inside-view{display:none;max-width:600px;margin:0 auto;border:1px solid rgba(255,255,255,.1);border-radius:22px;background:linear-gradient(165deg, rgba(22,33,62,.98), rgba(15,23,42,.96));overflow:hidden;animation:slideIn.5s cubic-bezier(.22,1,.36,1);box-shadow:0 24px 48px rgba(0,0,0,.4)}
 .inside-view.open{display:block}
 @keyframes slideIn{0%{opacity:0;transform:translateY(16px) scale(.98)}100%{opacity:1;transform:translateY(0) scale(1)}}
 .inside-header{padding:16px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
-.inside-view.col-everyday.inside-header{background:linear-gradient(90deg, rgba(59,130,246,.25), transparent)}
-.inside-view.col-ironing.inside-header{background:linear-gradient(90deg, rgba(168,85,247,.25), transparent)}
-.inside-view.col-bedding.inside-header{background:linear-gradient(90deg, rgba(251,146,60,.25), transparent)}
-.inside-view.col-home.inside-header{background:linear-gradient(90deg, rgba(52,211,153,.22), transparent)}
-.inside-view.col-premium.inside-header{background:linear-gradient(90deg, rgba(232,185,62,.28), transparent)}
 .inside-body{padding:10px 14px}
 .item-row{display:flex;justify-content:space-between;align-items:center;padding:14px 10px;border-bottom:1px solid rgba(255,255,255,.06);gap:10px;border-radius:14px;transition:.25s}
 .item-row:hover{background:rgba(255,255,255,.05);transform:translateX(3px)}
 .item-add{border:1px solid var(--gold);background:rgba(232,185,62,.12);color:var(--gold);padding:8px 16px;border-radius:20px;font-weight:800;cursor:pointer}
-.item-add:hover{background:var(--gold);color:#111;transform:scale(1.06)}
 .qty-box{display:flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:20px;padding:3px 8px;background:rgba(15,23,42,.8)}
 .qty-box button{background:transparent;border:0;color:var(--text);font-weight:900;width:26px;cursor:pointer;font-size:16px}
 .qty-box input{width:44px;text-align:center;background:transparent;border:0;color:var(--gold);font-weight:800;font-size:14px}
-.cart-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(15,23,42,.96);backdrop-filter:blur(14px);border-top:1px solid rgba(232,185,62,.18);padding:14px 16px;display:none;justify-content:space-between;align-items:center;z-index:99}.cart-bar.show{display:flex}
-.date-sel,.time-sel{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.date-sel button,.time-sel button{padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg-2);color:var(--muted);font-size:11px;cursor:pointer;min-width:70px;transition:.2s}.date-sel button.active,.time-sel button.active{background:linear-gradient(90deg,var(--gold),var(--gold2));color:#111;border-color:var(--gold);box-shadow:0 6px 16px rgba(232,185,62,.25)}
-.formcard-lively{background:linear-gradient(180deg, rgba(22,33,62,.9), rgba(15,23,42,.9));border:1px solid var(--line);border-radius:20px;padding:18px;backdrop-filter:blur(8px)}
-.btn-lively{width:100%;padding:15px;border-radius:14px;background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;font-weight:900;font-size:16px;border:0;cursor:pointer;box-shadow:0 10px 24px rgba(232,185,62,.32)}
-.footer-lively{max-width:600px;margin:42px auto 90px;text-align:center;padding:24px 16px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(165deg, var(--panel), var(--bg-2))}
+.cart-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(15,23,42,.97);backdrop-filter:blur(14px);border-top:1px solid rgba(232,185,62,.22);padding:14px 16px;display:none;justify-content:space-between;align-items:center;z-index:99}.cart-bar.show{display:flex}
+.date-sel,.time-sel{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.date-sel button,.time-sel button{padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg-2);color:var(--muted);font-size:11px;cursor:pointer;min-width:70px}.date-sel button.active,.time-sel button.active{background:linear-gradient(90deg,var(--gold),var(--gold2));color:#111;border-color:var(--gold);font-weight:900}
+.formcard-killer{background:linear-gradient(180deg, rgba(22,33,62,.9), rgba(15,23,42,.9));border:1px solid var(--line);border-radius:20px;padding:18px}
+.btn-killer{width:100%;padding:15px;border-radius:14px;background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;font-weight:900;font-size:16px;border:0;cursor:pointer;box-shadow:0 10px 24px rgba(232,185,62,.32)}
+.pro-trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:600px;margin:22px auto;padding:14px;border:1px solid rgba(232,185,62,.16);border-radius:16px;background:linear-gradient(180deg, rgba(22,33,62,.6), rgba(15,23,42,.85))}
+.pro-trust div{text-align:center}.pro-trust b{display:block;color:var(--text);font-size:11px;letter-spacing:.4px;text-transform:uppercase}.pro-trust span{color:var(--muted);font-size:10px;line-height:1.3;display:block;margin-top:2px}
+.footer-killer{max-width:600px;margin:28px auto 90px;text-align:center;padding:24px 16px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(165deg, var(--panel), var(--bg-2))}
 </style>
 </head>
 <body>
-<div class="utility"><div class="uwrap"><span class="uitem">💛 Olk Laundry · Free Pickup</span><a class="uitem" href="https://wa.me/254788099685">WhatsApp</a></div></div>
+<div class="utility"><div class="uwrap"><span class="uitem">Olkalou Nyandarua Plug · 8 AM - 6 PM Daily · Till 6 PM Same Day</span><a class="uitem" href="https://wa.me/254788099685">WhatsApp</a></div></div>
 <header class="top"><div class="navrow"><a class="brand" href="index.html"><img src="logo.png"><span class="brandname">Vecctapivot<em>Laundry</em></span></a><nav class="mainnav"><a href="track.html">Track Order</a></nav></div></header>
 <main class="laundry-wrap">
 <div id="amendBanner" hidden style="max-width:600px;margin:12px auto;padding:14px 16px;background:linear-gradient(90deg, rgba(232,185,62,.18), rgba(255,255,255,.05));border:1px solid rgba(232,185,62,.28);border-radius:14px;text-align:center;color:var(--text);font-size:13px;line-height:1.5"></div>
-<div class="hero-lively"><h1>Freshness, <span style="color:var(--gold)">Folded with Love</span> ✨</h1><p style="color:var(--muted);font-size:13px;margin-top:8px;line-height:1.5">Pick a bundle or build your own — same sparkle, same care.<br>We don't just wash clothes, we bring back comfort.</p></div>
-<div class="pickup-note">📅 Choose any day for the next 7 days · 🚚 Free pickup within Olk · Beyond Olk, rider fee shared</div>
+<div class="hero-killer">
+<h1 style="font-size:28px;font-weight:900;line-height:1.1;margin:0">OLKALOU'S<br><span style="color:var(--gold)">FRESH CODE</span></h1>
+<p style="color:var(--text);font-size:14px;font-weight:700;margin-top:10px">In Olkalou, Nyandarua County — We Don't Wash Clothes, We Bring Them Back to Life.</p>
+<p style="color:var(--muted);font-size:12.5px;margin-top:8px;line-height:1.6">From daily hustle tees to Sunday best, duvets to curtains — pick a bundle or build your own.<br><b style="color:var(--gold)">We press different.</b></p>
+</div>
+<div class="pickup-note">📅 Pickup daily <b style="color:var(--gold)">8 AM - 6 PM</b> · Olkalou Town Free · Beyond Olkalou & Environs — Rider Shared 70% · <b>Book Now, Picked Today Till 6 PM</b></div>
 <div id="frontView" class="front-section">
-<div class="menu-title">💛 Most Loved Bundles — Save More</div><p class="menu-sub">Curated for you — quick to book, made to save.</p>
+<div class="menu-title">Most Loved in Olkalou — Save Big</div><p class="menu-sub">Curated bundles — our people love them.</p>
 <div class="combo-grid" id="comboGrid"></div>
-<div class="menu-title">✨ What Would You Like Us to Refresh Today?</div><p class="menu-sub">Tap a colour — step inside to choose how much.</p>
+<div class="menu-title">What Are We Refreshing For You Today?</div><p class="menu-sub">Tap a colour — step inside.</p>
 <div class="subs-grid" id="subsGrid"></div>
 </div>
-<div id="insideView" class="inside-view"><div class="inside-header"><div style="display:flex;gap:12px;align-items:center"><div id="insideIconWrap" class="icon-wrap" style="width:42px;height:42px;font-size:22px"></div><div><b id="insideName" style="color:var(--text);font-size:15px"></b><br><small id="insideFrom" style="color:var(--muted)"></small></div></div><button onclick="goBackToFront()" style="padding:8px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(15,23,42,.8);color:var(--text);cursor:pointer">← Back</button></div><div class="inside-body" id="insideBody"></div><div style="padding:0 14px 16px;display:flex;gap:8px"><button onclick="goBackToFront()" style="flex:1;padding:11px;border-radius:12px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)">← Back to Menu</button><button onclick="document.getElementById('laundSubmitBtn').scrollIntoView({behavior:'smooth'})" style="flex:1;padding:11px;border-radius:12px;background:linear-gradient(90deg,var(--gold),var(--gold2));border:0;color:#111;font-weight:900">Go to Cart →</button></div></div>
-<section class="formcard-lively" style="max-width:600px;margin:24px auto"><form onsubmit="return false;">
-<fieldset style="border:1px solid var(--line);padding:16px;border-radius:14px;margin-bottom:18px;"><legend style="color:var(--gold);font-weight:800;font-size:.78rem;padding:0 8px;">1. When Should We Pick Up?</legend>
+<div id="insideView" class="inside-view">
+<div class="inside-header"><div style="display:flex;gap:12px;align-items:center"><div id="insideIconWrap" style="width:42px;height:42px;font-size:22px;display:grid;place-items:center;border-radius:12px"></div><div><b id="insideName" style="color:var(--text);font-size:15px"></b><br><small id="insideFrom" style="color:var(--muted)"></small></div></div><button onclick="goBackToFront()" style="padding:8px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(15,23,42,.8);color:var(--text);cursor:pointer">← Back</button></div>
+<div class="inside-body" id="insideBody"></div>
+<div style="padding:0 14px 16px;display:flex;gap:8px"><button onclick="goBackToFront()" style="flex:1;padding:11px;border-radius:12px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)">← Back to Menu</button><button onclick="document.getElementById('laundSubmitBtn').scrollIntoView({behavior:'smooth'})" style="flex:1;padding:11px;border-radius:12px;background:linear-gradient(90deg,var(--gold),var(--gold2));border:0;color:#111;font-weight:900">Go to Cart →</button></div>
+</div>
+<section class="formcard-killer" style="max-width:600px;margin:24px auto">
+<form onsubmit="return false;">
+<fieldset style="border:1px solid var(--line);padding:16px;border-radius:14px;margin-bottom:18px;"><legend style="color:var(--gold);font-weight:900;font-size:.78rem;padding:0 8px;letter-spacing:.5px">1. PICKUP — 8 AM TO 6 PM TILL 6 PM</legend>
 <div style="display:flex;gap:10px"><div style="flex:1"><label>Full Name</label><input id="laundName" placeholder="Your name" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)"></div><div style="flex:1"><label>Phone</label><input id="laundPhone" placeholder="+254 7XX XXX" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)"></div></div>
-<div><label>📅 Pickup Day</label><div class="date-sel" id="dateSel"></div></div>
-<div><label>⏰ Pickup Time</label><div class="time-sel" id="timeSel"><button data-time="10:00 AM">☀️ 10 AM</button><button data-time="2:00 PM" class="active">🌤️ 2 PM</button><button data-time="4:00 PM">🌆 4 PM</button><button data-time="6:00 PM">🌙 6 PM</button></div></div>
-<div style="display:flex;gap:10px;margin-top:10px"><div style="flex:1"><label>Area</label><select id="laundArea" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"><option value="olk">Within Olk — Free</option><option value="beyond">Beyond Olk — Rider shared</option></select></div><div style="flex:1"><label>Estate / Location</label><input id="laundLocation" placeholder="e.g. Olk Town" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"></div></div>
-<div style="padding:12px;background:rgba(232,185,62,.06);border:1px dashed rgba(232,185,62,.25);border-radius:12px;text-align:center;margin-top:12px"><span style="font-size:.72rem;color:var(--muted)">Estimated Delivery</span><span id="autoDeliveryDisplay" style="display:block;color:var(--gold);font-weight:800;margin-top:4px;font-size:14px"></span></div>
+<div><label>Pickup Day — Next 7 Days</label><div class="date-sel" id="dateSel"></div></div>
+<div><label>Pickup Time — Daily 8 AM to 6 PM</label><div class="time-sel" id="timeSel"><button data-time="8:00 AM">8 AM</button><button data-time="10:00 AM">10 AM</button><button data-time="12:00 PM">12 PM</button><button data-time="2:00 PM" class="active">2 PM</button><button data-time="4:00 PM">4 PM</button><button data-time="6:00 PM">6 PM</button></div></div>
+<div style="display:flex;gap:10px;margin-top:10px"><div style="flex:1"><label>Area</label><select id="laundArea" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"><option value="olk">Within Olkalou — Free Pickup & Delivery</option><option value="beyond">Beyond Olkalou & Environs — Pay 70% Rider Shared</option></select></div><div style="flex:1"><label>Estate / Location</label><input id="laundLocation" placeholder="e.g. Olkalou Town" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"></div></div>
+<div style="padding:12px;background:rgba(232,185,62,.06);border:1px dashed rgba(232,185,62,.25);border-radius:12px;text-align:center;margin-top:12px"><span style="font-size:.72rem;color:var(--muted)">Estimated Return</span><span id="autoDeliveryDisplay" style="display:block;color:var(--gold);font-weight:800;margin-top:4px;font-size:14px"></span></div>
 </fieldset>
-<fieldset style="border:1px solid var(--line);padding:16px;border-radius:14px;margin-bottom:18px;"><legend style="color:var(--gold);font-weight:800;font-size:.78rem;padding:0 8px;">2. Your Basket — Updates Automatically</legend>
-<div id="cartPreview" style="font-size:13px;color:var(--muted);line-height:1.7">Your basket is empty. Choose a bundle above or tap a colour to build your own — total updates here instantly.</div>
+<fieldset style="border:1px solid var(--line);padding:16px;border-radius:14px;margin-bottom:18px;"><legend style="color:var(--gold);font-weight:900;font-size:.78rem;padding:0 8px">2. YOUR BASKET — AUTO UPDATES</legend>
+<div id="cartPreview" style="font-size:13px;color:var(--muted);line-height:1.7">Basket empty. Choose bundle or tap colour to build.</div>
 <div id="cartBreakdown" style="margin-top:10px;font-size:12px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px"></div>
 <div style="margin-top:12px"><label>Custom Entry (only if basket empty)</label><select id="laundService" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"><option value="80">Wash & Fold Light 80/kg</option><option value="110">Wash, Fold & Iron Light 110/kg</option><option value="130">Wash, Fold & Iron Heavy 130/kg</option><option value="400">Duvet 4×6 400/item</option></select></div>
 <div><label>Qty / KG</label><input type="number" id="laundQty" value="5" min="1" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"></div>
 </fieldset>
-<div style="text-align:center;border:1px solid rgba(232,185,62,.2);border-radius:14px;padding:16px;background:linear-gradient(180deg, rgba(232,185,62,.08), var(--bg-2))"><span style="font-size:.72rem;color:var(--muted)">Invoice Total — Auto</span><h2 id="laundTotalDisplay" style="color:var(--gold);font-size:2.6rem;margin:6px 0">KES 0</h2><p id="deliveryFeeText" style="font-size:12px;color:var(--muted)"></p><div style="margin-top:8px;font-size:12px">Till <b style="color:var(--gold)">1741514</b> 🟩</div></div>
+<div style="text-align:center;border:1px solid rgba(232,185,62,.2);border-radius:14px;padding:16px;background:linear-gradient(180deg, rgba(232,185,62,.08), var(--bg-2))"><span style="font-size:.72rem;color:var(--muted)">Invoice Total — Auto Calculated</span><h2 id="laundTotalDisplay" style="color:var(--gold);font-size:2.6rem;margin:6px 0">KES 0</h2><p id="deliveryFeeText" style="font-size:12px;color:var(--muted)"></p><div style="margin-top:8px;font-size:12px">Till <b style="color:var(--gold)">1741514</b></div></div>
 <p id="localFormErr" hidden style="background:rgba(180,60,60,.14);border:1px solid rgba(220,100,100,.5);color:#f0b8b8;padding:10px;border-radius:10px;margin:12px 0"></p>
-<button type="button" id="laundSubmitBtn" class="btn-lively">Continue → Book Your Ticket</button><p id="cloudStatus" style="text-align:center;color:#94a3b8;font-size:12px;margin-top:10px"></p>
+<button type="button" id="laundSubmitBtn" class="btn-killer">Continue → Book Your Ticket</button><p id="cloudStatus" style="text-align:center;color:#94a3b8;font-size:12px;margin-top:10px"></p>
 </form></section>
+<!-- KILLER TRUST BAR -->
+<div class="pro-trust">
+<div><b>Fresh Code Standard</b><span>Tagged, checked, washed like ours</span></div>
+<div><b>Skin Safe, Stain Dead</b><span>Premium detergents, lethal on dirt</span></div>
+<div><b>Fold So Clean</b><span>Pressed sharp, sealed fresh</span></div>
+</div>
+<div class="pro-trust" style="margin-top:10px">
+<div><b>8 to 6, Daily</b><span>Morning to evening, we move</span></div>
+<div><b>2HR to 24HR Return</b><span>Express? No stories</span></div>
+<div><b>Your Ticket Rules</b><span>Track live, change time same ticket</span></div>
+</div>
 <section id="laundryTicketResult" hidden style="border:1px solid rgba(232,185,62,.3);padding:24px;background:linear-gradient(165deg, var(--panel), var(--bg-2));border-radius:20px;text-align:center;max-width:600px;margin:24px auto;">
-<span style="color:var(--gold);font-weight:800">🎉 All Set — Freshness is on the Way</span><h2 id="ticketRefHeader" style="font-size:2.4rem;color:var(--gold);margin:8px 0">LDY-</h2><div id="qrcode" style="background:#fff;padding:12px;display:inline-block;border-radius:12px;margin:15px auto"></div>
+<span style="color:var(--gold);font-weight:900">Olkalou's Fresh Code — Secured</span><h2 id="ticketRefHeader" style="font-size:2.4rem;color:var(--gold);margin:8px 0">LDY-</h2><div id="qrcode" style="background:#fff;padding:12px;display:inline-block;border-radius:12px;margin:15px auto"></div>
 <div style="text-align:left;max-width:500px;margin:15px auto;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px;background:rgba(0,0,0,.2)"><div style="display:grid;grid-template-columns:35% 65%"><dt style="padding:10px;color:var(--muted)">Client</dt><dd id="recName" style="padding:10px;border-left:1px solid var(--line)"></dd></div><div style="display:grid;grid-template-columns:35% 65%"><dt style="padding:10px;color:var(--muted)">Services</dt><dd id="recService" style="padding:10px;border-left:1px solid var(--line)"></dd></div><div style="display:grid;grid-template-columns:35% 65%"><dt style="padding:10px;color:var(--muted)">Pickup</dt><dd id="recDateTime" style="padding:10px;border-left:1px solid var(--line);color:var(--gold)"></dd></div><div style="display:grid;grid-template-columns:35% 65%"><dt style="padding:10px;color:var(--muted)">Total</dt><dd id="recTotal" style="padding:10px;border-left:1px solid var(--line);color:var(--gold);font-weight:800"></dd></div></div>
-<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px"><a id="waTicketLink" target="_blank" style="background:#25D366;color:#fff;padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:800">💬 Share on WhatsApp</a><a id="amendLink" href="#" style="border:1px solid rgba(232,185,62,.4);padding:12px 18px;border-radius:12px;color:var(--gold);text-decoration:none;background:rgba(232,185,62,.1)">✏️ Change Time</a><a id="trackLink" href="track.html" style="border:1px solid var(--line);padding:12px 18px;border-radius:12px;color:var(--text);text-decoration:none;background:var(--bg-2)">📍 Track Order</a></div>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px"><a id="waTicketLink" target="_blank" style="background:#25D366;color:#fff;padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:800">Share on WhatsApp</a><a id="amendLink" href="#" style="border:1px solid rgba(232,185,62,.4);padding:12px 18px;border-radius:12px;color:var(--gold);text-decoration:none;background:rgba(232,185,62,.1)">Change Pickup Time</a><a id="trackLink" href="track.html" style="border:1px solid var(--line);padding:12px 18px;border-radius:12px;color:var(--text);text-decoration:none;background:var(--bg-2)">Track Order</a></div>
 </section>
-<div class="footer-lively"><h3>💛 Vecctapivot — Olk Laundry</h3><p style="color:var(--muted);font-size:13px;line-height:1.6;margin-top:8px">We don't just wash clothes, we bring back freshness, confidence and comfort.<br>Every fold is care, every press is pride.</p><p style="margin-top:12px"><a href="https://wa.me/254788099685" style="color:var(--gold);text-decoration:none;font-weight:700">WhatsApp +254 788 099 685 →</a> · Till 1741514</p></div>
+<div class="footer-killer">
+<h3 style="color:var(--text)">Vecctapivot Enterprises — Olkalou Nyandarua Plug</h3>
+<p style="color:var(--text);font-size:13px;line-height:1.7;margin-top:10px;font-weight:600">We run laundry in Olkalou, Nyandarua County and its environs. From boda dust to office crisp, baby towels to big duvets — we handle it. No fade, no mix-up, just fresh fits that make you step out different.</p>
+<p style="color:var(--gold);font-size:13px;font-weight:900;margin-top:10px">We don't just clean clothes. We bring back confidence.</p>
+<p style="margin-top:14px;color:var(--muted);font-size:12px">Pickup 8AM-6PM Daily Till 6PM Same Day | Olkalou Town & Environs | Till 1741514 | WhatsApp +254 788 099 685</p>
+</div>
 </main>
 <div class="cart-bar" id="cartBar"><div><div id="cartText" style="font-weight:700"></div><div id="cartSub" style="font-size:11px;color:var(--muted)"></div></div><button id="cartCheckout" style="background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;border:0;padding:10px 16px;border-radius:10px;font-weight:800"></button></div>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
@@ -113,45 +129,27 @@
 import { db } from './firebase.js';
 import { doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const combos=[
-{id:'c1',name:'FAMILY FRESH',price:999,normal:1250,save:251,desc:'10KG Wash & Fold + Duvet 5×6 — Best for families',badge:'🔥 MOST LOVED',tat:'8HRS'},
-{id:'c2',name:'BEDROOM RESET',price:799,normal:990,save:191,desc:'Duvet 5×6 + Bedsheet 5KG + Towel ×2',badge:'🛏️ COZY',tat:'12HRS'},
-{id:'c3',name:'HOME SHINE',price:549,normal:660,save:111,desc:'Curtains 5KG + Door Mat ×2 + Towel',badge:'✨ FRESH HOME',tat:'12HRS'},
-{id:'c4',name:'OFFICE READY',price:449,normal:600,save:151,desc:'Crisp Ironing 15 items + Shoes 1 Pair — 4HRS',badge:'⚡ EXPRESS',tat:'4HRS'},
-{id:'c5',name:'PREMIUM DEEP',price:549,normal:690,save:141,desc:'Jackets 3KG + Shoes 2 Pair — Deep care',badge:'💎 PREMIUM',tat:'24HRS'}
+{id:'c1',name:'FAMILY FRESH',price:999,normal:1250,save:251,desc:'10KG Wash & Fold + Duvet 5×6 — Best for families',badge:'MOST LOVED',tat:'8HRS'},
+{id:'c2',name:'BEDROOM RESET',price:799,normal:990,save:191,desc:'Duvet 5×6 + Bedsheet 5KG + Towel ×2',badge:'COZY',tat:'12HRS'},
+{id:'c3',name:'HOME SHINE',price:549,normal:660,save:111,desc:'Curtains 5KG + Door Mat ×2 + Towel',badge:'FRESH HOME',tat:'12HRS'},
+{id:'c4',name:'OFFICE READY',price:449,normal:600,save:151,desc:'Crisp Ironing 15 items + Shoes 1 Pair — 4HRS',badge:'EXPRESS',tat:'4HRS'},
+{id:'c5',name:'PREMIUM DEEP',price:549,normal:690,save:141,desc:'Jackets 3KG + Shoes 2 Pair — Deep care',badge:'PREMIUM',tat:'24HRS'}
 ];
 const subs=[
 {key:'everyday',name:'EVERYDAY FRESH',from:'From 80/kg',icon:'👕',desc:'Daily wear, fresh in hours',items:[
-{name:'Wash and Fold Light',price:80,unit:'/kg',tat:'4hrs'},
-{name:'Wash and Fold Heavy',price:80,unit:'/kg',tat:'6hrs'},
-{name:'Wash and Fold and Iron Light',price:110,unit:'/kg',tat:'4hrs'},
-{name:'Wash and Fold and Iron Heavy',price:130,unit:'/kg',tat:'6hrs'},
+{name:'Wash and Fold Light',price:80,unit:'/kg',tat:'4hrs'},{name:'Wash and Fold Heavy',price:80,unit:'/kg',tat:'6hrs'},{name:'Wash and Fold and Iron Light',price:110,unit:'/kg',tat:'4hrs'},{name:'Wash and Fold and Iron Heavy',price:130,unit:'/kg',tat:'6hrs'},
 ]},
 {key:'ironing',name:'CRISP IRONING',from:'From 30/item',icon:'👔',desc:'Sharp, ready-to-wear',items:[
-{name:'Iron Only Light',price:30,unit:'/item',tat:'2hrs'},
-{name:'Iron Only Heavy',price:40,unit:'/item',tat:'3hrs'},
+{name:'Iron Only Light',price:30,unit:'/item',tat:'2hrs'},{name:'Iron Only Heavy',price:40,unit:'/item',tat:'3hrs'},
 ]},
 {key:'bedding',name:'COZY BEDDING',from:'80/kg & 400/item',icon:'🛏️',desc:'Sleep fresh, sleep cozy',items:[
-{name:'Bedsheet / Cover Light Wash and Fold',price:80,unit:'/kg',tat:'4hrs'},
-{name:'Bedsheet / Cover Heavy Wash and Fold',price:90,unit:'/kg',tat:'6hrs'},
-{name:'Bedsheet / Cover Light Wash and Fold and Iron',price:110,unit:'/kg',tat:'4hrs'},
-{name:'Bedsheet / Cover Heavy Wash and Fold and Iron',price:130,unit:'/kg',tat:'6hrs'},
-{name:'Duvet 4 by 6',price:400,unit:'/item',tat:'12hrs'},
-{name:'Duvet 5 by 6',price:450,unit:'/item',tat:'12hrs'},
-{name:'Duvet 6 by 6',price:500,unit:'/item',tat:'12hrs'},
+{name:'Bedsheet / Cover Light Wash and Fold',price:80,unit:'/kg',tat:'4hrs'},{name:'Bedsheet / Cover Heavy Wash and Fold',price:90,unit:'/kg',tat:'6hrs'},{name:'Bedsheet / Cover Light Wash and Fold and Iron',price:110,unit:'/kg',tat:'4hrs'},{name:'Bedsheet / Cover Heavy Wash and Fold and Iron',price:130,unit:'/kg',tat:'6hrs'},{name:'Duvet 4 by 6',price:400,unit:'/item',tat:'12hrs'},{name:'Duvet 5 by 6',price:450,unit:'/item',tat:'12hrs'},{name:'Duvet 6 by 6',price:500,unit:'/item',tat:'12hrs'},
 ]},
 {key:'home',name:'HOME LIVING',from:'50-120',icon:'🏠',desc:'Curtains, mats & towels',items:[
-{name:'Curtains Light Wash and Fold',price:80,unit:'/kg',tat:'4hrs'},
-{name:'Curtains Heavy Wash and Fold',price:90,unit:'/kg',tat:'6hrs'},
-{name:'Curtains Light Wash and Fold and Iron',price:100,unit:'/kg',tat:'4hrs'},
-{name:'Curtains Heavy Wash and Fold and Iron',price:120,unit:'/kg',tat:'6hrs'},
-{name:'Door Mat',price:80,unit:'/item',tat:'4hrs'},
-{name:'Towel Small',price:50,unit:'/item',tat:'2hrs'},
-{name:'Towel Medium',price:50,unit:'/item',tat:'2hrs'},
-{name:'Towel Large',price:70,unit:'/item',tat:'3hrs'},
+{name:'Curtains Light Wash and Fold',price:80,unit:'/kg',tat:'4hrs'},{name:'Curtains Heavy Wash and Fold',price:90,unit:'/kg',tat:'6hrs'},{name:'Curtains Light Wash and Fold and Iron',price:100,unit:'/kg',tat:'4hrs'},{name:'Curtains Heavy Wash and Fold and Iron',price:120,unit:'/kg',tat:'6hrs'},{name:'Door Mat',price:80,unit:'/item',tat:'4hrs'},{name:'Towel Small',price:50,unit:'/item',tat:'2hrs'},{name:'Towel Medium',price:50,unit:'/item',tat:'2hrs'},{name:'Towel Large',price:70,unit:'/item',tat:'3hrs'},
 ]},
 {key:'premium',name:'PREMIUM CARE',from:'130/kg & 150/pair',icon:'💎',desc:'Jackets & shoes, deep care',items:[
-{name:'Jackets and Trench Coats',price:130,unit:'/kg',tat:'24hrs'},
-{name:'Shoes',price:150,unit:'/pair',tat:'24hrs'},
+{name:'Jackets and Trench Coats',price:130,unit:'/kg',tat:'24hrs'},{name:'Shoes',price:150,unit:'/pair',tat:'24hrs'},
 ]}
 ];
 let cart=[],selectedTime='2:00 PM',selectedDate='',ticketId='',isAmendMode=false,amendName='';
@@ -170,13 +168,13 @@ window.goInside=(key)=>{
   document.getElementById('insideBody').innerHTML=s.items.map((it,idx)=>`<div class="item-row"><div style="flex:1"><span style="font-weight:700;color:var(--text)">${it.name}</span><br><small style="color:var(--muted)">KES ${it.price}${it.unit} · ⏱️ ${it.tat}</small></div><div style="display:flex;align-items:center;gap:8px"><div class="qty-box"><button onclick="changeQty('${s.key}',${idx},-1)">−</button><input id="qty-${s.key}-${idx}" type="number" value="1" min="1"><button onclick="changeQty('${s.key}',${idx},1)">+</button></div><button class="item-add" onclick="addItemWithQty('${s.key}',${idx})">Add</button></div></div>`).join('');
   inside.scrollIntoView({behavior:'smooth'});
 }
-window.goBackToFront=()=>{document.getElementById('insideView').classList.remove('open');document.getElementById('frontView').style.display='block';document.getElementById('frontView').scrollIntoView({behavior:'smooth',block:'start'});}
+window.goBackToFront=()=>{document.getElementById('insideView').classList.remove('open');document.getElementById('frontView').style.display='block';document.getElementById('frontView').scrollIntoView({behavior:'smooth'});}
 window.changeQty=(k,i,d)=>{let inp=document.getElementById(`qty-${k}-${i}`);let v=parseInt(inp.value)||1;v=Math.max(1,v+d);inp.value=v;};
 window.addItemWithQty=(k,i)=>{let s=subs.find(x=>x.key===k);let it=s.items[i];let qty=parseInt(document.getElementById(`qty-${k}-${i}`).value)||1;let ex=cart.find(c=>c.name===it.name);if(ex)ex.qty+=qty;else cart.push({name:it.name,price:it.price,unit:it.unit,tat:it.tat,qty});updateCart();};
 window.addCombo=id=>{let c=combos.find(x=>x.id===id);cart.push({name:c.name,price:c.price,unit:'flat',tat:c.tat,qty:1});updateCart();};
 window.removeCartIndex=i=>{cart.splice(i,1);updateCart();};
-function calcTotals(){let area=document.getElementById('laundArea').value;let delivery=area==='beyond'?Math.round(200*0.7):0;let subtotal,cartText;if(cart.length>0){subtotal=cart.reduce((s,it)=>s+it.price*it.qty,0);cartText=cart.map((it,idx)=>`${idx+1}. ${it.name} (${it.price}${it.unit} ×${it.qty}) = KES ${it.price*it.qty} <span onclick="removeCartIndex(${idx})" style="color:#ff8a8a;cursor:pointer">[×]</span>`).join('<br>');}else{let unit=parseInt(document.getElementById('laundService').value);let qty=parseInt(document.getElementById('laundQty').value)||1;subtotal=unit*qty;cartText=`Custom ${document.getElementById('laundService').options[document.getElementById('laundService').selectedIndex].text} × ${qty}`;}let grand=subtotal+delivery;return {subtotal,delivery,grand,cartText};}
-function updateCart(){let {subtotal,delivery,grand,cartText}=calcTotals();let bar=document.getElementById('cartBar');if(cart.length>0){bar.classList.add('show');document.getElementById('cartPreview').innerHTML=cart.map(it=>`✨ ${it.name} — ${it.price}${it.unit} ×${it.qty} = KES ${it.price*it.qty}`).join('<br>');document.getElementById('cartBreakdown').innerHTML=cartText+`<br><span style="margin-top:6px;display:inline-block">Subtotal KES ${subtotal} + Rider KES ${delivery} = <b style="color:var(--gold)">KES ${grand}</b></span>`;document.getElementById('cartText').textContent=`🛒 ${cart.reduce((s,it)=>s+it.qty,0)} items — KES ${grand}`;document.getElementById('cartSub').textContent=`Auto updates · Subtotal ${subtotal} + Rider ${delivery}`;document.getElementById('cartCheckout').textContent=isAmendMode?`Update — KES ${grand}`:`Book — KES ${grand}`;}else{bar.classList.remove('show');document.getElementById('cartPreview').innerHTML=cartText;document.getElementById('cartBreakdown').innerHTML=`Rider ${delivery} → Total ${grand}`;}document.getElementById('laundTotalDisplay').textContent=`KES ${grand.toLocaleString()}`;document.getElementById('deliveryFeeText').textContent=delivery===0?'Free pickup within Olk — basket is invoice':'Beyond Olk — Rider share KES '+delivery;let pickHour=selectedTime.includes('10')?10:selectedTime.includes('2')?14:selectedTime.includes('4')?16:18;let delHour=pickHour+4;let isToday=selectedDate===dates[0].iso;document.getElementById('autoDeliveryDisplay').textContent=isToday?(delHour>18?'Today '+selectedTime+' → Ready Tomorrow 9 AM':'Today '+selectedTime+' → Ready Today '+(delHour>12?delHour-12:delHour)+' PM'):`${selectedDate} ${selectedTime} → Ready same day`;document.getElementById('laundSubmitBtn').textContent=isAmendMode?`💛 Update My Pickup — ${selectedDate} ${selectedTime} · KES ${grand}`:`Continue → Book Your Ticket · ${selectedDate} ${selectedTime} · KES ${grand}`;return grand;}
+function calcTotals(){let area=document.getElementById('laundArea').value;let delivery=0;let subtotal,cartText;if(cart.length>0){subtotal=cart.reduce((s,it)=>s+it.price*it.qty,0);cartText=cart.map((it,idx)=>`${idx+1}. ${it.name} (${it.price}${it.unit} ×${it.qty}) = KES ${it.price*it.qty} <span onclick="removeCartIndex(${idx})" style="color:#ff8a8a;cursor:pointer">[×]</span>`).join('<br>');}else{let unit=parseInt(document.getElementById('laundService').value);let qty=parseInt(document.getElementById('laundQty').value)||1;subtotal=unit*qty;cartText=`Custom ${document.getElementById('laundService').options[document.getElementById('laundService').selectedIndex].text} × ${qty}`;}let grand=subtotal+delivery;return {subtotal,delivery,grand,cartText};}
+function updateCart(){let {subtotal,delivery,grand,cartText}=calcTotals();let area=document.getElementById('laundArea').value;let areaText=area==='beyond'?'Beyond Olkalou & Environs — Pay 70% Rider Shared':'Within Olkalou — Free';let bar=document.getElementById('cartBar');if(cart.length>0){bar.classList.add('show');document.getElementById('cartPreview').innerHTML=cart.map(it=>`✨ ${it.name} — ${it.price}${it.unit} ×${it.qty} = KES ${it.price*it.qty}`).join('<br>');document.getElementById('cartBreakdown').innerHTML=cartText+`<br><span style="margin-top:6px;display:inline-block">Subtotal KES ${subtotal} · ${areaText} = <b style="color:var(--gold)">KES ${grand}</b></span>`;document.getElementById('cartText').textContent=`🛒 ${cart.reduce((s,it)=>s+it.qty,0)} items — KES ${grand}`;document.getElementById('cartSub').textContent=`Auto · ${areaText} · Till 6PM Same Day`;document.getElementById('cartCheckout').textContent=isAmendMode?`Update — KES ${grand}`:`Book — KES ${grand}`;}else{bar.classList.remove('show');document.getElementById('cartPreview').innerHTML=cartText;document.getElementById('cartBreakdown').innerHTML=`${areaText} → Total ${grand}`;}document.getElementById('laundTotalDisplay').textContent=`KES ${grand.toLocaleString()}`;document.getElementById('deliveryFeeText').textContent=areaText;let pickHour=selectedTime.includes('8:')?8:selectedTime.includes('10:')?10:selectedTime.includes('12:')?12:selectedTime.includes('2:')?14:selectedTime.includes('4:')?16:18;let delHour=pickHour+4;let isToday=selectedDate===dates[0].iso;document.getElementById('autoDeliveryDisplay').textContent=isToday?`Today ${selectedTime} (Till 6PM) → Ready Today ${(delHour>12?delHour-12:delHour)} PM`:`${selectedDate} ${selectedTime} (Till 6PM) → Ready same day`;document.getElementById('laundSubmitBtn').textContent=isAmendMode?`Update My Pickup — ${selectedDate} ${selectedTime} · KES ${grand}`:`Continue → Book Your Ticket · ${selectedDate} ${selectedTime} · KES ${grand}`;return grand;}
 dateSelEl.addEventListener('click',e=>{let btn=e.target.closest('button');if(!btn)return;document.querySelectorAll('#dateSel button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedDate=btn.dataset.date;updateCart();});
 document.getElementById('timeSel').addEventListener('click',e=>{let btn=e.target.closest('button');if(!btn)return;document.querySelectorAll('#timeSel button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedTime=btn.dataset.time;updateCart();});
 document.getElementById('laundService').addEventListener('change',updateCart);document.getElementById('laundQty').addEventListener('input',updateCart);document.getElementById('laundArea').addEventListener('change',updateCart);
@@ -193,7 +191,7 @@ document.getElementById('cartBar').addEventListener('click',()=>{document.getEle
       cart=data.cart||[]; selectedDate=data.pickupDate; selectedTime=data.pickupTime;
       document.getElementById('laundName').value=data.name||'';document.getElementById('laundPhone').value=data.phone||'';document.getElementById('laundLocation').value=data.location||'';
       document.getElementById('amendBanner').hidden=false;
-      document.getElementById('amendBanner').innerHTML=`💛 Hi ${amendName}, want a different time? <br><b style="color:var(--gold)">Your ticket ${ticketId} is still reserved</b> — just pick a new day & time below that works for you.`;
+      document.getElementById('amendBanner').innerHTML=`Hi ${amendName}, need a different time? <br><b style="color:var(--gold)">Your ticket ${ticketId} is still reserved</b> — just pick a new day & time below (8 AM - 6 PM) that works for you.`;
       setTimeout(()=>{document.querySelectorAll('#dateSel button').forEach(b=>{if(b.dataset.date===selectedDate)b.classList.add('active');else b.classList.remove('active');});document.querySelectorAll('#timeSel button').forEach(b=>{if(b.dataset.time===selectedTime)b.classList.add('active');else b.classList.remove('active');});updateCart();},300);
     }
   }
@@ -206,11 +204,11 @@ if(!isAmendMode){
   const existing=JSON.parse(localStorage.getItem('veccta_laundry_tickets')||'[]');do{let n=Math.floor(10000+Math.random()*90000);ticketId='LDY-'+n;}while(existing.includes(ticketId));existing.push(ticketId);localStorage.setItem('veccta_laundry_tickets',JSON.stringify(existing));
 }
 let serviceText=cart.length>0?cart.map(it=>`${it.name} ${it.price}${it.unit}×${it.qty}`).join(' + ')+` | Total ${grand}`:`${document.getElementById('laundService').options[document.getElementById('laundService').selectedIndex].text} x ${document.getElementById('laundQty').value} = ${grand}`;
-let orderData={id:ticketId,ticket:ticketId,page:"laundry",name,phone,location:loc,pickupDate:selectedDate,pickupTime:selectedTime,amendable:true,amendedAt:new Date().toLocaleString(),isAmend:isAmendMode,area:area==='olk'?'Within Olk Free':'Beyond Olk Rider KES '+delivery,service:serviceText,subtotal,deliveryFee:delivery,total:`KES ${grand}`,delivery:document.getElementById('autoDeliveryDisplay').innerText,cart,createdAt:new Date().toLocaleString(),createdAtTS:serverTimestamp(),status:isAmendMode?"Confirmed — New Time":"Received",steps:[{name:"Received",status:"done",time:new Date().toLocaleString()},{name:"Washing",status:"pending"},{name:"Ironing",status:"pending"},{name:"Ready",status:"pending"},{name:"Delivered",status:"pending"}]};
+let orderData={id:ticketId,ticket:ticketId,page:"laundry",name,phone,location:loc,pickupDate:selectedDate,pickupTime:selectedTime,amendable:true,amendedAt:new Date().toLocaleString(),isAmend:isAmendMode,area:area==='olk'?'Within Olkalou — Free':'Beyond Olkalou & Environs — Pay 70% Rider Shared',service:serviceText,subtotal,deliveryFee:delivery,total:`KES ${grand}`,delivery:document.getElementById('autoDeliveryDisplay').innerText,cart,createdAt:new Date().toLocaleString(),createdAtTS:serverTimestamp(),status:isAmendMode?"Confirmed — New Time":"Received",steps:[{name:"Received",status:"done",time:new Date().toLocaleString()},{name:"Washing",status:"pending"},{name:"Ironing",status:"pending"},{name:"Ready",status:"pending"},{name:"Delivered",status:"pending"}]};
 localStorage.setItem('order_'+ticketId,JSON.stringify(orderData));
-try{document.getElementById('cloudStatus').textContent=isAmendMode?'💛 Updating your pickup time...':'⏳ Securing your ticket...';await setDoc(doc(db,'laundry',ticketId),orderData,{merge:false});document.getElementById('cloudStatus').textContent=isAmendMode?'✅ Pickup time updated — same ticket, new time':'✅ Ticket secured — total auto-updated';}catch(e){document.getElementById('cloudStatus').textContent='⚠️ Saved locally';}
+try{document.getElementById('cloudStatus').textContent=isAmendMode?'Updating your pickup time...':'Securing your ticket...';await setDoc(doc(db,'laundry',ticketId),orderData,{merge:false});document.getElementById('cloudStatus').textContent=isAmendMode?'Pickup time updated — same ticket, new time':'Ticket secured — Olkalou fresh code locked';}catch(e){document.getElementById('cloudStatus').textContent='Saved locally';}
 document.getElementById('ticketRefHeader').textContent=ticketId;document.getElementById('recName').textContent=name+' ('+phone+')';document.getElementById('recService').textContent=serviceText;document.getElementById('recDateTime').textContent=selectedDate+' '+selectedTime+' — '+document.getElementById('autoDeliveryDisplay').innerText;document.getElementById('recTotal').textContent=`KES ${grand}`;document.getElementById('qrcode').innerHTML='';new QRCode(document.getElementById('qrcode'),{text:ticketId+'|KES '+grand+'|'+selectedDate+' '+selectedTime,width:128,height:128});
-let waMsg=`${isAmendMode?'💛 Rescheduled':'✨ New Order'} — ${ticketId}\nName: ${name}\nOrder: ${serviceText}\nPickup: ${selectedDate} ${selectedTime}\nLocation: ${loc}\nTrack: track.html?laundry=${ticketId}`;
+let waMsg=`${isAmendMode?'Rescheduled':'New Order'} — ${ticketId}\nName: ${name}\nOrder: ${serviceText}\nPickup: ${selectedDate} ${selectedTime}\nLocation: ${loc}\nTrack: track.html?laundry=${ticketId}`;
 document.getElementById('waTicketLink').href=`https://wa.me/254788099685?text=${encodeURIComponent(waMsg)}`;
 document.getElementById('amendLink').href=`laundry.html?amend=${ticketId}`;
 document.getElementById('trackLink').href=`track.html?laundry=${ticketId}`;
