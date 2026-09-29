@@ -6,34 +6,70 @@ body{background:#0f172a;color:#e2e8f0;font-family:system-ui;padding:0;margin:0}
 .input,select{width:100%;padding:10px;border-radius:8px;background:#0f172a;color:#fff;border:1px solid #334155;box-sizing:border-box;margin:4px 0}
 .btn{padding:10px 14px;border:none;border-radius:8px;font-weight:800;cursor:pointer}
 .btn-gold{background:#facc15;color:#000}.btn-green{background:#22c55e;color:#000}.btn-line{background:#0f172a;border:1px solid #334155;color:#94a3b8}
-.step-row{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.step-btn{padding:6px 10px;border-radius:999px;border:1px solid #334155;background:#0f172a;color:#94a3b8;cursor:pointer;font-size:11px}.step-btn.done{background:#422006;color:#facc15;border-color:#facc15;font-weight:800}.step-btn.active{border-color:#22c55e;color:#22c55e}
+.step-row{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.step-btn{padding:6px 10px;border-radius:999px;border:1px solid #334155;background:#0f172a;color:#94a3b8;cursor:pointer;font-size:11px}.step-btn.done{background:#422006;color:#facc15;border-color:#facc15;font-weight:800}
 .badge{padding:3px 8px;border-radius:999px;font-size:10px;font-weight:900;background:#422006;color:#facc15;border:1px solid #facc15}
 .tabs{display:flex;gap:8px;overflow:auto;margin:10px 0}.tab{padding:8px 14px;border-radius:999px;border:1px solid #334155;background:#1e293b;color:#94a3b8;cursor:pointer;white-space:nowrap}.tab.on{background:#facc15;color:#000;border-color:#facc15;font-weight:900}
 .small{font-size:11px;color:#94a3b8}
 </style></head><body>
 <div class="wrap">
-<h2 style="color:#facc15;text-align:center">VECCTAPIVOT ADMIN — Till 1741514</h2>
-<div class="tabs">
-<button class="tab on" onclick="showTab('laundry')">🧺 Laundry</button>
-<button class="tab" onclick="showTab('jobs')">💼 Jobs</button>
-<button class="tab" onclick="showTab('tickets')">🎫 Tickets</button>
-<button class="tab" onclick="location.href='track.html'">🔍 Track</button>
+<div id="loginBox" class="card" style="max-width:400px;margin:80px auto;text-align:center">
+<img src="logo.png" style="width:70px"><h3 style="color:#facc15;margin:8px 0">Admin Login — Till 1741514</h3>
+<input id="adminEmail" class="input" placeholder="Admin Email" value="admin@vecctapivot.com">
+<input id="adminPass" type="password" class="input" placeholder="Password">
+<button class="btn btn-gold" style="width:100%;margin-top:8px" onclick="doLogin()">LOGIN →</button>
+<p class="small">Login remembered — Till 1741514 secure</p>
 </div>
 
+<div id="mainApp" style="display:none">
+<h2 style="color:#facc15;text-align:center;margin:6px 0">VECCTAPIVOT ADMIN — Till 1741514 <button onclick="logout()" style="float:right;background:#450a0a;color:#ef4444;border:1px solid #ef4444;padding:6px 10px;border-radius:8px;font-size:11px;cursor:pointer">Logout</button></h2>
+<div class="tabs">
+<button class="tab on" onclick="showTab('laundry',this)">🧺 Laundry</button>
+<button class="tab" onclick="showTab('jobs',this)">💼 Jobs</button>
+<button class="tab" onclick="showTab('tickets',this)">🎫 Tickets</button>
+<button class="tab" onclick="location.href='track.html'">🔍 Track</button>
+</div>
 <div id="laundrySec"></div>
 <div id="jobsSec" style="display:none"></div>
 <div id="ticketsSec" style="display:none"></div>
 </div>
+</div>
 
 <script type="module">
 import { db } from './firebase.js';
-import { collection, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, onSnapshot, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 window.LAUNDRY=[]; window.JOBS=[]; window.TICKETS=[];
 const ORDER_LAUNDRY=["Received","Washing","Ironing / Pressing","Ready for Pickup","Please Pay","Payment Confirmed","Request Dispatch","Out for Delivery","Delivered"];
 
-// --- FIXED FUNCTIONS — ONLY THIS CHANGED, REST SAME ---
+// LOGIN REMEMBER
+const ADMIN_EMAIL="admin@vecctapivot.com";
+const ADMIN_PASS="Veccta2024!";
+window.doLogin=()=>{
+  let e=document.getElementById('adminEmail').value.trim();
+  let p=document.getElementById('adminPass').value.trim();
+  if(e===ADMIN_EMAIL && p===ADMIN_PASS){
+    localStorage.setItem('veccta_admin','true');
+    document.getElementById('loginBox').style.display='none';
+    document.getElementById('mainApp').style.display='block';
+  }else alert('Wrong email or password');
+}
+window.checkLogin=()=>{
+  if(localStorage.getItem('veccta_admin')==='true'){
+    document.getElementById('loginBox').style.display='none';
+    document.getElementById('mainApp').style.display='block';
+  }
+}
+checkLogin();
+window.logout=()=>{ localStorage.removeItem('veccta_admin'); location.reload(); }
+window.showTab=(name,el)=>{
+  document.querySelectorAll('.tab').forEach(t=>{ if(t.innerText.includes('Laundry')||t.innerText.includes('Jobs')||t.innerText.includes('Tickets')) t.classList.remove('on'); });
+  if(el) el.classList.add('on');
+  document.getElementById('laundrySec').style.display=name==='laundry'?'block':'none';
+  document.getElementById('jobsSec').style.display=name==='jobs'?'block':'none';
+  document.getElementById('ticketsSec').style.display=name==='tickets'?'block':'none';
+}
 
+// FIXED — IRON HANGING FIX
 function defaultStepsLaund(l){
   let order=ORDER_LAUNDRY;
   let steps = l.steps || order.map(n=>({name:n,status:"pending",time:""}));
@@ -48,41 +84,28 @@ function defaultStepsLaund(l){
   else if(s.includes('request')) curIdx=6;
   else if(s.includes('dispatch')||s.includes('out')) curIdx=7;
   else if(s.includes('deliver')) curIdx=8;
-  // progressive ensure done
-  steps = steps.map((st,i)=>{
-    if(i<=curIdx) st.status="done";
-    if(!st.name) st.name=order[i];
-    return st;
-  });
-  // fill missing names if steps shorter
-  if(steps.length<order.length){
-    steps = order.map((name,i)=>({
-      name:name,
-      status: steps[i]?.status || (i<=curIdx?"done":"pending"),
-      time: steps[i]?.time || ""
-    }));
-  }
+  steps = order.map((name,i)=>({
+    name:name,
+    status: (steps[i]?.status==="done" || i<=curIdx)? "done" : "pending",
+    time: steps[i]?.time||""
+  }));
   return steps;
 }
-
 window.updateLaundryStep=async(docId, stepIdx)=>{
   let l=LAUNDRY.find(x=>x._docId===docId);
   let order=ORDER_LAUNDRY;
   if(!l.steps) l.steps=order.map(n=>({name:n,status:"pending",time:""}));
-  // PROGRESSIVE TICK — THIS FIXES IRON HANGING BUG
   l.steps = order.map((name,i)=>({
     name:name,
     status: i<=stepIdx? "done" : "pending",
     time: i===stepIdx? new Date().toLocaleString() : (l.steps[i]?.time||"")
   }));
   let newStatus = order[stepIdx];
-  if(newStatus==="Ready for Pickup") newStatus="Please Pay"; // auto jump
-  try{
-    await updateDoc(doc(db,'laundry',docId),{ steps:l.steps, status:newStatus });
-  }catch(e){ alert(e.message); }
+  if(newStatus==="Ready for Pickup") newStatus="Please Pay";
+  try{ await updateDoc(doc(db,'laundry',docId),{ steps:l.steps, status:newStatus }); }catch(e){ alert(e.message); }
 }
 
-// --- RENDER LAUNDRY ---
+// RENDER
 function renderLaundry(){
   let html=`<div class=card><b style="color:#facc15">🧺 Laundry — ${LAUNDRY.length} orders</b></div>`;
   LAUNDRY.forEach(l=>{
@@ -104,9 +127,9 @@ function renderLaundry(){
         <input id="rName_${l._docId}" class="input" placeholder="Rider Name" value="${l.riderName||''}" style="width:130px">
         <input id="rTel_${l._docId}" class="input" placeholder="Rider Tel" value="${l.riderTel||''}" style="width:130px">
         <input id="rPlate_${l._docId}" class="input" placeholder="Bike Plate" value="${l.riderPlate||l.bikeNumber||''}" style="width:130px">
-        <input id="aComment_${l._docId}" class="input" placeholder="Admin Comment to client" value="${l.adminComment||''}" style="flex:1;min-width:180px">
+        <input id="aComment_${l._docId}" class="input" placeholder="Admin Comment" value="${l.adminComment||''}" style="flex:1;min-width:180px">
       </div>
-      <div style="display:flex;gap:6px;margin-top:6px">
+      <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">
         <button class="btn btn-gold" onclick="saveRider('${l._docId}')">Save Rider + Dispatch</button>
         <button class="btn btn-green" onclick="verifyPay('${l._docId}')">Verify Pay Till 1741514 — ${l.mpesaCode||''}</button>
         <button class="btn btn-line" onclick="markScheduleNoted('${l._docId}')">Noted ✓</button>
@@ -115,7 +138,6 @@ function renderLaundry(){
   });
   document.getElementById('laundrySec').innerHTML=html;
 }
-
 window.saveRider=async(docId)=>{
   let l=LAUNDRY.find(x=>x._docId===docId);
   let rn=document.getElementById('rName_'+docId).value, rt=document.getElementById('rTel_'+docId).value, rp=document.getElementById('rPlate_'+docId).value, ac=document.getElementById('aComment_'+docId).value;
@@ -131,17 +153,15 @@ window.markScheduleNoted=async(docId)=>{
   let ac=document.getElementById('aComment_'+docId).value;
   await updateDoc(doc(db,'laundry',docId),{ scheduleNoted:true, adminComment:ac });
 }
-
 function renderJobs(){
   let html=`<div class=card><b style="color:#facc15">💼 Jobs — ${JOBS.length}</b></div>`;
   JOBS.forEach(j=>{
-    html+=`<div class=card><b>${j.id||j.ticket}</b> ${j.clientName||j.name||''} — ${j.status||''} — KSH ${(j.price+'').replace(/KSH/gi,'').trim()}<br><span class=small>${j.fullService||j.title||''}</span><br><input id="jobMsg_${j._docId}" class="input" placeholder="Admin reply / price / message" value="${j.adminMessage||''}"><div style="display:flex;gap:6px;margin-top:6px"><button class="btn btn-gold" onclick="saveJob('${j._docId}')">Save</button><button class="btn btn-green" onclick="updateJobStatus('${j._docId}','In Progress')">In Progress</button><button class="btn btn-green" onclick="updateJobStatus('${j._docId}','Done')">Done</button></div></div>`;
+    html+=`<div class=card><b>${j.id||j.ticket}</b> ${j.clientName||j.name||''} — ${j.status||''} — KSH ${(j.price+'').replace(/KSH/gi,'').trim()}<br><span class=small>${j.fullService||j.title||''}</span><br><input id="jobMsg_${j._docId}" class="input" placeholder="Admin reply / price" value="${j.adminMessage||''}"><div style="display:flex;gap:6px;margin-top:6px"><button class="btn btn-gold" onclick="saveJob('${j._docId}')">Save</button><button class="btn btn-green" onclick="updateJobStatus('${j._docId}','In Progress')">In Progress</button><button class="btn btn-green" onclick="updateJobStatus('${j._docId}','Done')">Done</button></div></div>`;
   });
   document.getElementById('jobsSec').innerHTML=html;
 }
 window.saveJob=async(id)=>{ let m=document.getElementById('jobMsg_'+id).value; await updateDoc(doc(db,'jobs',id),{ adminMessage:m }); }
 window.updateJobStatus=async(id,st)=>{ await updateDoc(doc(db,'jobs',id),{ status:st }); }
-
 function renderTickets(){
   let html=`<div class=card><b style="color:#facc15">🎫 Tickets — ${TICKETS.length}</b></div>`;
   TICKETS.forEach(t=>{
@@ -152,15 +172,6 @@ function renderTickets(){
 window.saveTic=async(id)=>{ let r=document.getElementById('ticReply_'+id).value; await updateDoc(doc(db,'tickets',id),{ adminReply:r, status:'In Progress' }); }
 window.updateTicStatus=async(id,st)=>{ await updateDoc(doc(db,'tickets',id),{ status:st }); }
 
-window.showTab=(name)=>{
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
-  event.target.classList.add('on');
-  document.getElementById('laundrySec').style.display=name==='laundry'?'block':'none';
-  document.getElementById('jobsSec').style.display=name==='jobs'?'block':'none';
-  document.getElementById('ticketsSec').style.display=name==='tickets'?'block':'none';
-}
-
-// LIVE
 onSnapshot(query(collection(db,'laundry'), orderBy('createdAt','desc')), snap=>{ LAUNDRY=snap.docs.map(d=>({...d.data(),_docId:d.id})); renderLaundry(); });
 onSnapshot(query(collection(db,'jobs'), orderBy('createdAt','desc')), snap=>{ JOBS=snap.docs.map(d=>({...d.data(),_docId:d.id})); renderJobs(); });
 onSnapshot(query(collection(db,'tickets'), orderBy('createdAt','desc')), snap=>{ TICKETS=snap.docs.map(d=>({...d.data(),_docId:d.id})); renderTickets(); });
