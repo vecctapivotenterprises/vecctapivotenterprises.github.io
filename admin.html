@@ -1,33 +1,41 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin — VECCTAPIVOT GLOBAL Till 1741514</title><link rel="icon" href="logo.png"><link rel="stylesheet" href="style.css">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin — VECCTAPIVOT GLOBAL Till 1741514</title><link rel="icon" href="logo.png">
 <style>
-body{background:#0f172a;color:#e2e8f0;font-family:system-ui;padding:0;margin:0}
-.wrap{max-width:1100px;margin:0 auto;padding:12px}
-.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:12px;margin:8px 0}
-.input,select{width:100%;padding:10px;border-radius:8px;background:#0f172a;color:#fff;border:1px solid #334155;box-sizing:border-box;margin:4px 0}
-.btn{padding:10px 14px;border:none;border-radius:8px;font-weight:800;cursor:pointer}
-.btn-gold{background:#facc15;color:#000}.btn-green{background:#22c55e;color:#000}.btn-line{background:#0f172a;border:1px solid #334155;color:#94a3b8}
-.step-row{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.step-btn{padding:6px 10px;border-radius:999px;border:1px solid #334155;background:#0f172a;color:#94a3b8;cursor:pointer;font-size:11px}.step-btn.done{background:#422006;color:#facc15;border-color:#facc15;font-weight:800}
+body{background:#0f172a;color:#e2e8f0;font-family:system-ui;margin:0;padding:0}
+.wrap{max-width:1200px;margin:0 auto;padding:12px}
+.card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:14px;margin:10px 0}
+.input,select{padding:10px;border-radius:10px;background:#0f172a;color:#fff;border:1px solid #334155;width:100%;box-sizing:border-box;margin:4px 0}
+.btn{padding:10px 14px;border-radius:10px;border:none;font-weight:800;cursor:pointer}
+.btn-gold{background:#facc15;color:#000}.btn-green{background:#22c55e;color:#000}.btn-red{background:#ef4444;color:#fff}.btn-line{background:#0f172a;border:1px solid #334155;color:#94a3b8}
+.tabs{display:flex;gap:8px;overflow:auto;margin:10px 0;position:sticky;top:0;background:#0f172a;padding:8px 0;z-index:5}
+.tab{padding:9px 16px;border-radius:999px;border:1px solid #334155;background:#1e293b;color:#94a3b8;cursor:pointer;white-space:nowrap}.tab.on{background:#facc15;color:#000;font-weight:900}
+.stat{display:flex;gap:10px;flex-wrap:wrap}.stat div{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:10px 14px;min-width:110px;text-align:center}.stat b{color:#facc15;font-size:18px;display:block}
+.step-row{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.step-btn{padding:6px 10px;border-radius:999px;border:1px solid #334155;background:#0f172a;color:#94a3b8;cursor:pointer;font-size:11px}.step-btn.done{background:#422006;color:#facc15;border-color:#facc15;font-weight:800}
 .badge{padding:3px 8px;border-radius:999px;font-size:10px;font-weight:900;background:#422006;color:#facc15;border:1px solid #facc15}
-.tabs{display:flex;gap:8px;overflow:auto;margin:10px 0}.tab{padding:8px 14px;border-radius:999px;border:1px solid #334155;background:#1e293b;color:#94a3b8;cursor:pointer;white-space:nowrap}.tab.on{background:#facc15;color:#000;border-color:#facc15;font-weight:900}
-.small{font-size:11px;color:#94a3b8}
+.small{font-size:11px;color:#94a3b8} table{width:100%;border-collapse:collapse} th,td{border-bottom:1px solid #334155;padding:8px;text-align:left;font-size:12px}
 </style></head><body>
 <div class="wrap">
-<div id="loginBox" class="card" style="max-width:400px;margin:80px auto;text-align:center">
-<img src="logo.png" style="width:70px"><h3 style="color:#facc15;margin:8px 0">Admin Login — Till 1741514</h3>
-<input id="adminEmail" class="input" placeholder="Admin Email" value="admin@vecctapivot.com">
-<input id="adminPass" type="password" class="input" placeholder="Password">
+
+<div id="loginBox" class="card" style="max-width:420px;margin:90px auto;text-align:center">
+<img src="logo.png" style="width:70px"><h3 style="color:#facc15">Admin Login — Till 1741514</h3>
+<input id="adminEmail" class="input" value="admin@vecctapivot.com"><input id="adminPass" type="password" class="input" placeholder="Password">
 <button class="btn btn-gold" style="width:100%;margin-top:8px" onclick="doLogin()">LOGIN →</button>
-<p class="small">Login remembered — Till 1741514 secure</p>
+<p class="small">Login remembered</p>
 </div>
 
 <div id="mainApp" style="display:none">
-<h2 style="color:#facc15;text-align:center;margin:6px 0">VECCTAPIVOT ADMIN — Till 1741514 <button onclick="logout()" style="float:right;background:#450a0a;color:#ef4444;border:1px solid #ef4444;padding:6px 10px;border-radius:8px;font-size:11px;cursor:pointer">Logout</button></h2>
+<h2 style="color:#facc15;text-align:center">VECCTAPIVOT ADMIN — Till 1741514 <span style="float:right"><button onclick="refreshAll()" class="btn btn-line" style="font-size:11px">🔄 Refresh All</button> <button onclick="logout()" class="btn btn-red" style="font-size:11px">Logout</button></span></h2>
+
+<div class="stat" id="stats"></div>
+
 <div class="tabs">
 <button class="tab on" onclick="showTab('laundry',this)">🧺 Laundry</button>
 <button class="tab" onclick="showTab('jobs',this)">💼 Jobs</button>
 <button class="tab" onclick="showTab('tickets',this)">🎫 Tickets</button>
 <button class="tab" onclick="location.href='track.html'">🔍 Track</button>
 </div>
+
+<input id="searchBox" class="input" placeholder="🔍 Search ticket / name / phone / LDY-" oninput="doSearch()">
+
 <div id="laundrySec"></div>
 <div id="jobsSec" style="display:none"></div>
 <div id="ticketsSec" style="display:none"></div>
@@ -36,143 +44,83 @@ body{background:#0f172a;color:#e2e8f0;font-family:system-ui;padding:0;margin:0}
 
 <script type="module">
 import { db } from './firebase.js';
-import { collection, onSnapshot, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-window.LAUNDRY=[]; window.JOBS=[]; window.TICKETS=[];
-const ORDER_LAUNDRY=["Received","Washing","Ironing / Pressing","Ready for Pickup","Please Pay","Payment Confirmed","Request Dispatch","Out for Delivery","Delivered"];
+window.LAUNDRY=[]; window.JOBS=[]; window.TICKETS=[]; window.FILTER="";
+const ORDER=["Received","Washing","Ironing / Pressing","Ready for Pickup","Please Pay","Payment Confirmed","Request Dispatch","Out for Delivery","Delivered"];
 
-// LOGIN REMEMBER
-const ADMIN_EMAIL="admin@vecctapivot.com";
-const ADMIN_PASS="Veccta2024!";
-window.doLogin=()=>{
-  let e=document.getElementById('adminEmail').value.trim();
-  let p=document.getElementById('adminPass').value.trim();
-  if(e===ADMIN_EMAIL && p===ADMIN_PASS){
-    localStorage.setItem('veccta_admin','true');
-    document.getElementById('loginBox').style.display='none';
-    document.getElementById('mainApp').style.display='block';
-  }else alert('Wrong email or password');
-}
-window.checkLogin=()=>{
-  if(localStorage.getItem('veccta_admin')==='true'){
-    document.getElementById('loginBox').style.display='none';
-    document.getElementById('mainApp').style.display='block';
-  }
-}
-checkLogin();
-window.logout=()=>{ localStorage.removeItem('veccta_admin'); location.reload(); }
-window.showTab=(name,el)=>{
-  document.querySelectorAll('.tab').forEach(t=>{ if(t.innerText.includes('Laundry')||t.innerText.includes('Jobs')||t.innerText.includes('Tickets')) t.classList.remove('on'); });
-  if(el) el.classList.add('on');
-  document.getElementById('laundrySec').style.display=name==='laundry'?'block':'none';
-  document.getElementById('jobsSec').style.display=name==='jobs'?'block':'none';
-  document.getElementById('ticketsSec').style.display=name==='tickets'?'block':'none';
-}
+// LOGIN
+const ADMIN_EMAIL="admin@vecctapivot.com"; const ADMIN_PASS="Veccta2024!";
+window.doLogin=()=>{ let e=adminEmail.value.trim(),p=adminPass.value.trim(); if(e===ADMIN_EMAIL&&p===ADMIN_PASS){localStorage.setItem('veccta_admin','true');loginBox.style.display='none';mainApp.style.display='block';}else alert('Wrong'); }
+window.checkLogin=()=>{ if(localStorage.getItem('veccta_admin')==='true'){loginBox.style.display='none';mainApp.style.display='block';} }; checkLogin();
+window.logout=()=>{localStorage.removeItem('veccta_admin');location.reload();};
+window.showTab=(n,el)=>{ document.querySelectorAll('.tab').forEach(t=>{ if(t.textContent.includes('Laundry')||t.textContent.includes('Jobs')||t.textContent.includes('Tickets')) t.classList.remove('on');}); if(el) el.classList.add('on'); laundrySec.style.display=n==='laundry'?'block':'none'; jobsSec.style.display=n==='jobs'?'block':'none'; ticketsSec.style.display=n==='tickets'?'block':'none'; }
+window.refreshAll=()=>location.reload();
+window.doSearch=()=>{ FILTER=searchBox.value.toLowerCase(); renderAll(); }
 
-// FIXED — IRON HANGING FIX
+// IRON FIX ONLY
 function defaultStepsLaund(l){
-  let order=ORDER_LAUNDRY;
-  let steps = l.steps || order.map(n=>({name:n,status:"pending",time:""}));
-  let s=(l.status||'').toLowerCase();
-  let curIdx=-1;
-  if(s.includes('receiv')) curIdx=0;
-  else if(s.includes('wash')) curIdx=1;
-  else if(s.includes('iron')) curIdx=2;
-  else if(s.includes('ready')) curIdx=3;
-  else if(s.includes('please')) curIdx=4;
-  else if(s.includes('payment')||s.includes('confirm')) curIdx=5;
-  else if(s.includes('request')) curIdx=6;
-  else if(s.includes('dispatch')||s.includes('out')) curIdx=7;
-  else if(s.includes('deliver')) curIdx=8;
-  steps = order.map((name,i)=>({
-    name:name,
-    status: (steps[i]?.status==="done" || i<=curIdx)? "done" : "pending",
-    time: steps[i]?.time||""
-  }));
-  return steps;
+  let s=(l.status||'').toLowerCase(); let cur=-1;
+  if(s.includes('receiv')) cur=0; else if(s.includes('wash')) cur=1; else if(s.includes('iron')) cur=2; else if(s.includes('ready')) cur=3; else if(s.includes('please')) cur=4; else if(s.includes('payment')||s.includes('confirm')) cur=5; else if(s.includes('request')) cur=6; else if(s.includes('dispatch')||s.includes('out')) cur=7; else if(s.includes('deliver')) cur=8;
+  let steps=l.steps||ORDER.map(n=>({name:n,status:"pending",time:""}));
+  return ORDER.map((name,i)=>({name,status:(steps[i]?.status==="done"||i<=cur)?"done":"pending",time:steps[i]?.time||""}));
 }
-window.updateLaundryStep=async(docId, stepIdx)=>{
-  let l=LAUNDRY.find(x=>x._docId===docId);
-  let order=ORDER_LAUNDRY;
-  if(!l.steps) l.steps=order.map(n=>({name:n,status:"pending",time:""}));
-  l.steps = order.map((name,i)=>({
-    name:name,
-    status: i<=stepIdx? "done" : "pending",
-    time: i===stepIdx? new Date().toLocaleString() : (l.steps[i]?.time||"")
-  }));
-  let newStatus = order[stepIdx];
-  if(newStatus==="Ready for Pickup") newStatus="Please Pay";
-  try{ await updateDoc(doc(db,'laundry',docId),{ steps:l.steps, status:newStatus }); }catch(e){ alert(e.message); }
+window.updateLaundryStep=async(id,idx)=>{
+  let l=LAUNDRY.find(x=>x._docId===id);
+  l.steps=ORDER.map((name,i)=>({name,status:i<=idx?"done":"pending",time:i===idx?new Date().toLocaleString(): (l.steps[i]?.time||"")}));
+  let ns=ORDER[idx]; if(ns==="Ready for Pickup") ns="Please Pay";
+  await updateDoc(doc(db,'laundry',id),{steps:l.steps,status:ns});
 }
+window.deleteLaundry=async(id)=>{ if(confirm('Delete this laundry order?')) await deleteDoc(doc(db,'laundry',id)); }
+window.deleteJob=async(id)=>{ if(confirm('Delete job?')) await deleteDoc(doc(db,'jobs',id)); }
+window.deleteTicket=async(id)=>{ if(confirm('Delete ticket?')) await deleteDoc(doc(db,'tickets',id)); }
 
-// RENDER
-function renderLaundry(){
-  let html=`<div class=card><b style="color:#facc15">🧺 Laundry — ${LAUNDRY.length} orders</b></div>`;
-  LAUNDRY.forEach(l=>{
+window.saveRider=async(id)=>{
+  let rn=document.getElementById('rName_'+id).value, rt=document.getElementById('rTel_'+id).value, rp=document.getElementById('rPlate_'+id).value, ac=document.getElementById('aComment_'+id).value;
+  let l=LAUNDRY.find(x=>x._docId===id); let receipt=l.receiptNo||`RCP-${new Date().toISOString().slice(0,10).replace(/-/g,'')}-${Math.floor(1000+Math.random()*9000)}`;
+  await updateDoc(doc(db,'laundry',id),{riderName:rn,riderTel:rt,riderPlate:rp,bikeNumber:rp,adminComment:ac,receiptNo:receipt,status:'Out for Delivery',eta:new Date().toLocaleString()});
+}
+window.verifyPay=async(id)=>{
+  let l=LAUNDRY.find(x=>x._docId===id); let receipt=l.receiptNo||`RCP-${new Date().toISOString().slice(0,10).replace(/-/g,'')}-${Math.floor(1000+Math.random()*9000)}`;
+  await updateDoc(doc(db,'laundry',id),{paid:true,paymentStatus:'PAID Till 1741514',status:'Payment Confirmed',receiptNo:receipt,steps:ORDER.map((n,i)=>({name:n,status:i<=5?"done":"pending",time:i===5?new Date().toLocaleString():""}))});
+}
+window.markScheduleNoted=async(id)=>{ let ac=document.getElementById('aComment_'+id).value; await updateDoc(doc(db,'laundry',id),{scheduleNoted:true,adminComment:ac}); }
+window.saveJob=async(id)=>{ let m=document.getElementById('jobMsg_'+id).value; await updateDoc(doc(db,'jobs',id),{adminMessage:m}); }
+window.updateJobStatus=async(id,st)=>{ await updateDoc(doc(db,'jobs',id),{status:st}); }
+window.saveTic=async(id)=>{ let r=document.getElementById('ticReply_'+id).value; await updateDoc(doc(db,'tickets',id),{adminReply:r,status:'In Progress'}); }
+window.updateTicStatus=async(id,st)=>{ await updateDoc(doc(db,'tickets',id),{status:st}); }
+
+function renderAll(){
+  let f=FILTER;
+  let fl=LAUNDRY.filter(l=>!f||(JSON.stringify(l).toLowerCase().includes(f)));
+  let fj=JOBS.filter(j=>!f||(JSON.stringify(j).toLowerCase().includes(f)));
+  let ft=TICKETS.filter(t=>!f||(JSON.stringify(t).toLowerCase().includes(f)));
+  document.getElementById('stats').innerHTML=`<div><b>${LAUNDRY.length}</b>Laundry</div><div><b>${JOBS.length}</b>Jobs</div><div><b>${TICKETS.length}</b>Tickets</div><div><b>${LAUNDRY.filter(l=>l.status==='Please Pay').length}</b>Need Pay</div>`;
+
+  // LAUNDRY PRESENTABLE
+  let h=`<div class=card style="display:flex;justify-content:space-between"><b style="color:#facc15">🧺 Laundry — ${fl.length}/${LAUNDRY.length}</b><button class="btn btn-line" style="font-size:11px" onclick="refreshAll()">🔄 Refresh</button></div>`;
+  fl.forEach(l=>{
     let steps=defaultStepsLaund(l);
-    let total=(l.total+'').replace(/KES/gi,'').trim();
-    html+=`<div class=card>
-      <div style="display:flex;justify-content:space-between;flex-wrap:wrap">
-        <div><b style="color:#facc15">${l.ticket||l.id}</b> <span class=badge>${l.status||'Received'} • ${l.paid?'PAID':l.paymentStatus||'NOT PAID'}</span><br><span class=small>${l.name||''} ${l.phone||''} | ${l.pickupDate||''} | KES ${total} | RCP ${l.receiptNo||'—'} ${l.mpesaCode? '| Code '+l.mpesaCode:''}</span></div>
-        <div><a href="track.html?laundry=${l.ticket||l.id}" target="_blank" class="btn btn-line" style="font-size:11px;padding:6px 10px">View Client Track</a></div>
-      </div>
-      <div class=step-row>
-        ${ORDER_LAUNDRY.map((name,i)=>{
-          let st=steps[i]||{status:"pending"};
-          return `<button class="step-btn ${st.status==='done'?'done':''}" onclick="updateLaundryStep('${l._docId}',${i})">${st.status==='done'?'✅':'○'} ${name}</button>`;
-        }).join('')}
-      </div>
-      ${l.deliveryDate? `<div class=small style="background:#422006;border:1px solid #facc15;padding:6px;border-radius:8px;margin:6px 0">📅 Client wants: ${l.deliveryDate} ${l.deliveryTime||''} at ${l.deliveryPlace||''} — ${l.customerNote||''} — ${l.deliveryChoice||''} ${l.scheduleNoted?'<b style="color:#22c55e">✓ Noted</b>':''}</div>`:''}
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
-        <input id="rName_${l._docId}" class="input" placeholder="Rider Name" value="${l.riderName||''}" style="width:130px">
-        <input id="rTel_${l._docId}" class="input" placeholder="Rider Tel" value="${l.riderTel||''}" style="width:130px">
-        <input id="rPlate_${l._docId}" class="input" placeholder="Bike Plate" value="${l.riderPlate||l.bikeNumber||''}" style="width:130px">
-        <input id="aComment_${l._docId}" class="input" placeholder="Admin Comment" value="${l.adminComment||''}" style="flex:1;min-width:180px">
-      </div>
-      <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">
-        <button class="btn btn-gold" onclick="saveRider('${l._docId}')">Save Rider + Dispatch</button>
-        <button class="btn btn-green" onclick="verifyPay('${l._docId}')">Verify Pay Till 1741514 — ${l.mpesaCode||''}</button>
-        <button class="btn btn-line" onclick="markScheduleNoted('${l._docId}')">Noted ✓</button>
-      </div>
+    h+=`<div class=card>
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap"><div><b style="color:#facc15">${l.ticket||l.id}</b> <span class=badge>${l.status} • ${l.paid?'PAID':l.paymentStatus||'NOT PAID'}</span><br><span class=small>${l.name||''} ${l.phone||''} | KES ${(l.total+'').replace(/KES/gi,'')} | RCP ${l.receiptNo||'—'} ${l.mpesaCode?'| '+l.mpesaCode:''} | ${l.pickupDate||''}</span></div><div style="display:flex;gap:6px"><a href="track.html?laundry=${l.ticket||l.id}" target="_blank" class="btn btn-line" style="font-size:11px">View</a><button class="btn btn-red" style="font-size:11px" onclick="deleteLaundry('${l._docId}')">🗑️ Delete</button></div></div>
+      <div class=step-row>${ORDER.map((name,i)=>`<button class="step-btn ${steps[i].status==='done'?'done':''}" onclick="updateLaundryStep('${l._docId}',${i})">${steps[i].status==='done'?'✅':'○'} ${name}</button>`).join('')}</div>
+      ${l.deliveryDate?`<div class=small style="background:#422006;border:1px solid #facc15;padding:6px;border-radius:8px">📅 ${l.deliveryDate} ${l.deliveryTime||''} @ ${l.deliveryPlace||''} — ${l.customerNote||''} ${l.scheduleNoted?'<b style="color:#22c55e">✓ Noted</b>':''}</div>`:''}
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><input id="rName_${l._docId}" class="input" style="width:140px" placeholder="Rider" value="${l.riderName||''}"><input id="rTel_${l._docId}" class="input" style="width:140px" placeholder="Tel" value="${l.riderTel||''}"><input id="rPlate_${l._docId}" class="input" style="width:140px" placeholder="Plate" value="${l.riderPlate||l.bikeNumber||''}"><input id="aComment_${l._docId}" class="input" style="flex:1;min-width:200px" placeholder="Admin comment" value="${l.adminComment||''}"></div>
+      <div style="display:flex;gap:6px;margin-top:6px"><button class="btn btn-gold" onclick="saveRider('${l._docId}')">Save Rider + Dispatch</button><button class="btn btn-green" onclick="verifyPay('${l._docId}')">Verify Pay Till 1741514</button><button class="btn btn-line" onclick="markScheduleNoted('${l._docId}')">Noted ✓</button></div>
     </div>`;
   });
-  document.getElementById('laundrySec').innerHTML=html;
-}
-window.saveRider=async(docId)=>{
-  let l=LAUNDRY.find(x=>x._docId===docId);
-  let rn=document.getElementById('rName_'+docId).value, rt=document.getElementById('rTel_'+docId).value, rp=document.getElementById('rPlate_'+docId).value, ac=document.getElementById('aComment_'+docId).value;
-  let receipt = l.receiptNo || `RCP-${new Date().toISOString().slice(0,10).replace(/-/g,'')}-${Math.floor(1000+Math.random()*9000)}`;
-  await updateDoc(doc(db,'laundry',docId),{ riderName:rn, riderTel:rt, riderPlate:rp, bikeNumber:rp, adminComment:ac, receiptNo:receipt, status:'Out for Delivery', eta:new Date().toLocaleString() });
-}
-window.verifyPay=async(docId)=>{
-  let l=LAUNDRY.find(x=>x._docId===docId);
-  let receipt = l.receiptNo || `RCP-${new Date().toISOString().slice(0,10).replace(/-/g,'')}-${Math.floor(1000+Math.random()*9000)}`;
-  await updateDoc(doc(db,'laundry',docId),{ paid:true, paymentStatus:'PAID Till 1741514', status:'Payment Confirmed', receiptNo:receipt, steps: ORDER_LAUNDRY.map((n,i)=>({name:n,status:i<=5?"done":"pending",time:i===5?new Date().toLocaleString():""})) });
-}
-window.markScheduleNoted=async(docId)=>{
-  let ac=document.getElementById('aComment_'+docId).value;
-  await updateDoc(doc(db,'laundry',docId),{ scheduleNoted:true, adminComment:ac });
-}
-function renderJobs(){
-  let html=`<div class=card><b style="color:#facc15">💼 Jobs — ${JOBS.length}</b></div>`;
-  JOBS.forEach(j=>{
-    html+=`<div class=card><b>${j.id||j.ticket}</b> ${j.clientName||j.name||''} — ${j.status||''} — KSH ${(j.price+'').replace(/KSH/gi,'').trim()}<br><span class=small>${j.fullService||j.title||''}</span><br><input id="jobMsg_${j._docId}" class="input" placeholder="Admin reply / price" value="${j.adminMessage||''}"><div style="display:flex;gap:6px;margin-top:6px"><button class="btn btn-gold" onclick="saveJob('${j._docId}')">Save</button><button class="btn btn-green" onclick="updateJobStatus('${j._docId}','In Progress')">In Progress</button><button class="btn btn-green" onclick="updateJobStatus('${j._docId}','Done')">Done</button></div></div>`;
-  });
-  document.getElementById('jobsSec').innerHTML=html;
-}
-window.saveJob=async(id)=>{ let m=document.getElementById('jobMsg_'+id).value; await updateDoc(doc(db,'jobs',id),{ adminMessage:m }); }
-window.updateJobStatus=async(id,st)=>{ await updateDoc(doc(db,'jobs',id),{ status:st }); }
-function renderTickets(){
-  let html=`<div class=card><b style="color:#facc15">🎫 Tickets — ${TICKETS.length}</b></div>`;
-  TICKETS.forEach(t=>{
-    html+=`<div class=card><b>${t.id||t.ticket}</b> ${t.status||''}<br><span class=small>${t.message||''}</span><br><input id="ticReply_${t._docId}" class="input" placeholder="Admin Reply" value="${t.adminReply||''}"><div style="display:flex;gap:6px;margin-top:6px"><button class="btn btn-gold" onclick="saveTic('${t._docId}')">Reply</button><button class="btn btn-green" onclick="updateTicStatus('${t._docId}','Closed')">Close</button></div></div>`;
-  });
-  document.getElementById('ticketsSec').innerHTML=html;
-}
-window.saveTic=async(id)=>{ let r=document.getElementById('ticReply_'+id).value; await updateDoc(doc(db,'tickets',id),{ adminReply:r, status:'In Progress' }); }
-window.updateTicStatus=async(id,st)=>{ await updateDoc(doc(db,'tickets',id),{ status:st }); }
+  laundrySec.innerHTML=h;
 
-onSnapshot(query(collection(db,'laundry'), orderBy('createdAt','desc')), snap=>{ LAUNDRY=snap.docs.map(d=>({...d.data(),_docId:d.id})); renderLaundry(); });
-onSnapshot(query(collection(db,'jobs'), orderBy('createdAt','desc')), snap=>{ JOBS=snap.docs.map(d=>({...d.data(),_docId:d.id})); renderJobs(); });
-onSnapshot(query(collection(db,'tickets'), orderBy('createdAt','desc')), snap=>{ TICKETS=snap.docs.map(d=>({...d.data(),_docId:d.id})); renderTickets(); });
+  // JOBS PRESENTABLE
+  let hj=`<div class=card style="display:flex;justify-content:space-between"><b style="color:#facc15">💼 Jobs — ${fj.length}/${JOBS.length}</b><button class="btn btn-line" style="font-size:11px" onclick="refreshAll()">🔄 Refresh</button></div><div class=card><table><tr><th>Ticket</th><th>Client</th><th>Status</th><th>Action</th></tr>${fj.map(j=>`<tr><td>${j.id||j.ticket}</td><td>${j.clientName||j.name||''}<br><span class=small>${j.fullService||j.title||''}</span></td><td><span class=badge>${j.status||''}</span></td><td><button class="btn btn-line" style="font-size:10px" onclick="document.getElementById('jobDetail_${j._docId}').style.display='block'">Open</button> <button class="btn btn-red" style="font-size:10px" onclick="deleteJob('${j._docId}')">🗑️</button></td></tr><tr id="jobDetail_${j._docId}" style="display:none"><td colspan=4><input id="jobMsg_${j._docId}" class="input" value="${j.adminMessage||''}" placeholder="Admin reply / price"><div style="display:flex;gap:6px;margin-top:6px"><button class="btn btn-gold" onclick="saveJob('${j._docId}')">Save</button><button class="btn btn-green" onclick="updateJobStatus('${j._docId}','In Progress')">In Progress</button><button class="btn btn-green" onclick="updateJobStatus('${j._docId}','Done')">Done</button></div></td></tr>`).join('')+`</table></div>`;
+  jobsSec.innerHTML=hj;
+
+  // TICKETS PRESENTABLE
+  let ht=`<div class=card style="display:flex;justify-content:space-between"><b style="color:#facc15">🎫 Tickets — ${ft.length}/${TICKETS.length}</b><button class="btn btn-line" style="font-size:11px" onclick="refreshAll()">🔄 Refresh</button></div><div class=card><table><tr><th>Ticket</th><th>Msg</th><th>Status</th><th>Action</th></tr>${ft.map(t=>`<tr><td>${t.id||t.ticket}</td><td><span class=small>${t.message||''}</span></td><td><span class=badge>${t.status||''}</span></td><td><button class="btn btn-line" style="font-size:10px" onclick="document.getElementById('ticDetail_${t._docId}').style.display='block'">Reply</button> <button class="btn btn-red" style="font-size:10px" onclick="deleteTicket('${t._docId}')">🗑️</button></td></tr><tr id="ticDetail_${t._docId}" style="display:none"><td colspan=4><input id="ticReply_${t._docId}" class="input" value="${t.adminReply||''}" placeholder="Admin Reply"><div style="display:flex;gap:6px;margin-top:6px"><button class="btn btn-gold" onclick="saveTic('${t._docId}')">Reply</button><button class="btn btn-green" onclick="updateTicStatus('${t._docId}','Closed')">Close</button></div></td></tr>`).join('')+`</table></div>`;
+  ticketsSec.innerHTML=ht;
+}
+
+onSnapshot(query(collection(db,'laundry'),orderBy('createdAt','desc')),s=>{LAUNDRY=s.docs.map(d=>({...d.data(),_docId:d.id}));renderAll();});
+onSnapshot(query(collection(db,'jobs'),orderBy('createdAt','desc')),s=>{JOBS=s.docs.map(d=>({...d.data(),_docId:d.id}));renderAll();});
+onSnapshot(query(collection(db,'tickets'),orderBy('createdAt','desc')),s=>{TICKETS=s.docs.map(d=>({...d.data(),_docId:d.id}));renderAll();});
 </script></body></html>
