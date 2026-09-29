@@ -2,91 +2,87 @@
 <html lang="en-KE">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VECCTAPIVOT Laundry — Final Qty Selector</title>
+<title>VECCTAPIVOT Laundry — Amend Same Ticket</title>
 <link rel="icon" href="logo.png"><link rel="stylesheet" href="style.css">
 <style>
 :root{--gold:#e8b93e;--gold2:#ffcf4d}
 .laundry-wrap{max-width:1100px;margin:0 auto;padding:12px}
-.hero-lively{background:radial-gradient(120% 120% at 10% 10%, rgba(232,185,62,.22), transparent 40%), linear-gradient(165deg, var(--panel), var(--bg-2));border:1px solid var(--line);border-radius:20px;padding:18px;margin:10px auto;max-width:600px;text-align:center}
-.pickup-note{background:linear-gradient(90deg, rgba(232,185,62,.12), rgba(37,211,102,.08));border:1px solid rgba(232,185,62,.22);padding:12px;border-radius:12px;margin:14px auto;max-width:600px;text-align:center;font-size:13px;color:var(--text)}
-.combo-grid{display:grid;grid-template-columns:1fr;gap:14px;max-width:600px;margin:0 auto;padding:8px}
-@media(min-width:500px){.combo-grid{grid-template-columns:1fr 1fr}}
-.combo-card{border:1px solid var(--line);background:linear-gradient(180deg, var(--panel), rgba(0,0,0,.2));border-radius:18px;padding:14px}.combo-card.best{border-color:var(--gold)}
-.combo-badge{background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px}
-.combo-btn{width:100%;padding:11px;border-radius:12px;border:0;background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;font-weight:800;cursor:pointer}
 .subs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px auto;max-width:600px}
-.sub-card{border:1px solid var(--line);background:linear-gradient(180deg, var(--bg-2), var(--panel));border-radius:16px;padding:16px;cursor:pointer}.sub-card.active{border-color:var(--gold);background:linear-gradient(165deg, rgba(232,185,62,.18), var(--panel))}
-.sub-items{display:none;margin:10px auto 22px;max-width:600px;border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--panel)}.sub-items.open{display:block}
+.sub-card{border:1px solid var(--line);background:linear-gradient(180deg,var(--bg-2),var(--panel));border-radius:16px;padding:16px;cursor:pointer;transition:all.25s cubic-bezier(.34,1.56,.64,1)}
+.sub-card:hover{transform:translateY(-4px) scale(1.03) rotate(-1deg);border-color:rgba(232,185,62,.5)}
+.sub-card.active{border-color:var(--gold);background:linear-gradient(165deg,rgba(232,185,62,.22),var(--panel));transform:scale(1.04);box-shadow:0 0 20px rgba(232,185,62,.35);animation:dancePop.5s ease}
+.sub-card.active::after{content:'✨ OPEN';position:absolute;top:8px;right:8px;background:var(--gold);color:#111;font-size:9px;font-weight:800;padding:2px 6px;border-radius:10px}
+@keyframes dancePop{0%{transform:scale(1)}30%{transform:scale(1.08) rotate(-2deg)}60%{transform:scale(1.04) rotate(2deg)}100%{transform:scale(1.04)}}
+@keyframes slideDown{0%{opacity:0;transform:translateY(-12px)}100%{opacity:1;transform:translateY(0)}}
+.sub-items{display:none;margin:10px auto 22px;max-width:600px;border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--panel)}.sub-items.open{display:block;animation:slideDown.4s}
 .item-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);gap:10px}
 .item-add{border:1px solid var(--gold);background:rgba(232,185,62,.12);color:var(--gold);padding:7px 14px;border-radius:20px;font-weight:700;cursor:pointer}
 .qty-box{display:flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:20px;padding:2px 8px;background:var(--bg-2)}
-.qty-box button{background:transparent;border:0;color:var(--text);font-weight:800;width:22px;cursor:pointer}
-.qty-box input{width:36px;text-align:center;background:transparent;border:0;color:var(--gold);font-weight:700}
-.cart-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(15,23,42,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:14px 16px;display:none;justify-content:space-between;align-items:center;z-index:99}.cart-bar.show{display:flex}
-.date-sel,.time-sel{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.date-sel button,.time-sel button{padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg-2);color:var(--muted);font-size:11px;cursor:pointer;min-width:68px}.date-sel button.active,.time-sel button.active{background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;border-color:var(--gold)}
-.formcard-lively{background:linear-gradient(180deg, var(--panel), var(--bg-2));border:1px solid var(--line);border-radius:18px;padding:18px}
-.btn-lively{width:100%;padding:15px;border-radius:14px;background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;font-weight:900;font-size:16px;border:0;cursor:pointer}
-.footer-lively{max-width:600px;margin:40px auto 90px;text-align:center;padding:24px 16px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(165deg, var(--panel), var(--bg-2))}
+.qty-box button{background:transparent;border:0;color:var(--text);font-weight:800;width:22px}
+.qty-box input{width:40px;text-align:center;background:transparent;border:0;color:var(--gold);font-weight:700}
+.cart-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(15,23,42,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:14px 16px;display:none;justify-content:space-between;z-index:99}.cart-bar.show{display:flex}
+.date-sel,.time-sel{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.date-sel button,.time-sel button{padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg-2);color:var(--muted);font-size:11px;cursor:pointer;min-width:68px}.date-sel button.active,.time-sel button.active{background:linear-gradient(90deg,var(--gold),var(--gold2));color:#111;border-color:var(--gold)}
+.formcard-lively{background:linear-gradient(180deg,var(--panel),var(--bg-2));border:1px solid var(--line);border-radius:18px;padding:18px}
+.btn-lively{width:100%;padding:15px;border-radius:14px;background:linear-gradient(90deg,var(--gold),var(--gold2));color:#111;font-weight:900;font-size:16px;border:0;cursor:pointer}
+.footer-lively{max-width:600px;margin:40px auto 90px;text-align:center;padding:24px 16px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(165deg,var(--panel),var(--bg-2))}
 </style>
 </head>
 <body>
-<div class="utility"><div class="uwrap"><span class="uitem">✨ Final Qty Selector · 7 Days</span><a class="uitem" href="https://wa.me/254788099685">WhatsApp</a></div></div>
 <header class="top"><div class="navrow"><a class="brand" href="index.html"><img src="logo.png"><span class="brandname">Vecctapivot<em>Laundry</em></span></a><nav class="mainnav"><a href="track.html">Track & Amend</a></nav></div></header>
-<main class="laundry-wrap">
-<div class="hero-lively"><h1 style="color:var(--text);font-size:26px">Laundry that <span style="color:var(--gold)">Sparkles ✨</span></h1><p style="color:var(--muted);font-size:13px">Combos 1-click · Subs choose KG/PCS then Add → Back → Add more → Checkout</p></div>
-<div class="pickup-note">📅 Pickup: <b style="color:var(--gold)">Today → 7 days only</b> · Amendable to more current date · 🚚 FREE within Olk</div>
-<h3 style="max-width:600px;margin:18px auto 8px;color:var(--text)">🔥 Top 5 Combos — Fully Visible</h3>
-<div class="combo-grid" id="comboGrid"></div>
-<h3 style="max-width:600px;margin:22px auto 8px;color:var(--text)">🧺 Final 5 Categories — Choose Qty then Add</h3>
+<main class="laundry-wrap" style="max-width:1100px;margin:0 auto;padding:12px">
+<div id="amendBanner" hidden style="max-width:600px;margin:10px auto;padding:12px;background:linear-gradient(90deg,rgba(232,185,62,.2),rgba(37,211,102,.15));border:1px solid var(--gold);border-radius:12px;text-align:center;color:var(--text)"></div>
+
+<h3 style="max-width:600px;margin:18px auto 8px;color:var(--text)">🔥 Top 5 Combos</h3>
+<div class="combo-grid" id="comboGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:600px;margin:0 auto"></div>
+
+<h3 style="max-width:600px;margin:22px auto 8px;color:var(--text)">🧺 Final 5 Categories — 💃 Dancing Tabs</h3>
 <div class="subs-grid" id="subsGrid"></div><div id="subItemsWrap"></div>
-<section class="formcard-lively" style="max-width:600px;margin:24px auto;display:block;">
+
+<section class="formcard-lively" style="max-width:600px;margin:24px auto">
 <form onsubmit="return false;">
 <fieldset style="border:1px solid var(--line);padding:16px;border-radius:14px;margin-bottom:18px;">
-<legend style="color:var(--gold);font-weight:800;font-size:.78rem;padding:0 8px;">1. ✨ PICKUP — 7 DAYS LOCK</legend>
-<div class="frow"><div class="field"><label>Full Name</label><input id="laundName" placeholder="Jane" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)"></div><div class="field"><label>Phone</label><input id="laundPhone" placeholder="+254 7XX" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)"></div></div>
-<div class="field"><label>📅 Pickup Date — 7 Days Only</label><div class="date-sel" id="dateSel"></div></div>
-<div class="field"><label>⏰ Pickup Time</label><div class="time-sel" id="timeSel"><button data-time="10:00 AM">☀️ 10AM</button><button data-time="2:00 PM" class="active">🌤️ 2PM</button><button data-time="4:00 PM">🌆 4PM</button><button data-time="6:00 PM">🌙 6PM</button></div></div>
-<div class="frow"><div class="field"><label>📍 Area</label><select id="laundArea" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"><option value="olk">Within Olk — FREE</option><option value="beyond">Beyond Olk — Pay 70% Rider</option></select></div><div class="field"><label>Estate</label><input id="laundLocation" placeholder="Olk Town" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"></div></div>
-<div style="padding:12px;background:rgba(232,185,62,.06);border:1px dashed rgba(232,185,62,.25);border-radius:12px;text-align:center;margin-top:12px"><span style="font-size:.72rem;color:var(--muted)">🚚 DELIVERY TIME</span><span id="autoDeliveryDisplay" style="display:block;color:var(--gold);font-weight:800;margin-top:4px;font-size:15px"></span></div>
+<legend style="color:var(--gold);font-weight:800">1. ✨ PICKUP — 7 DAYS LOCK — Amendable</legend>
+<div style="display:flex;gap:10px"><div style="flex:1"><label>Full Name</label><input id="laundName" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)"></div><div style="flex:1"><label>Phone</label><input id="laundPhone" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)"></div></div>
+<div><label>📅 Pickup Date — 7 Days Only</label><div class="date-sel" id="dateSel"></div></div>
+<div><label>⏰ Pickup Time — Amendable</label><div class="time-sel" id="timeSel"><button data-time="10:00 AM">☀️ 10AM</button><button data-time="2:00 PM" class="active">🌤️ 2PM</button><button data-time="4:00 PM">🌆 4PM</button><button data-time="6:00 PM">🌙 6PM</button></div></div>
+<div style="display:flex;gap:10px;margin-top:10px"><div style="flex:1"><label>📍 Area</label><select id="laundArea" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"><option value="olk">Within Olk — FREE</option><option value="beyond">Beyond Olk — Pay 70% Rider</option></select></div><div style="flex:1"><label>Estate</label><input id="laundLocation" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"></div></div>
+<div style="padding:12px;background:rgba(232,185,62,.06);border:1px dashed rgba(232,185,62,.25);border-radius:12px;text-align:center;margin-top:12px"><span style="font-size:.72rem;color:var(--muted)">🚚 DELIVERY TIME</span><span id="autoDeliveryDisplay" style="display:block;color:var(--gold);font-weight:800;margin-top:4px"></span></div>
 </fieldset>
 <fieldset style="border:1px solid var(--line);padding:16px;border-radius:14px;margin-bottom:18px;">
-<legend style="color:var(--gold);font-weight:800;font-size:.78rem;padding:0 8px;">2. 🛒 Cart — Corresponds</legend>
-<div id="cartPreview" style="font-size:13px;color:var(--muted);line-height:1.6">No items yet. Add combos (1-click) or subs (choose qty → Add).</div>
+<legend style="color:var(--gold);font-weight:800">2. 🛒 Cart — Corresponds</legend>
+<div id="cartPreview" style="font-size:13px;color:var(--muted)">No items yet.</div>
 <div id="cartBreakdown" style="margin-top:10px;font-size:12px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px"></div>
-<div class="field" style="margin-top:12px"><label>Custom (only if cart empty)</label><select id="laundService" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"><option value="80">Wash Fold Light 80/kg</option><option value="110">Wash Fold Iron Light 110/kg</option><option value="130">Wash Fold Iron Heavy 130/kg</option><option value="400">Duvet 4x6 400/item</option></select></div>
-<div class="field"><label>Qty / KG (for custom only)</label><input type="number" id="laundQty" value="5" min="1" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"></div>
+<div style="margin-top:12px"><label>Custom (only if cart empty)</label><select id="laundService" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"><option value="80">Wash Fold Light 80/kg</option><option value="110">Wash Fold Iron Light 110/kg</option><option value="130">Wash Fold Iron Heavy 130/kg</option><option value="400">Duvet 4x6 400/item</option></select></div>
+<div><label>Qty / KG (custom only)</label><input type="number" id="laundQty" value="5" min="1" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);color:var(--text)"></div>
 </fieldset>
-<div style="text-align:center;border:1px solid rgba(232,185,62,.2);border-radius:14px;padding:16px;background:linear-gradient(180deg, rgba(232,185,62,.08), var(--bg-2))"><span style="font-size:.72rem;color:var(--muted)">💰 INVOICE TOTAL — Same as Cart + Rider</span><h2 id="laundTotalDisplay" style="color:var(--gold);font-size:2.6rem;margin:6px 0">KES 0</h2><p id="deliveryFeeText" style="font-size:12px;color:var(--muted)"></p><div style="margin-top:8px;font-size:12px">Till <b style="color:var(--gold)">1741514</b> 🟩</div></div>
+<div style="text-align:center;border:1px solid rgba(232,185,62,.2);border-radius:14px;padding:16px;background:linear-gradient(180deg, rgba(232,185,62,.08), var(--bg-2))"><h2 id="laundTotalDisplay" style="color:var(--gold);font-size:2.6rem;margin:6px 0">KES 0</h2><p id="deliveryFeeText" style="font-size:12px;color:var(--muted)"></p></div>
 <p id="localFormErr" hidden style="background:rgba(180,60,60,.14);border:1px solid rgba(220,100,100,.5);color:#f0b8b8;padding:10px;border-radius:10px;margin:12px 0"></p>
 <button type="button" id="laundSubmitBtn" class="btn-lively">🎟️ BOOK TICKET FIRST →</button>
 <p id="cloudStatus" style="text-align:center;color:#94a3b8;font-size:12px;margin-top:10px"></p>
 </form>
 </section>
-<section id="laundryTicketResult" hidden style="border:1px solid var(--gold);padding:24px;background:linear-gradient(165deg, var(--panel), var(--bg-2));border-radius:18px;text-align:center;max-width:600px;margin:24px auto;">
-<span style="color:var(--gold);font-weight:800">🎉 TICKET BOOKED</span><h2 id="ticketRefHeader" style="font-size:2.4rem;color:var(--gold);margin:8px 0">LDY-</h2><div id="qrcode" style="background:#fff;padding:12px;display:inline-block;border-radius:12px;margin:15px auto"></div>
+
+<section id="laundryTicketResult" hidden style="border:1px solid var(--gold);padding:24px;background:linear-gradient(165deg,var(--panel),var(--bg-2));border-radius:18px;text-align:center;max-width:600px;margin:24px auto;">
+<span style="color:var(--gold);font-weight:800">🎉 TICKET BOOKED / AMENDED</span><h2 id="ticketRefHeader" style="font-size:2.4rem;color:var(--gold);margin:8px 0">LDY-</h2><div id="qrcode" style="background:#fff;padding:12px;display:inline-block;border-radius:12px;margin:15px auto"></div>
 <div style="text-align:left;max-width:500px;margin:15px auto;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px;background:rgba(0,0,0,.2)">
-<div style="display:grid;grid-template-columns:35% 65%;background:rgba(11,18,32,.4)"><dt style="padding:10px;color:var(--muted)">CLIENT</dt><dd id="recName" style="padding:10px;border-left:1px solid var(--line)"></dd></div>
+<div style="display:grid;grid-template-columns:35% 65%"><dt style="padding:10px;color:var(--muted)">CLIENT</dt><dd id="recName" style="padding:10px;border-left:1px solid var(--line)"></dd></div>
 <div style="display:grid;grid-template-columns:35% 65%"><dt style="padding:10px;color:var(--muted)">SERVICES</dt><dd id="recService" style="padding:10px;border-left:1px solid var(--line)"></dd></div>
-<div style="display:grid;grid-template-columns:35% 65%;background:rgba(11,18,32,.5)"><dt style="padding:10px;color:var(--muted)">PICKUP</dt><dd id="recDateTime" style="padding:10px;border-left:1px solid var(--line);color:var(--gold)"></dd></div>
+<div style="display:grid;grid-template-columns:35% 65%"><dt style="padding:10px;color:var(--muted)">PICKUP</dt><dd id="recDateTime" style="padding:10px;border-left:1px solid var(--line);color:var(--gold)"></dd></div>
 <div style="display:grid;grid-template-columns:35% 65%"><dt style="padding:10px;color:var(--muted)">TOTAL</dt><dd id="recTotal" style="padding:10px;border-left:1px solid var(--line);color:var(--gold);font-weight:800"></dd></div>
 </div>
 <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px">
-<a id="waTicketLink" target="_blank" style="background:#25D366;color:#fff;padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:800">💬 Share to WhatsApp</a>
-<a id="trackLink" href="track.html" style="border:1px solid var(--line);padding:12px 18px;border-radius:12px;color:var(--text);text-decoration:none;background:var(--bg-2)">📍 Track & Amend →</a>
+<a id="waTicketLink" target="_blank" style="background:#25D366;color:#fff;padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:800">💬 WhatsApp Ticket</a>
+<a id="amendLink" href="#" style="border:1px solid var(--gold);padding:12px 18px;border-radius:12px;color:var(--gold);text-decoration:none;background:rgba(232,185,62,.1)">✏️ Amend Same Ticket (Time/Date)</a>
+<a id="trackLink" href="track.html" style="border:1px solid var(--line);padding:12px 18px;border-radius:12px;color:var(--text);text-decoration:none;background:var(--bg-2)">📍 Track →</a>
 </div>
+<p style="font-size:11px;color:var(--muted);margin-top:10px">Amending overrides same LDY- ticket — no new ticket created.</p>
 </section>
-<div class="footer-lively">
-<h3>💛 Vecctapivot Enterprises — Olk Laundry</h3>
-<p>We don't just wash clothes, we bring back freshness, confidence and comfort.</p>
-<p style="margin-top:8px;font-size:11px">🌟 "Clean clothes, clear mind." · 🚚 FREE within Olk · Beyond Olk pay 70% rider · ⏱️ 2-24HR TAT</p>
-<p style="margin-top:12px"><a href="https://wa.me/254788099685" style="color:var(--gold);text-decoration:none;font-weight:700">WhatsApp +254 788 099 685 →</a> · Till 1741514</p>
-</div>
 </main>
-<div class="cart-bar" id="cartBar"><div><div id="cartText" style="font-weight:700"></div><div id="cartSub" style="font-size:11px;color:var(--muted)"></div></div><button id="cartCheckout" style="background:linear-gradient(90deg, var(--gold), var(--gold2));color:#111;border:0;padding:10px 16px;border-radius:10px;font-weight:800"></button></div>
+<div class="cart-bar" id="cartBar"><div><div id="cartText" style="font-weight:700"></div><div id="cartSub" style="font-size:11px;color:var(--muted)"></div></div><button id="cartCheckout" style="background:linear-gradient(90deg,var(--gold),var(--gold2));color:#111;border:0;padding:10px 16px;border-radius:10px;font-weight:800"></button></div>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script type="module">
 import { db } from './firebase.js';
-import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const combos=[
 {id:'c1',name:'FAMILY FRESH',price:999,normal:1250,save:251,desc:'10KG Wash & Fold + Duvet 5x6',badge:'🔥 BEST SELLER',tat:'8HRS'},
 {id:'c2',name:'BEDROOM RESET',price:799,normal:990,save:191,desc:'Duvet 5x6 + Bedsheet 5KG + Towel x2',badge:'🛏️ SAVE 191',tat:'12HRS'},
@@ -129,37 +125,66 @@ const subs=[
 {name:'Shoes',price:150,unit:'/pair',tat:'24hrs'},
 ]}
 ];
-let cart=[],selectedTime='2:00 PM',selectedDate='',ticketId='';
+let cart=[],selectedTime='2:00 PM',selectedDate='',ticketId='',isAmendMode=false;
 const dates=[]; for(let i=0;i<7;i++){let d=new Date();d.setDate(d.getDate()+i);let iso=d.toISOString().split('T')[0];let label=i===0?'Today':i===1?'Tomorrow':d.toLocaleDateString('en-KE',{weekday:'short',day:'numeric'});dates.push({iso,label}); if(i===0)selectedDate=iso;}
 const dateSelEl=document.getElementById('dateSel');
 dateSelEl.innerHTML=dates.map((d,i)=>`<button data-date="${d.iso}" class="${i===0?'active':''}"><span style="font-weight:800">${d.label}</span><br><small style="font-size:9px">${d.iso.slice(5)}</small></button>`).join('');
 function renderCombos(){document.getElementById('comboGrid').innerHTML=combos.map(c=>`<div class="combo-card ${c.id==='c1'?'best':''}"><div style="display:flex;justify-content:space-between"><span class="combo-badge">${c.badge}</span><span style="color:var(--gold);font-size:11px">SAVE ${c.save}</span></div><h3 style="color:var(--text);margin:6px 0">${c.name}</h3><p style="color:var(--muted);font-size:12px">${c.desc}</p><div style="margin:8px 0"><b style="color:var(--gold);font-size:20px">KES ${c.price}</b> <s style="color:var(--muted);font-size:12px">${c.normal}</s> <small>⏱️ ${c.tat}</small></div><button class="combo-btn" onclick="addCombo('${c.id}')">➕ Add — KES ${c.price}</button></div>`).join('');}
 function renderSubs(){
-  document.getElementById('subsGrid').innerHTML=subs.map((s,i)=>`<div class="sub-card ${i===0?'active':''}" id="card-${s.key}" onclick="openSub('${s.key}')"><span style="font-size:20px">${s.icon}</span><br><small style="color:var(--muted)">${s.from}</small><h4 style="color:var(--text)">${s.name}</h4><small style="color:var(--gold)">${s.items.length} items · Tap</small></div>`).join('');
-  document.getElementById('subItemsWrap').innerHTML=subs.map((s,i)=>`<div class="sub-items ${i===0?'open':''}" id="sub-${s.key}"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><h4 style="color:var(--text)">${s.icon} ${s.name}</h4><button onclick="closeSub('${s.key}')" style="padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)">Close ✕</button></div>${s.items.map((it,idx)=>`<div class="item-row"><div style="flex:1"><span style="font-weight:600;color:var(--text)">${it.name}</span><br><small style="color:var(--muted)">KES ${it.price}${it.unit} · ⏱️ ${it.tat}</small></div><div style="display:flex;align-items:center;gap:8px"><div class="qty-box"><button onclick="changeQty('${s.key}',${idx},-1)">-</button><input id="qty-${s.key}-${idx}" type="number" value="1" min="1"><button onclick="changeQty('${s.key}',${idx},1)">+</button></div><button class="item-add" onclick="addItemWithQty('${s.key}',${idx})">Add</button></div></div>`).join('')}<div style="margin-top:12px;display:flex;gap:8px"><button onclick="closeSub('${s.key}')" style="flex:1;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)">← Back to categories</button><button onclick="document.getElementById('laundSubmitBtn').scrollIntoView({behavior:'smooth'})" style="flex:1;padding:10px;border-radius:10px;background:linear-gradient(90deg,var(--gold),var(--gold2));border:0;color:#111;font-weight:800">Go to Cart →</button></div></div>`).join('');
+  document.getElementById('subsGrid').innerHTML=subs.map((s,i)=>`<div class="sub-card ${i===0?'active':''}" id="card-${s.key}" onclick="openSub('${s.key}')"><span style="font-size:22px">${s.icon}</span><br><small style="color:var(--muted)">${s.from}</small><h4 style="color:var(--text)">${s.name}</h4><small style="color:var(--gold)">${s.items.length} services → 💃</small></div>`).join('');
+  document.getElementById('subItemsWrap').innerHTML=subs.map((s,i)=>`<div class="sub-items ${i===0?'open':''}" id="sub-${s.key}"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><h4 style="color:var(--text)">${s.icon} ${s.name}</h4><button onclick="closeSub('${s.key}')" style="padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)">Close ✕</button></div>${s.items.map((it,idx)=>`<div class="item-row"><div style="flex:1"><span style="font-weight:600;color:var(--text)">${it.name}</span><br><small style="color:var(--muted)">KES ${it.price}${it.unit} · ⏱️ ${it.tat}</small></div><div style="display:flex;align-items:center;gap:8px"><div class="qty-box"><button onclick="changeQty('${s.key}',${idx},-1)">-</button><input id="qty-${s.key}-${idx}" type="number" value="1" min="1"><button onclick="changeQty('${s.key}',${idx},1)">+</button></div><span style="font-size:10px;color:var(--muted)">${it.unit.includes('kg')?'KG':it.unit.includes('pair')?'PAIR':'PCS'}</span><button class="item-add" onclick="addItemWithQty('${s.key}',${idx})">Add</button></div></div>`).join('')}<div style="margin-top:12px;display:flex;gap:8px"><button onclick="closeSub('${s.key}')" style="flex:1;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg-2);color:var(--text)">← Back</button><button onclick="document.getElementById('laundSubmitBtn').scrollIntoView({behavior:'smooth'})" style="flex:1;padding:10px;border-radius:10px;background:linear-gradient(90deg,var(--gold),var(--gold2));border:0;color:#111;font-weight:800">Go to Cart →</button></div></div>`).join('');
 }
-window.changeQty=(key,idx,delta)=>{let inp=document.getElementById(`qty-${key}-${idx}`);let v=parseInt(inp.value)||1;v=Math.max(1,v+delta);inp.value=v;};
-window.addItemWithQty=(key,idx)=>{let sub=subs.find(s=>s.key===key);let it=sub.items[idx];let qty=parseInt(document.getElementById(`qty-${key}-${idx}`).value)||1;let ex=cart.find(c=>c.name===it.name);if(ex){ex.qty+=qty;}else{cart.push({name:it.name,price:it.price,unit:it.unit,tat:it.tat,qty});}updateCart();};
+window.changeQty=(k,i,d)=>{let inp=document.getElementById(`qty-${k}-${i}`);let v=parseInt(inp.value)||1;v=Math.max(1,v+d);inp.value=v;};
+window.addItemWithQty=(k,i)=>{let s=subs.find(x=>x.key===k);let it=s.items[i];let qty=parseInt(document.getElementById(`qty-${k}-${i}`).value)||1;let ex=cart.find(c=>c.name===it.name);if(ex)ex.qty+=qty;else cart.push({name:it.name,price:it.price,unit:it.unit,tat:it.tat,qty});updateCart();};
 window.addCombo=id=>{let c=combos.find(x=>x.id===id);cart.push({name:c.name,price:c.price,unit:'flat',tat:c.tat,qty:1});updateCart();};
 window.removeCartIndex=i=>{cart.splice(i,1);updateCart();};
-window.openSub=k=>{document.querySelectorAll('.sub-items').forEach(d=>d.classList.remove('open'));document.querySelectorAll('.sub-card').forEach(c=>c.classList.remove('active'));document.getElementById('sub-'+k).classList.add('open');document.getElementById('card-'+k).classList.add('active');document.getElementById('sub-'+k).scrollIntoView({behavior:'smooth',block:'start'});};
-window.closeSub=k=>{document.getElementById('sub-'+k).classList.remove('open');document.getElementById('card-'+k).classList.remove('active');document.getElementById('subsGrid').scrollIntoView({behavior:'smooth',block:'center'});};
+window.openSub=k=>{document.querySelectorAll('.sub-items').forEach(d=>d.classList.remove('open'));document.querySelectorAll('.sub-card').forEach(c=>c.classList.remove('active'));document.getElementById('sub-'+k).classList.add('open');document.getElementById('card-'+k).classList.add('active');document.getElementById('sub-'+k).scrollIntoView({behavior:'smooth'});};
+window.closeSub=k=>{document.getElementById('sub-'+k).classList.remove('open');document.getElementById('card-'+k).classList.remove('active');};
 function calcTotals(){let area=document.getElementById('laundArea').value;let delivery=area==='beyond'?Math.round(200*0.7):0;let subtotal,cartText;if(cart.length>0){subtotal=cart.reduce((s,it)=>s+it.price*it.qty,0);cartText=cart.map((it,idx)=>`${idx+1}. ${it.name} (${it.price}${it.unit} ×${it.qty}) = KES ${it.price*it.qty} <span onclick="removeCartIndex(${idx})" style="color:#ff8a8a;cursor:pointer">[x]</span>`).join('<br>');}else{let unit=parseInt(document.getElementById('laundService').value);let qty=parseInt(document.getElementById('laundQty').value)||1;subtotal=unit*qty;cartText=`Custom ${document.getElementById('laundService').options[document.getElementById('laundService').selectedIndex].text} × ${qty}`;}let grand=subtotal+delivery;return {subtotal,delivery,grand,cartText};}
-function updateCart(){let {subtotal,delivery,grand,cartText}=calcTotals();let bar=document.getElementById('cartBar');if(cart.length>0){bar.classList.add('show');document.getElementById('cartPreview').innerHTML=cart.map(it=>`✨ ${it.name} — ${it.price}${it.unit} ×${it.qty} = KES ${it.price*it.qty}`).join('<br>');document.getElementById('cartBreakdown').innerHTML=cartText+`<br>Subtotal ${subtotal} + Rider ${delivery} = <b style="color:var(--gold)">${grand}</b>`;document.getElementById('cartText').textContent=`🛒 ${cart.reduce((s,it)=>s+it.qty,0)} items — KES ${grand}`;document.getElementById('cartSub').textContent=`Subtotal ${subtotal} + Rider ${delivery}`;document.getElementById('cartCheckout').textContent=`Book KES ${grand}`;}else{bar.classList.remove('show');document.getElementById('cartPreview').textContent='No cart items — using Custom dropdown';document.getElementById('cartBreakdown').innerHTML=cartText+`<br>Rider ${delivery} → Total ${grand}`;}document.getElementById('laundTotalDisplay').textContent=`KES ${grand.toLocaleString()}`;document.getElementById('deliveryFeeText').textContent=delivery===0?'✅ FREE within Olk — Cart = Invoice':`🚚 Beyond Olk 70% = KES ${delivery} (we pay 30%)`;let pickHour=selectedTime.includes('10')?10:selectedTime.includes('2')?14:selectedTime.includes('4')?16:18;let delHour=pickHour+4;let isToday=selectedDate===dates[0].iso;document.getElementById('autoDeliveryDisplay').textContent=isToday?(delHour>18?'Today '+selectedTime+' → Tomorrow 9AM':'Today '+selectedTime+' → Today '+(delHour>12?delHour-12:delHour)+'PM'):`${selectedDate} ${selectedTime} → same day`;document.getElementById('laundSubmitBtn').textContent=`🎟️ BOOK TICKET — ${selectedDate} ${selectedTime} → KES ${grand}`;return grand;}
+function updateCart(){let {subtotal,delivery,grand,cartText}=calcTotals();let bar=document.getElementById('cartBar');if(cart.length>0){bar.classList.add('show');document.getElementById('cartPreview').innerHTML=cart.map(it=>`✨ ${it.name} — ${it.price}${it.unit} ×${it.qty} = KES ${it.price*it.qty}`).join('<br>');document.getElementById('cartBreakdown').innerHTML=cartText+`<br>Subtotal ${subtotal} + Rider ${delivery} = <b style="color:var(--gold)">${grand}</b>`;document.getElementById('cartText').textContent=`🛒 ${cart.reduce((s,it)=>s+it.qty,0)} qty — KES ${grand}`;document.getElementById('cartSub').textContent=`Subtotal ${subtotal} + Rider ${delivery}`;document.getElementById('cartCheckout').textContent=isAmendMode?`🔄 Amend KES ${grand}`:`Book KES ${grand}`;}else{bar.classList.remove('show');document.getElementById('cartPreview').innerHTML=cartText;document.getElementById('cartBreakdown').innerHTML=`Rider ${delivery} → Total ${grand}`;}document.getElementById('laundTotalDisplay').textContent=`KES ${grand.toLocaleString()}`;document.getElementById('deliveryFeeText').textContent=delivery===0?'✅ FREE within Olk — Cart = Invoice':`🚚 Beyond Olk 70% = KES ${delivery}`;let pickHour=selectedTime.includes('10')?10:selectedTime.includes('2')?14:selectedTime.includes('4')?16:18;let delHour=pickHour+4;let isToday=selectedDate===dates[0].iso;document.getElementById('autoDeliveryDisplay').textContent=isToday?(delHour>18?'Today '+selectedTime+' → Tomorrow 9AM':'Today '+selectedTime+' → Today '+(delHour>12?delHour-12:delHour)+'PM'):`${selectedDate} ${selectedTime} → same day`;document.getElementById('laundSubmitBtn').textContent=isAmendMode?`🔄 AMEND SAME TICKET ${ticketId} → ${selectedDate} ${selectedTime} → KES ${grand}`:`🎟️ BOOK TICKET — ${selectedDate} ${selectedTime} → KES ${grand}`;return grand;}
 dateSelEl.addEventListener('click',e=>{let btn=e.target.closest('button');if(!btn)return;document.querySelectorAll('#dateSel button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedDate=btn.dataset.date;updateCart();});
 document.getElementById('timeSel').addEventListener('click',e=>{let btn=e.target.closest('button');if(!btn)return;document.querySelectorAll('#timeSel button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedTime=btn.dataset.time;updateCart();});
 document.getElementById('laundService').addEventListener('change',updateCart);document.getElementById('laundQty').addEventListener('input',updateCart);document.getElementById('laundArea').addEventListener('change',updateCart);
+
+// AMEND MODE DETECT
+(async()=>{
+  const params=new URLSearchParams(window.location.search);
+  const amendId=params.get('amend')||params.get('laundry');
+  if(amendId){
+    let data=null;
+    try{let snap=await getDoc(doc(db,'laundry',amendId));if(snap.exists())data=snap.data();}catch{}
+    if(!data){let local=localStorage.getItem('order_'+amendId);if(local)data=JSON.parse(local);}
+    if(data){
+      isAmendMode=true; ticketId=data.id||amendId;
+      cart=data.cart||[]; selectedDate=data.pickupDate; selectedTime=data.pickupTime;
+      document.getElementById('laundName').value=data.name||'';document.getElementById('laundPhone').value=data.phone||'';document.getElementById('laundLocation').value=data.location||'';
+      document.getElementById('amendBanner').hidden=false;
+      document.getElementById('amendBanner').innerHTML=`✏️ Amending <b style="color:var(--gold)">${ticketId}</b> — Change time/date below then resubmit SAME ticket (overrides previous)`;
+      // set date active
+      setTimeout(()=>{document.querySelectorAll('#dateSel button').forEach(b=>{if(b.dataset.date===selectedDate){b.classList.add('active');}else b.classList.remove('active');});document.querySelectorAll('#timeSel button').forEach(b=>{if(b.dataset.time===selectedTime){b.classList.add('active');}else b.classList.remove('active');});updateCart();},300);
+    }
+  }
+})();
+
 document.getElementById('laundSubmitBtn').addEventListener('click',async()=>{
 let name=document.getElementById('laundName').value.trim(),phone=document.getElementById('laundPhone').value.trim(),loc=document.getElementById('laundLocation').value.trim(),area=document.getElementById('laundArea').value;
 let err=document.getElementById('localFormErr');if(!name||!phone||!loc||!selectedDate){err.textContent='Fill name, phone, estate, date';err.hidden=false;return;}err.hidden=true;
 let {subtotal,delivery,grand}=calcTotals();
-const existing=JSON.parse(localStorage.getItem('veccta_laundry_tickets')||'[]');do{let n=Math.floor(10000+Math.random()*90000);ticketId='LDY-'+n;}while(existing.includes(ticketId));existing.push(ticketId);localStorage.setItem('veccta_laundry_tickets',JSON.stringify(existing));
+if(!isAmendMode){
+  const existing=JSON.parse(localStorage.getItem('veccta_laundry_tickets')||'[]');do{let n=Math.floor(10000+Math.random()*90000);ticketId='LDY-'+n;}while(existing.includes(ticketId));existing.push(ticketId);localStorage.setItem('veccta_laundry_tickets',JSON.stringify(existing));
+}
 let serviceText=cart.length>0?cart.map(it=>`${it.name} ${it.price}${it.unit}×${it.qty}`).join(' + ')+` | Total ${grand}`:`${document.getElementById('laundService').options[document.getElementById('laundService').selectedIndex].text} x ${document.getElementById('laundQty').value} = ${grand}`;
-let orderData={id:ticketId,ticket:ticketId,page:"laundry",name,phone,location:loc,pickupDate:selectedDate,pickupTime:selectedTime,originalPickupDate:selectedDate,amendable:true,area:area==='olk'?'Within Olk FREE':'Beyond Olk 70% = '+delivery,service:serviceText,subtotal,deliveryFee:delivery,total:`KES ${grand}`,delivery:document.getElementById('autoDeliveryDisplay').innerText,cart,createdAt:new Date().toLocaleString(),createdAtTS:serverTimestamp(),status:"Received",steps:[{name:"Received",status:"done",time:new Date().toLocaleString()},{name:"Washing",status:"pending"},{name:"Ironing",status:"pending"},{name:"Ready",status:"pending"},{name:"Delivered",status:"pending"}]};
+let orderData={id:ticketId,ticket:ticketId,page:"laundry",name,phone,location:loc,pickupDate:selectedDate,pickupTime:selectedTime,originalPickupDate:selectedDate,amendable:true,amendedAt:new Date().toLocaleString(),isAmend:isAmendMode,area:area==='olk'?'Within Olk FREE':'Beyond Olk 70% = '+delivery,service:serviceText,subtotal,deliveryFee:delivery,total:`KES ${grand}`,delivery:document.getElementById('autoDeliveryDisplay').innerText,cart,createdAt:new Date().toLocaleString(),createdAtTS:serverTimestamp(),status:"Received (Amended)",steps:[{name:"Received",status:"done",time:new Date().toLocaleString()},{name:"Washing",status:"pending"},{name:"Ironing",status:"pending"},{name:"Ready",status:"pending"},{name:"Delivered",status:"pending"}]};
 localStorage.setItem('order_'+ticketId,JSON.stringify(orderData));
-try{document.getElementById('cloudStatus').textContent='⏳ Saving...';await setDoc(doc(db,'laundry',ticketId),orderData);document.getElementById('cloudStatus').textContent='✅ Saved';}catch(e){document.getElementById('cloudStatus').textContent='⚠️ Local only';}
-document.getElementById('ticketRefHeader').textContent=ticketId;document.getElementById('recName').textContent=name+' ('+phone+')';document.getElementById('recService').textContent=serviceText;document.getElementById('recDateTime').textContent=selectedDate+' '+selectedTime+' — '+document.getElementById('autoDeliveryDisplay').innerText;document.getElementById('recTotal').textContent=`KES ${grand}`;document.getElementById('qrcode').innerHTML='';new QRCode(document.getElementById('qrcode'),{text:ticketId+'|KES '+grand,width:128,height:128});
-let waMsg=`✨ VECCTAPIVOT Laundry TICKET ${ticketId} BOOKED\nName:${name}\n${serviceText}\nPickup:${selectedDate} ${selectedTime}\nLocation:${loc}`;document.getElementById('waTicketLink').href=`https://wa.me/254788099685?text=${encodeURIComponent(waMsg)}`;document.getElementById('trackLink').href='track.html?laundry='+ticketId+'&amend=1';document.getElementById('laundryTicketResult').hidden=false;document.getElementById('laundryTicketResult').scrollIntoView({behavior:'smooth'});});
+try{document.getElementById('cloudStatus').textContent=isAmendMode?'🔄 Amending same ticket...':'⏳ Saving...';await setDoc(doc(db,'laundry',ticketId),orderData,{merge:false});document.getElementById('cloudStatus').textContent=isAmendMode?'✅ Same ticket overridden with new time/date':'✅ Saved';}catch(e){document.getElementById('cloudStatus').textContent='⚠️ Local only (amended)';}
+document.getElementById('ticketRefHeader').textContent=ticketId;document.getElementById('recName').textContent=name+' ('+phone+')';document.getElementById('recService').textContent=serviceText;document.getElementById('recDateTime').textContent=selectedDate+' '+selectedTime+' — '+document.getElementById('autoDeliveryDisplay').innerText;document.getElementById('recTotal').textContent=`KES ${grand} ${isAmendMode?'(Amended same ticket)':''}`;document.getElementById('qrcode').innerHTML='';new QRCode(document.getElementById('qrcode'),{text:ticketId+'|KES '+grand+'|'+selectedDate+' '+selectedTime,width:128,height:128});
+let waMsg=`${isAmendMode?'🔄 AMENDED':'✨ BOOKED'} VECCTAPIVOT Laundry TICKET ${ticketId}\nName:${name}\n${serviceText}\nNEW Pickup:${selectedDate} ${selectedTime}\nLocation:${loc}\nTrack: track.html?laundry=${ticketId}`;
+document.getElementById('waTicketLink').href=`https://wa.me/254788099685?text=${encodeURIComponent(waMsg)}`;
+document.getElementById('amendLink').href=`laundry.html?amend=${ticketId}`;
+document.getElementById('trackLink').href=`track.html?laundry=${ticketId}`;
+document.getElementById('laundryTicketResult').hidden=false;
+document.getElementById('laundryTicketResult').scrollIntoView({behavior:'smooth'});
+});
 renderCombos();renderSubs();updateCart();
 </script>
 </body>
