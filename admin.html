@@ -3,7 +3,7 @@
 </head><body>
 <div class="topbar"><div style="display:flex;gap:10px;align-items:center"><b style="color:var(--gold)">VECCTAPIVOT ADMIN — Ready → Pay → Dispatch → Rider</b><span id="cloudSt" style="font-size:11px;color:#94a3b8">●</span> <span id="timer" style="font-size:11px;color:var(--gold)"></span></div><div style="display:flex;gap:6px"><button class="btn line" onclick="loadCloud()">↻ Cloud</button><button class="btn line" onclick="logout()">Logout</button><a class="btn line" href="index.html" style="text-decoration:none">Home</a></div></div>
 <div class="page">
-<div id="loginBox" class="card" style="max-width:420px;margin:60px auto;text-align:center"><h3 style="color:var(--gold)">Admin Login — 10min Auto Logout</h3><p style="font-size:11px;color:#94a3b8">LIVE PAY + VERIFY CODE + RIDER</p><input id="pw" type="password" class="input" placeholder="Enter password"><button class="btn gold" style="width:100%;margin-top:10px;padding:12px" onclick="login()">Login GLOBAL</button></div>
+<div id="loginBox" class="card" style="max-width:420px;margin:60px auto;text-align:center"><h3 style="color:var(--gold)">Admin Login — 10min Auto Logout</h3><p style="font-size:11px;color:#94a3b8">LIVE PAY + VERIFY CODE + RIDER</p><input id="pw" type="password" class="input" placeholder="Enter password"><button class="btn gold" style="width:100%;margin-top:10px;padding:12px" id="loginBtn">Login GLOBAL</button></div>
 <div id="panel" hidden>
 <div class="stats"><div class="s"><b id="cTotal">0</b><small>Total Jobs</small></div><div class="s"><b id="cNew">0</b><small>New</small></div><div class="s"><b id="cRev">0</b><small>Revision</small></div><div class="s"><b id="cPaid">0</b><small>Paid/Done</small></div><div class="s"><b id="cTic">0</b><small>Tickets</small></div><div class="s"><b id="cLaund">0</b><small>Laundry</small></div><div class="s"><b id="cMoney">0</b><small>KSH</small></div></div>
 <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="tab active" id="tab-jobs" onclick="setTab('jobs')">📦 Jobs</span><span class="tab" id="tab-tickets" onclick="setTab('tickets')">🎫 Tickets</span><span class="tab" id="tab-laundry" onclick="setTab('laundry')">👕 Laundry — NEW FLOW</span><span class="tab" id="tab-pillars" onclick="setTab('pillars')">🏛 Pillars</span></div>
@@ -18,8 +18,10 @@ const ADMIN_B64 = "dmVjY3RhMjAyNA=="; const LOGOUT_MIN = 10;
 let JOBS=[], TICKETS=[], LAUNDRY=[], TAB='laundry', logoutTimer, countTimer, left=LOGOUT_MIN*60, laundryUnsub=null;
 function b64d(s){ try{return atob(s)}catch{return""} }
 async function hashCheck(input){ return input === b64d(ADMIN_B64); }
-window.login=async()=>{ if(await hashCheck(pw.value)){ loginBox.hidden=true; panel.hidden=false; startTimers(); loadCloud(); } else alert('Wrong password'); }
-window.logout=()=>{ panel.hidden=true; loginBox.hidden=false; pw.value=""; clearInterval(countTimer); clearTimeout(logoutTimer); if(laundryUnsub) laundryUnsub(); cloudSt.textContent="● Logged out"; left=LOGOUT_MIN*60; }
+window.login=async()=>{ let passVal = document.getElementById('pw').value; if(await hashCheck(passVal)){ loginBox.hidden=true; panel.hidden=false; startTimers(); loadCloud(); } else alert('Wrong password'); }
+document.getElementById('loginBtn').addEventListener('click', ()=>{ window.login(); });
+document.getElementById('pw').addEventListener('keypress', (e)=>{ if(e.key==='Enter') window.login(); });
+window.logout=()=>{ panel.hidden=true; loginBox.hidden=false; document.getElementById('pw').value=""; clearInterval(countTimer); clearTimeout(logoutTimer); if(laundryUnsub) laundryUnsub(); cloudSt.textContent="● Logged out"; left=LOGOUT_MIN*60; }
 function startTimers(){ clearTimeout(logoutTimer); clearInterval(countTimer); left=LOGOUT_MIN*60; let tick=()=>{ left--; let m=Math.floor(left/60), s=left%60; document.getElementById('timer').textContent=`Auto logout ${m}:${String(s).padStart(2,'0')}`; if(left<=0) logout(); }; countTimer=setInterval(tick,1000); let reset=()=>{ clearTimeout(logoutTimer); logoutTimer=setTimeout(logout, LOGOUT_MIN*60*1000); left=LOGOUT_MIN*60; }; ['click','keydown','touchstart'].forEach(ev=>document.addEventListener(ev, reset)); reset(); }
 function norm(d){ let data=d.data(); return {...data, _docId:d.id, _showId:data.id||data.ticket||d.id, id:data.id||data.ticket||d.id, ticket:data.ticket||data.id||d.id}; }
 window.loadCloud=async()=>{
@@ -31,8 +33,7 @@ window.loadCloud=async()=>{
   if(laundryUnsub) laundryUnsub();
   laundryUnsub = onSnapshot(query(collection(db,'laundry'), orderBy('createdAt','desc'), limit(200)), (snap3)=>{
     let cloudL=[]; snap3.forEach(d=>cloudL.push(norm(d)));
-    LAUNDRY=cloudL;
-    renderStats(); render();
+    LAUNDRY=cloudL; renderStats(); render();
     cloudSt.textContent=`● Cloud LIVE ${cloud.length}/${cloudT.length}/${cloudL.length} | LIVE`; cloudSt.style.color='#22c55e';
   });
  }catch(e){ cloudSt.textContent='● Error — '+e.message; cloudSt.style.color='#ef4444'; }
@@ -42,22 +43,7 @@ window.setTab=t=>{TAB=t; document.querySelectorAll('.tab').forEach(x=>x.classLis
 function starsHtml(o){ if(!o.rating) return `<div style="font-size:11px;color:#94a3b8">⭐ No review yet — After Delivered user rates</div>`; return `<div class="well y"><b style="color:#facc15">${'★'.repeat(o.rating)}${'☆'.repeat(5-o.rating)} ${o.rating}/5</b> <span style="color:#fff">“${o.comment||''}”</span><br><small style="color:#94a3b8">${o.receivedAt||''} ${o.receiptNo?`• ${o.receiptNo}`:''} ${o.mpesaCode?`• ${o.mpesaCode}`:''}</small></div>`; }
 function defaultStepsJob(j){ if(j.steps) return j.steps; return [{name:"Logged",status:"done"},{name:"Quoted",status:j.price?"done":"pending"},{name:"Paid",status:j.status==='Paid'||j.status==='Done'?"done":"pending"},{name:"In Progress",status:j.status==='In Progress'||j.status==='Done'?"done":"pending"},{name:"Done",status:j.status==='Done'?"done":"pending"}]; }
 function defaultStepsTic(t){ if(t.steps) return t.steps; return [{name:"Open",status:"done"},{name:"In Progress",status:t.status==='In Progress'||t.status==='Closed'?"done":"pending"},{name:"Admin Reply",status:t.adminReply?"done":"pending"},{name:"Closed",status:t.status==='Closed'?"done":"pending"}]; }
-function defaultStepsLaund(l){ 
- if(l.steps && l.steps.length>=8) return l.steps;
- return [
- {name:"Received",status:"done"},
- {name:"Washing",status:['Washing','Ironing / Pressing','Ready for Pickup','Please Pay','Payment Confirmed','Request Dispatch','Out for Delivery','Dispatched','Delivered'].includes(l.status)?"done":"pending"},
- {name:"Ironing / Pressing",status:['Ironing / Pressing','Ready for Pickup','Please Pay','Payment Confirmed','Request Dispatch','Out for Delivery','Dispatched','Delivered'].includes(l.status)?"done":"pending"},
- {name:"Ready for Pickup",status:['Ready for Pickup','Please Pay','Payment Confirmed','Request Dispatch','Out for Delivery','Dispatched','Delivered'].includes(l.status)?"done":"pending"},
- {name:"Please Pay",status:['Please Pay','Payment Confirmed','Request Dispatch','Out for Delivery','Dispatched','Delivered'].includes(l.status)?"done":"pending"},
- {name:"Payment Confirmed",status:['Payment Confirmed','Request Dispatch','Out for Delivery','Dispatched','Delivered'].includes(l.status)?"done":"pending"},
- {name:"Request Dispatch",status:['Request Dispatch','Out for Delivery','Dispatched','Delivered'].includes(l.status)?"done":"pending"},
- {name:"Out for Delivery",status:['Out for Delivery','Dispatched','Delivered'].includes(l.status)?"done":"pending"},
- {name:"Delivered",status:l.status==='Delivered'?"done":"pending"}
- ]; 
-}
-
-// JOBS & TICKETS
+function defaultStepsLaund(l){ if(l.steps && l.steps.length>=8) return l.steps; return [{name:"Received",status:"done"},{name:"Washing",status:['Washing','Ironing / Pressing','Ready for Pickup','Please Pay','Payment Confirmed','Request Dispatch','Out for Delivery','Dispatched','Delivered'].includes(l.status)?"done":"pending"},{name:"Ironing / Pressing",status:['Ironing / Pressing','Ready for Pickup','Please Pay','Payment Confirmed','Request Dispatch','Out for Delivery','Dispatched','Delivered'].includes(l.status)?"done":"pending"},{name:"Ready for Pickup",status:['Ready for Pickup','Please Pay','Payment Confirmed','Request Dispatch','Out for Delivery','Dispatched','Delivered'].includes(l.status)?"done":"pending"},{name:"Please Pay",status:['Please Pay','Payment Confirmed','Request Dispatch','Out for Delivery','Dispatched','Delivered'].includes(l.status)?"done":"pending"},{name:"Payment Confirmed",status:['Payment Confirmed','Request Dispatch','Out for Delivery','Dispatched','Delivered'].includes(l.status)?"done":"pending"},{name:"Request Dispatch",status:['Request Dispatch','Out for Delivery','Dispatched','Delivered'].includes(l.status)?"done":"pending"},{name:"Out for Delivery",status:['Out for Delivery','Dispatched','Delivered'].includes(l.status)?"done":"pending"},{name:"Delivered",status:l.status==='Delivered'?"done":"pending"}]; }
 window.saveJob=async(docId)=>{ let j=JOBS.find(x=>x._docId===docId); j.price=document.getElementById('p-'+docId).value; j.status=document.getElementById('s-'+docId).value; j.adminMessage=document.getElementById('m-'+docId).value; j.revisionNote=document.getElementById('r-'+docId).value; if(j.revisionNote.trim()!=='') j.status='Revision Needed'; try{await updateDoc(doc(db,'jobs',docId),{price:j.price,status:j.status,adminMessage:j.adminMessage,revisionNote:j.revisionNote,steps:defaultStepsJob(j)});}catch(e){alert(e.message)} renderStats(); render(); }
 window.waJob=docId=>{let j=JOBS.find(x=>x._docId===docId); let msg=`Hello ${j.clientName||j.name}, ${j._showId} is ${j.status}. Price KSH ${j.price}. ${j.adminMessage}`; window.open('https://wa.me/'+(j.clientPhone||j.phone||'').replace(/[^0-9]/g,'')+'?text='+encodeURIComponent(msg))}
 window.updateJobStep=async(docId,i)=>{ let j=JOBS.find(x=>x._docId===docId); if(!j.steps) j.steps=defaultStepsJob(j); j.steps[i].status=j.steps[i].status==='done'?'pending':'done'; j.steps[i].time=new Date().toLocaleString(); j.status=j.steps[i].name; try{await updateDoc(doc(db,'jobs',docId),{steps:j.steps,status:j.status});}catch{} render(); }
@@ -65,59 +51,19 @@ window.markNextJob=async docId=>{ let j=JOBS.find(x=>x._docId===docId); let step
 window.saveTicket=async docId=>{ let t=TICKETS.find(x=>x._docId===docId); t.adminReply=document.getElementById('tr-'+docId).value; t.status=document.getElementById('ts-'+docId).value; if(!t.steps) t.steps=defaultStepsTic(t); try{await updateDoc(doc(db,'tickets',docId),{adminReply:t.adminReply,status:t.status,steps:t.steps});}catch{} render(); }
 window.updateTicStep=async(docId,i)=>{ let t=TICKETS.find(x=>x._docId===docId); if(!t.steps) t.steps=defaultStepsTic(t); t.steps[i].status=t.steps[i].status==='done'?'pending':'done'; t.steps[i].time=new Date().toLocaleString(); t.status=t.steps[i].name; try{await updateDoc(doc(db,'tickets',docId),{steps:t.steps,status:t.status});}catch{} render(); }
 window.markNextTic=async docId=>{ let t=TICKETS.find(x=>x._docId===docId); let steps=defaultStepsTic(t); let idx=steps.findIndex(s=>s.status!=='done'); if(idx===-1) return alert('All done'); await updateTicStep(docId,idx); }
-
-// LAUNDRY NEW FLOW
-window.updateLaundryStep=async(docId, stepIdx)=>{
- let l=LAUNDRY.find(x=>x._docId===docId);
- if(!l.steps) l.steps=defaultStepsLaund(l);
- let wasDone = l.steps[stepIdx].status==='done';
- l.steps[stepIdx].status= wasDone?'pending':'done';
- l.steps[stepIdx].time=new Date().toLocaleString();
- l.status=l.steps[stepIdx].name;
- if(l.status==='Ready for Pickup') l.status='Please Pay';
- try{await updateDoc(doc(db,'laundry',docId),{steps:l.steps,status:l.status});}catch(e){alert(e.message)}
-}
-window.confirmPayment=async(docId)=>{
- let l=LAUNDRY.find(x=>x._docId===docId);
- let code=l.mpesaCode||'NO CODE';
- if(!confirm(`Verify & Confirm ${code} for ${l._showId} KES ${l.mpesaAmount||l.total}? Till 1741514`)) return;
- await updateDoc(doc(db,'laundry',docId),{paid:true,paymentStatus:'PAID Till 1741514',status:'Payment Confirmed',paidAt:new Date().toLocaleString(),steps:defaultStepsLaund({...l,status:'Payment Confirmed'})});
-}
-window.noteSchedule=async(docId)=>{
- let comment=document.getElementById('ac-'+docId).value;
- await updateDoc(doc(db,'laundry',docId),{scheduleNoted:true,adminComment:comment,scheduleNotedAt:new Date().toLocaleString()});
- alert('Noted + Comment saved');
-}
-window.saveAdminComment=async(docId)=>{
- let comment=document.getElementById('ac-'+docId).value;
- await updateDoc(doc(db,'laundry',docId),{adminComment:comment});
-}
-window.requestDispatchToRider=async(docId)=>{
- await updateDoc(doc(db,'laundry',docId),{status:'Request Dispatch',steps:defaultStepsLaund({status:'Request Dispatch'})});
-}
-window.tickDelivered=async(docId)=>{
- await updateDoc(doc(db,'laundry',docId),{status:'Delivered',deliveredAt:new Date().toLocaleString(),steps:defaultStepsLaund({status:'Delivered'})});
-}
-window.markNextStep=async docId=>{ 
- let l=LAUNDRY.find(x=>x._docId===docId); 
- let steps=defaultStepsLaund(l);
- let idx=steps.findIndex(s=>s.status!=='done'); 
- if(idx===-1) return alert('All Delivered'); 
- await updateLaundryStep(docId, idx); 
-}
-window.dispatchWithRider=async docId=>{ 
- let rn=document.getElementById('rn-'+docId).value, rt=document.getElementById('rt-'+docId).value, rp=document.getElementById('rp-'+docId).value, sg=document.getElementById('sg-'+docId).value, ct=document.getElementById('ct-'+docId).value, eta=document.getElementById('eta-'+docId).value; 
- let rcp=document.getElementById('rcp-'+docId).value || `RCP-${new Date().toISOString().slice(0,10).replace(/-/g,'')}-${Math.floor(1000+Math.random()*9000)}`; 
- let comment=document.getElementById('ac-'+docId).value;
- if(!rn||!rt||!rp) return alert('Fill Rider Name, Tel, Bike No');
- try{await updateDoc(doc(db,'laundry',docId),{riderName:rn,riderTel:rt,riderPlate:rp,bikeNumber:rp,signature:sg,closeTime:ct,eta:eta,receiptNo:rcp,adminComment:comment,status:'Out for Delivery',steps:defaultStepsLaund({status:'Out for Delivery'})}); alert('Dispatched '+rcp+' Rider '+rn);}catch(e){alert(e.message)} 
-}
+window.updateLaundryStep=async(docId, stepIdx)=>{ let l=LAUNDRY.find(x=>x._docId===docId); if(!l.steps) l.steps=defaultStepsLaund(l); let wasDone = l.steps[stepIdx].status==='done'; l.steps[stepIdx].status= wasDone?'pending':'done'; l.steps[stepIdx].time=new Date().toLocaleString(); l.status=l.steps[stepIdx].name; if(l.status==='Ready for Pickup') l.status='Please Pay'; try{await updateDoc(doc(db,'laundry',docId),{steps:l.steps,status:l.status});}catch(e){alert(e.message)} }
+window.confirmPayment=async(docId)=>{ let l=LAUNDRY.find(x=>x._docId===docId); let code=l.mpesaCode||'NO CODE'; if(!confirm(`Verify & Confirm ${code} for ${l._showId} KES ${l.mpesaAmount||l.total}? Till 1741514`)) return; await updateDoc(doc(db,'laundry',docId),{paid:true,paymentStatus:'PAID Till 1741514',status:'Payment Confirmed',paidAt:new Date().toLocaleString(),steps:defaultStepsLaund({...l,status:'Payment Confirmed'})}); }
+window.noteSchedule=async(docId)=>{ let comment=document.getElementById('ac-'+docId).value; await updateDoc(doc(db,'laundry',docId),{scheduleNoted:true,adminComment:comment,scheduleNotedAt:new Date().toLocaleString()}); alert('Noted + Comment saved'); }
+window.saveAdminComment=async(docId)=>{ let comment=document.getElementById('ac-'+docId).value; await updateDoc(doc(db,'laundry',docId),{adminComment:comment}); }
+window.requestDispatchToRider=async(docId)=>{ await updateDoc(doc(db,'laundry',docId),{status:'Request Dispatch',steps:defaultStepsLaund({status:'Request Dispatch'})}); }
+window.tickDelivered=async(docId)=>{ await updateDoc(doc(db,'laundry',docId),{status:'Delivered',deliveredAt:new Date().toLocaleString(),steps:defaultStepsLaund({status:'Delivered'})}); }
+window.markNextStep=async docId=>{ let l=LAUNDRY.find(x=>x._docId===docId); let steps=defaultStepsLaund(l); let idx=steps.findIndex(s=>s.status!=='done'); if(idx===-1) return alert('All Delivered'); await updateLaundryStep(docId, idx); }
+window.dispatchWithRider=async docId=>{ let rn=document.getElementById('rn-'+docId).value, rt=document.getElementById('rt-'+docId).value, rp=document.getElementById('rp-'+docId).value, sg=document.getElementById('sg-'+docId).value, ct=document.getElementById('ct-'+docId).value, eta=document.getElementById('eta-'+docId).value; let rcp=document.getElementById('rcp-'+docId).value || `RCP-${new Date().toISOString().slice(0,10).replace(/-/g,'')}-${Math.floor(1000+Math.random()*9000)}`; let comment=document.getElementById('ac-'+docId).value; if(!rn||!rt||!rp) return alert('Fill Rider Name, Tel, Bike No'); try{await updateDoc(doc(db,'laundry',docId),{riderName:rn,riderTel:rt,riderPlate:rp,bikeNumber:rp,signature:sg,closeTime:ct,eta:eta,receiptNo:rcp,adminComment:comment,status:'Out for Delivery',steps:defaultStepsLaund({status:'Out for Delivery'})}); alert('Dispatched '+rcp+' Rider '+rn);}catch(e){alert(e.message)} }
 window.waLaundry=docId=>{let l=LAUNDRY.find(x=>x._docId===docId); let msg=`Hi ${l.name}, Laundry ${l._showId} is ${l.status}. ${l.mpesaCode?'Code '+l.mpesaCode:''} RCP ${l.receiptNo||''}. ${l.adminComment?'Admin: '+l.adminComment:''} Track: track.html?laundry=${l._showId}`; window.open('https://wa.me/'+(l.phone||'').replace(/[^0-9]/g,'')+'?text='+encodeURIComponent(msg))}
 async function confirmDelete(msg){ let p=prompt(msg+'\nType password to confirm DELETE:'); if(!(await hashCheck(p))) {alert('Wrong password — cancelled'); return false;} return true; }
 window.delJob=async docId=>{ if(!(await confirmDelete('DELETE JOB '+docId+'?'))) return; try{await deleteDoc(doc(db,'jobs',docId));}catch{} JOBS=JOBS.filter(x=>x._docId!==docId); renderStats(); render(); }
 window.delTicket=async docId=>{ if(!(await confirmDelete('DELETE TICKET '+docId+'?'))) return; try{await deleteDoc(doc(db,'tickets',docId));}catch{} TICKETS=TICKETS.filter(x=>x._docId!==docId); render(); }
 window.delLaundry=async docId=>{ if(!(await confirmDelete('DELETE LAUNDRY '+docId+' PERMANENTLY?'))) return; try{await deleteDoc(doc(db,'laundry',docId));}catch{} LAUNDRY=LAUNDRY.filter(x=>x._docId!==docId); renderStats(); render(); }
-
 window.render=()=>{
  let qv=(q.value||'').toLowerCase(), fs=fStat.value, html='';
  if(TAB==='jobs'){
