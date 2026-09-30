@@ -15,7 +15,7 @@
 <div class="utility"><div class="uwrap"><span class="uitem"><span class="ubadge">TRACK LIVE — ALL</span></span><span class="uitem">LDY | JOB | TIC | Till 1741514</span><a class="uitem" href="https://wa.me/254788099685">Help</a></div></div>
 <header class="top"><div class="navrow"><a class="brand" href="index.html"><img src="logo.png"><span class="brandname">Vecctapivot<em>Track</em></span></a><div class="navcta"><a class="btn line sm2" href="laundry.html">New Booking</a><a class="btn gold sm2" href="request-job.html">Request Job</a></div></div></header>
 <main class="wrap">
-<div class="top-card"><h2 class="h">Track — Till 1741514</h2><p class="sub">LDY / JOB / TIC — LIVE + Receipt</p><div class="search"><input id="q" class="input" placeholder="LDY-66139 or JOB- or TIC-"><button class="btn-gold" onclick="doTrack()">TRACK →</button></div><div id="cloudSt" class="small" style="text-align:center;margin-top:8px;color:#22c55e">● LIVE</div></div>
+<div class="top-card"><h2 class="h">Track — Till 1741514</h2><p class="sub">LDY / JOB / TIC — LIVE + Receipt + Rider</p><div class="search"><input id="q" class="input" placeholder="LDY-66139 or JOB- or TIC-"><button class="btn-gold" onclick="doTrack()">TRACK →</button></div><div id="cloudSt" class="small" style="text-align:center;margin-top:8px;color:#22c55e">● LIVE</div></div>
 <div id="out"></div><div id="rateBox"></div>
 </main>
 <script type="module">
@@ -27,20 +27,12 @@ function cleanKes(v){ return (v+'').replace(/KES/gi,'').trim(); }
 function genUniqueReceipt(){ let d=new Date(); let date=d.toISOString().slice(0,10).replace(/-/g,''); let rand=Math.floor(1000+Math.random()*9000); return `RCP-${date}-${rand}`; }
 function laundryTimeline(l){
   let order=["Received","Washing","Ironing / Pressing","Ready for Pickup","Please Pay","Payment Confirmed","Request Dispatch","Out for Delivery","Delivered"];
-  let raw=(l.status||'').toLowerCase();
-  let cur="Received";
-  if(raw.includes('wash')) cur="Washing";
-  else if(raw.includes('iron')) cur="Ironing / Pressing";
-  else if(raw.includes('ready')) cur="Ready for Pickup";
-  else if(raw.includes('please')) cur="Please Pay";
-  else if(raw.includes('payment')||raw.includes('confirm')) cur="Payment Confirmed";
-  else if(raw.includes('request')) cur="Request Dispatch";
-  else if(raw.includes('dispatch')||raw.includes('out')) cur="Out for Delivery";
-  else if(raw.includes('deliver')) cur="Delivered";
-  else if(raw.includes('receiv')) cur="Received";
+  if(l.steps && l.steps.length===order.length){
+    return `<div class=timeline>${l.steps.map(s=>`<div class="step ${s.status==='done'?'active':''}">${s.status==='done'?'✅':'○'} ${s.name}</div>`).join('')}</div>`;
+  }
+  let raw=(l.status||'').toLowerCase(); let cur="Received";
+  if(raw.includes('wash')) cur="Washing"; else if(raw.includes('iron')) cur="Ironing / Pressing"; else if(raw.includes('ready')) cur="Please Pay"; else if(raw.includes('please')) cur="Please Pay"; else if(raw.includes('payment')||raw.includes('confirm')) cur="Payment Confirmed"; else if(raw.includes('request')) cur="Request Dispatch"; else if(raw.includes('dispatch')||raw.includes('out')) cur="Out for Delivery"; else if(raw.includes('deliver')) cur="Delivered";
   let idx=order.indexOf(cur);
-  // also respect steps array if exists
-  if(l.steps){ let lastDone=-1; l.steps.forEach((s,i)=>{ if(s.status==='done') lastDone=i; }); if(lastDone>idx) idx=lastDone; }
   return `<div class=timeline>${order.map((name,i)=>`<div class="step ${i<=idx?'active':''}">${i<=idx?'✅':'○'} ${name}</div>`).join('')}</div>`;
 }
 function jobTimeline(j){ let steps=j.steps||[{name:"Logged",status:"done"},{name:"Quoted",status:j.price?"done":"pending"},{name:"Paid",status:j.status==='Paid'||j.status==='Done'?"done":"pending"},{name:"In Progress",status:j.status==='In Progress'||j.status==='Done'?"done":"pending"},{name:"Done",status:j.status==='Done'?"done":"pending"}]; return `<div class=timeline>${steps.map(s=>`<div class="step ${s.status==='done'?'active':''}">${s.status==='done'?'✅':'○'} ${s.name}</div>`).join('')}</div>`; }
@@ -49,38 +41,36 @@ function renderLaundry(l){
  window.currentLaundry=l;
  let isPaid = l.paid || (l.paymentStatus&&l.paymentStatus.includes('PAID'));
  let isVerifying = l.paymentStatus==='VERIFYING';
- let isReady = ['Ready','Ready for Pickup','Please Pay','Payment Confirmed','Request Dispatch','Dispatched','Out for Delivery','Delivered'].includes(l.status) || (l.status||'').toLowerCase().includes('ready') || (l.status||'').toLowerCase().includes('pay');
- let isPleasePay = (l.status==='Ready' || l.status==='Ready for Pickup' || l.status==='Please Pay' || (isReady && !isPaid && !isVerifying));
- let isDispatchRequest = l.status==='Payment Confirmed' || l.status==='Request Dispatch' || (l.status||'').toLowerCase().includes('confirm') || (l.status||'').toLowerCase().includes('request');
- let isDispatched = l.status==='Dispatched' || l.status==='Out for Delivery' || (l.status||'').toLowerCase().includes('dispatch') || (l.status||'').toLowerCase().includes('out for');
- let isDelivered = l.status==='Delivered';
+ let isDispatched = l.status==='Dispatched' || l.status==='Out for Delivery' || (l.status||'').toLowerCase().includes('out for') || (l.status||'').toLowerCase()===('dispatched');
+ let isDelivered = l.status==='Delivered' || l.customerReceived;
+ let isPleasePay = (l.status==='Please Pay' || l.status==='Ready for Pickup' || l.status==='Ready') &&!isPaid &&!isVerifying;
+ let isDispatchChoice = isPaid &&!isDelivered &&!isDispatched;
  let totalClean = cleanKes(l.total||0);
- let h=`<div class=card><div style="display:flex;justify-content:space-between;flex-wrap:wrap"><div><span class=kbd>${l.ticket||l.id}</span><br><span class=badge>🧺 LAUNDRY • ${l.status||'Received'} • ${isPaid?'PAID Till '+TILL:'NOT PAID'}</span><br><span class=small>Receipt: <b style="color:#facc15">${l.receiptNo||'Pending — Generated on Dispatch'}</b></span></div><div style="text-align:right"><div class=small>Total</div><div style="font-size:22px;font-weight:900;color:#facc15">KES ${totalClean}</div></div></div>${laundryTimeline(l)}<div class=small style="margin-top:8px">Pickup: ${l.pickupDate||''} ${l.pickupTime||''} | ${l.name||''} ${l.phone||''}</div></div>`;
- if(isPleasePay && !isPaid && !isVerifying){
-   h+=`<div class="well yellow"><b>🧺 Ready — Please Pay Till ${TILL}</b><br>Your laundry is clean. Pay <b>KES ${totalClean}</b> to Till ${TILL}.<br><span class=small>Code visible in Admin for verification.</span><br><input id="mpesaCode" class="input" style="margin-top:8px" placeholder="M-Pesa Code e.g QGH7..."><input id="mpesaAmount" class="input" style="margin-top:6px" placeholder="Amount e.g ${totalClean}" value="${totalClean}"><button class="btn" style="background:#facc15;color:#000;margin-top:8px" onclick="submitCode('${l._docId}')">I Have Paid — Send Code for Verification</button></div>`;
+ let h=`<div class=card><div style="display:flex;justify-content:space-between;flex-wrap:wrap"><div><span class=kbd>${l.ticket||l.id}</span><br><span class=badge>🧺 LAUNDRY • ${l.status||'Received'} • ${isPaid?'PAID Till '+TILL:'NOT PAID'}</span><br><span class=small>Receipt: <b style="color:#facc15">${l.receiptNo||'Pending — Generated on Dispatch'}</b></span></div><div style="text-align:right"><div class=small>Total</div><div style="font-size:22px;font-weight:900;color:#facc15">KES ${totalClean}</div></div></div>${laundryTimeline(l)}<div class=small style="margin-top:8px">Pickup: ${l.pickupDate||''} ${l.pickupTime||''} | ${l.name||''} ${l.phone||''} | ${l.location||''}</div>${l.adminComment?`<div class="well green" style="margin-top:8px">Admin: ${l.adminComment}</div>`:''}</div>`;
+ if(isPleasePay){
+   h+=`<div class="well yellow"><b>🧺 Ready — Please Pay Till ${TILL}</b><br>Pay <b>KES ${totalClean}</b> to Till ${TILL}.<br><input id="mpesaCode" class="input" style="margin-top:8px" placeholder="M-Pesa Code e.g QGH7..."><input id="mpesaAmount" class="input" style="margin-top:6px" placeholder="Amount e.g ${totalClean}" value="${totalClean}"><button class="btn" style="background:#facc15;color:#000;margin-top:8px" onclick="submitCode('${l._docId}')">I Have Paid — Send Code</button></div>`;
  }
  if(isVerifying){
-   h+=`<div class="well yellow"><b>⏳ Payment Received — Verification in Progress</b><br>Code: <b>${l.mpesaCode}</b> Amount: ${l.mpesaAmount||totalClean}<br><span class=small>Admin is verifying code in Till ${TILL}. Wait.</span></div>`;
+   h+=`<div class="well yellow"><b>⏳ Payment Verification</b><br>Code: <b>${l.mpesaCode}</b> Amount: ${l.mpesaAmount||totalClean}<br><span class=small>Admin verifying in Till ${TILL}</span></div>`;
  }
- if(isDispatchRequest && isPaid){
-   h+=`<div class="well green"><b>✅ Payment Confirmed — ${l.mpesaCode||''} Till ${TILL} — KES ${cleanKes(l.mpesaAmount||totalClean)}</b><br>🧾 Receipt in process — Goods LOCKED — Choose dispatch</div>
+ if(isDispatchChoice){
+   h+=`<div class="well green"><b>✅ Payment Confirmed — ${l.mpesaCode||''} — KES ${cleanKes(l.mpesaAmount||totalClean)} — Till ${TILL}</b><br>Choose dispatch:</div>
    <div class=card>
-     <b style="color:#facc15">🚚 Request Dispatch</b><br><span class=small>Goods ready. Do we dispatch now or another time?</span>
-     <button class="btn" style="background:#22c55e;color:#000;margin-top:10px" onclick="chooseNow('${l._docId}')">OK — Dispatch Now</button>
+     <button class="btn" style="background:#22c55e;color:#000" onclick="chooseNow('${l._docId}')">OK — Dispatch Now</button>
      <div style="margin:12px 0;text-align:center;color:#94a3b8">— or —</div>
-     <div style="border:1px dashed #334155;border-radius:12px;padding:10px"><b class=small>Please Not Now — Choose Other Time / Date / Place</b>
-     <input id="sDate" type="date" class="input" style="margin-top:6px"><input id="sTime" type="time" class="input" style="margin-top:6px"><input id="sPlace" class="input" placeholder="Place / Estate e.g Kikopey, Olkalou Town" style="margin-top:6px"><input id="sNote" class="input" placeholder="Note e.g At church till 4pm" style="margin-top:6px"><button class="btn" style="background:#0f172a;border:1px solid #facc15;color:#facc15;margin-top:8px" onclick="chooseSchedule('${l._docId}')">Send Other Time + Place</button></div>
-     ${l.deliveryDate?`<div class="well yellow" style="margin-top:10px">📅 Your Request: ${l.deliveryDate} ${l.deliveryTime||''} at ${l.deliveryPlace||''} — ${l.deliveryChoice||''}<br>${l.scheduleNoted?'<b style="color:#22c55e">✓ Admin Noted — Rider coming</b>':'⏳ Waiting Admin Comment / Noted'}<br>${l.adminComment?`<div style="background:#0f172a;padding:8px;border-radius:8px;margin-top:6px;border:1px solid #22c55e;color:#22c55e">Admin: ${l.adminComment}</div>`:''}</div>`:''}
+     <div style="border:1px dashed #334155;border-radius:12px;padding:10px"><b class=small>Please Not Now — Choose Other Time / Place</b>
+     <input id="sDate" type="date" class="input" style="margin-top:6px"><input id="sTime" type="time" class="input" style="margin-top:6px"><input id="sPlace" class="input" placeholder="Place / Estate" style="margin-top:6px"><input id="sNote" class="input" placeholder="Note e.g At church till 4pm" style="margin-top:6px"><button class="btn" style="background:#0f172a;border:1px solid #facc15;color:#facc15;margin-top:8px" onclick="chooseSchedule('${l._docId}')">Send Other Time + Place</button></div>
+     ${l.deliveryDate?`<div class="well yellow" style="margin-top:10px">📅 Your Request: ${l.deliveryDate} ${l.deliveryTime||''} at ${l.deliveryPlace||''} — ${l.deliveryChoice||''}<br>${l.scheduleNoted?'<b style="color:#22c55e">✓ Admin Noted — Rider coming</b>':'⏳ Waiting Admin Noted'}<br>${l.adminComment?`<div style="margin-top:6px;color:#22c55e">Admin: ${l.adminComment}</div>`:''}</div>`:''}
    </div>`;
  }
  if(isDispatched){
-   h+=`<div class="well blue"><b>🚚 DISPATCHED — Rider has laundry</b><br><div style="background:#0f172a;padding:10px;border-radius:10px;margin-top:8px;line-height:1.8">Reg: ${l.ticket}<br><b style="color:#facc15">Receipt No (UNIQUE): ${l.receiptNo||'Generating...'}</b><br>Rider: ${l.riderName||'-'}<br>Tel: ${l.riderTel||'-'}<br>Bike No / Plate: ${l.riderPlate||l.bikeNumber||'-'}<br>ETA: ${l.eta||''}<br>${l.adminComment?`Admin Note: ${l.adminComment}<br>`:''}Close: ${l.closeTime||''}<br>Sign: ${l.signature||''}</div><div style="display:flex;gap:8px;margin-top:10px"><button class="btn" style="background:#facc15;color:#000;flex:1" onclick="generateReceipt()">📄 Download Receipt</button><button class="btn" style="background:#0f172a;border:1px solid #facc15;color:#facc15;flex:1" onclick="shareReceipt()">Share</button></div><button class="btn" style="background:#22c55e;color:#000;margin-top:12px" onclick="customerReceived('${l._docId}')">✅ I Have Received My Laundry</button></div>`;
+   h+=`<div class="well blue"><b>🚚 DISPATCHED — Rider has laundry</b><br><div style="background:#0f172a;padding:10px;border-radius:10px;margin-top:8px;line-height:1.8">Reg: ${l.ticket}<br><b style="color:#facc15">Receipt No (UNIQUE): ${l.receiptNo||'Generating...'}</b><br>Rider: ${l.riderName||'-'}<br>Tel: ${l.riderTel||'-'}<br>Bike: ${l.riderPlate||l.bikeNumber||'-'}<br>ETA: ${l.eta||''}<br>${l.adminComment?`Admin: ${l.adminComment}<br>`:''}Close: ${l.closeTime||''}<br>Sign: ${l.signature||''}</div><div style="display:flex;gap:8px;margin-top:10px"><button class="btn" style="background:#facc15;color:#000;flex:1" onclick="generateReceipt()">📄 Download Receipt</button><button class="btn" style="background:#0f172a;border:1px solid #facc15;color:#facc15;flex:1" onclick="shareReceipt()">Share</button></div><button class="btn" style="background:#22c55e;color:#000;margin-top:12px" onclick="customerReceived('${l._docId}')">✅ I Have Received My Laundry</button></div>`;
  }
  if(isDelivered){
-   h+=`<div class="well green"><b>✅ DELIVERED — Received</b><br>Reg ${l.ticket} | RCP ${l.receiptNo||''} | Rider ${l.riderName||''}<br>${l.rating?`<b style="color:#facc15">${'★'.repeat(l.rating)} ${l.rating}/5</b> ${l.comment||''}`:'Your order closed — Rate now'}<br><button class="btn" style="background:#facc15;color:#000;margin-top:8px" onclick="generateReceipt()">📄 Receipt Again</button></div>`;
+   h+=`<div class="well green"><b>✅ DELIVERED</b><br>Reg ${l.ticket} | RCP ${l.receiptNo||''} | Rider ${l.riderName||''}<br>${l.rating?`<b style="color:#facc15">${'★'.repeat(l.rating)} ${l.rating}/5</b> ${l.comment||''}`:'Closed — Rate now'}<br><button class="btn" style="background:#facc15;color:#000;margin-top:8px" onclick="generateReceipt()">📄 Receipt Again</button></div>`;
    if(!l.rating) setTimeout(()=>markReceived(l._docId,'laundry'),300);
  }
- h+=`<div class=card><a href="https://wa.me/254788099685?text=Hi%20about%20${l.ticket||l.id}%20RCP%20${l.receiptNo||''}" style="background:#22c55e;color:#000;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:800;display:block">WhatsApp Support</a><div style="margin-top:8px;display:flex;gap:8px"><a href="laundry.html?amend=${l.ticket||l.id}" style="flex:1;border:1px solid #334155;padding:10px;border-radius:10px;text-align:center;text-decoration:none;color:#94a3b8">Change Time — Same Ticket (Only if Received)</a><a href="laundry.html" style="flex:1;border:1px solid #facc15;padding:10px;border-radius:10px;text-align:center;text-decoration:none;color:#facc15">New Order</a></div></div>`;
+ h+=`<div class=card><a href="https://wa.me/254788099685?text=Hi%20about%20${l.ticket||l.id}%20RCP%20${l.receiptNo||''}" style="background:#22c55e;color:#000;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:800;display:block">WhatsApp Support</a><div style="margin-top:8px;display:flex;gap:8px"><a href="laundry.html?amend=${l.ticket||l.id}" style="flex:1;border:1px solid #334155;padding:10px;border-radius:10px;text-align:center;text-decoration:none;color:#94a3b8">Change Time — Same Ticket</a><a href="laundry.html" style="flex:1;border:1px solid #facc15;padding:10px;border-radius:10px;text-align:center;text-decoration:none;color:#facc15">New Order</a></div></div>`;
  document.getElementById('out').innerHTML=h;
 }
 function renderJob(j){ window.currentLaundry=j; let h=`<div class=card><span class=kbd>${j.id||j.ticket}</span><br><span class=badge>💼 JOB • ${j.status||'Logged'}</span><br><span class=small>${j.fullService||j.title||''}</span>${jobTimeline(j)}</div><div class="well blue"><b>💼 JOB</b><br>Client: ${j.clientName||j.name||''}<br>Price: ${j.price? 'KSH '+cleanKes(j.price):'Pending'}<br>Status: ${j.status||''}<br>${j.adminMessage?`<div style="background:#052e16;border:1px solid #22c55e;padding:8px;border-radius:8px;margin-top:6px">💬 ${j.adminMessage}</div>`:''}</div>`; if(j.status!=='Done') h+=`<button class="btn" style="background:#facc15;color:#000" onclick="markReceived('${j._docId}','jobs')">✅ Mark Done & Rate ⭐</button>`; if(j.rating) h+=`<div class="well green"><b style="color:#facc15">${'★'.repeat(j.rating)} ${j.rating}/5</b> — ${j.comment||''}</div>`; document.getElementById('out').innerHTML=h; }
