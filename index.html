@@ -4,14 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VECCTAPIVOT Enterprises — One Pivot, Endless Possibilities</title>
-  <meta name="description" content="A service brand worth any business, any client, any place. 64 services, one desk, one reference.">
+  <meta name="description" content="A service brand worth any business, any client, any place.">
   <link rel="icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
-  <style>
-    /* hotfix: stop footer hiding FAQ */
-    .sitefoot{position:relative !important; bottom:auto !important; margin-top:80px !important; z-index:1 !important;}
-    .guarantees{display:none !important;}
-  </style>
 </head>
 <body>
   <div class="utility">
@@ -77,6 +72,7 @@
     <a class="card reveal in" href="fixer.html"><span class="num">SERVICE PILLAR 5</span><h2>Independent Fixer Desk</h2><p>Ground proxy for site inspections, permit queues and disputes.</p><span class="more">Explore →</span></a>
     <a class="card reveal in" href="agency.html"><span class="num">SERVICE PILLAR 6</span><h2>General Agency Core</h2><p>Cross-sector retainers, unified ledgers, priority queues and escrow.</p><span class="more">Explore →</span></a>
     <a class="card reveal in" href="statutory.html"><span class="num">SERVICE PILLAR 7</span><h2>Statutory & Portal Logistics</h2><p>eCitizen, passports, NTSA TIMMS, SHA/SHIF, DCI, ArdhiSasa and KRA iTax.</p><span class="more">Explore →</span></a>
+    
     <a class="card reveal in" href="laundry.html">
       <span class="num">SERVICE PILLAR 8</span>
       <h2>Laundry & Fabric Care</h2>
@@ -91,21 +87,15 @@
     <div class="how"><span class="hnum">3</span><h3>We Execute, You Track</h3><p>Named officer runs queues. Track by reference.</p></div>
   </section>
 
-  <section class="faqsec reveal in" id="faq" style="display:block !important; visibility:visible !important; opacity:1 !important;">
+  <section class="faqsec reveal in" id="faq">
     <span class="kicker">Frequently Asked</span>
     <h2>Answers before you even ask.</h2>
     <div class="faq" id="faqList"></div>
   </section>
 </main>
 
-<footer class="sitefoot" id="siteFoot">
-  <div class="foot-inner">
-    <div>VECCTAPIVOT ENTERPRISES © 2026 · One Pivot, Endless Possibilities</div>
-    <div class="foot-muted">BRS BN-AYSO8LRE | Unified Cross-Border Service Architecture · 64 services, one desk, one reference.</div>
-    <div class="foot-muted">Till 1741514 · VECCTAPIVOT ENTERPRISES | Track by reference · Sixty-four services, wherever you trade.</div>
-  </div>
-</footer>
-
+<div id="guaranteeBar" class="guarantees"></div>
+<footer class="sitefoot" id="siteFoot"></footer>
 <script src="js/matrix.js"></script>
 <script src="js/common.js"></script>
 <script>
@@ -122,17 +112,6 @@
       if(ok)shown++;
     });
     empty.hidden=shown?true:false;
-  });
-  document.addEventListener("DOMContentLoaded", function(){
-    var foot = document.getElementById("siteFoot");
-    if(foot){
-      foot.innerHTML = '<div class="foot-inner"><div>VECCTAPIVOT ENTERPRISES © 2026 · One Pivot, Endless Possibilities</div><div class="foot-muted">BRS BN-AYSO8LRE | Unified Cross-Border Service Architecture · 64 services, one desk, one reference.</div><div class="foot-muted">Till 1741514 · VECCTAPIVOT ENTERPRISES | Track by reference · Sixty-four services, wherever you trade.</div></div>';
-      foot.style.position="relative"; foot.style.marginTop="80px";
-    }
-    var gBar = document.getElementById("guaranteeBar"); if(gBar) gBar.remove();
-    // kill old 49 text anywhere
-    document.body.innerHTML = document.body.innerHTML.replace(/Forty-nine/g, "Sixty-four").replace(/49 services/g, "64 services").replace(/One Piv/g, "One Pivot");
-    var faq = document.getElementById("faq"); if(faq){ faq.style.display="block"; faq.style.visibility="visible"; faq.style.opacity="1"; }
   });
 </script>
 </body>
