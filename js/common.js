@@ -2,7 +2,6 @@
 (function () {
   "use strict";
 
-  /* Footer: guarantee strip + CTA band + 4-column footer */
   function footer() {
     var el = document.getElementById("siteFoot");
     if (!el || el.dataset.done) return;
@@ -50,7 +49,7 @@
       + '<div class="footgrid">'
       + '<div class="fcol brand">'
       + '<img src="logo.png" alt="Vecctapivot Enterprises logo" width="46" height="46">'
-      + '<div><strong>VECCTAPIVOT ENTERPRISES</strong><span>One Pivot &middot; Endless Possibilities &middot; Unified Cross-Border Service Architecture &middot; 64 services</span><span class="cred" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;"><span class="ubadge">BRS BN-AYSO8LRE</span><span class="ubadge" style="background:#ffcc00;color:#111;border-color:#ffcc00;">Till 1741514</span></span></div>'
+      + '<div><strong>VECCTAPIVOT ENTERPRISES</strong><span>One Pivot &middot; Endless Possibilities &middot; Unified Cross-Border Service Architecture &middot; 64 services</span><span class="cred" style="display:flex;gap:8px;flex-wrap:wrap;"><span class="ubadge">BRS BN-AYSO8LRE</span><span class="ubadge" onclick="navigator.clipboard.writeText(\'1741514\');this.innerText=\'Copied!\';setTimeout(()=>this.innerText=\'Till 1741514\',1500)" style="cursor:pointer;" title="Tap to copy Till">Till 1741514</span></span></div>'
       + '</div>'
       + '<div class="fcol"><h4>Service Pillars</h4>' + pillars + '</div>'
       + '<div class="fcol"><h4>Gateway</h4>' + gateway + '</div>'
@@ -62,7 +61,6 @@
       + '</div>';
   }
 
-  /* Reveal on scroll */
   function reveal() {
     var els = document.querySelectorAll(".reveal");
     if (!els.length) return;
