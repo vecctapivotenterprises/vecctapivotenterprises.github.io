@@ -10,7 +10,7 @@
     var y = new Date().getFullYear();
     var ga = document.getElementById("guaranteeBar");
     var guarantees =
-      '<div class="guar"><span class="gi">&#9673;</span><div><strong>One Pivot, Endless Possibilities</strong><span>Forty-nine services through one trusted desk &mdash; registry, academics, transport, sourcing, ground fixers, agency retainers and statutory portals, wherever you trade.</span></div></div>'
+      '<div class="guar"><span class="gi">&#9673;</span><div><strong>One Pivot, Endless Possibilities</strong><span>Sixty-four services through one trusted desk &mdash; registry, academics, transport, sourcing, ground fixers, agency retainers, statutory portals and fabric care, wherever you trade.</span></div></div>'
       + '<div class="guar"><span class="gi">&#10003;</span><div><strong>Transparent Terms</strong><span>Scope, requirements and timeframes stated before you commit. A fixed quote is confirmed with you before any work starts.</span></div></div>'
       + '<div class="guar"><span class="gi">&#9642;</span><div><strong>Tracked to the Handover</strong><span>Every booking carries a unique reference. Follow its status any time on the tracking desk, on WhatsApp or by phone.</span></div></div>'
       + '<div class="guar"><span class="gi">&#8635;</span><div><strong>Aftercare Window</strong><span>If an authority or portal rejects part of the deliverable within 14 days, corrections are filed and pursued at no fresh engagement fee.</span></div></div>';
@@ -23,7 +23,8 @@
       + '<a href="sourcing.html">Merchandise Sourcing Links</a>'
       + '<a href="fixer.html">Independent Fixer Desk</a>'
       + '<a href="agency.html">General Agency Core</a>'
-      + '<a href="statutory.html">Statutory &amp; Portal Logistics</a>';
+      + '<a href="statutory.html">Statutory &amp; Portal Logistics</a>'
+      + '<a href="laundry.html">Laundry &amp; Fabric Care</a>';
 
     var gateway =
       '<a href="index.html#services">Explore the Service Index</a>'
@@ -49,7 +50,7 @@
       + '<div class="footgrid">'
       + '<div class="fcol brand">'
       + '<img src="logo.png" alt="Vecctapivot Enterprises logo" width="46" height="46">'
-      + '<div><strong>VECCTAPIVOT ENTERPRISES</strong><span>One Pivot &middot; Endless Possibilities &middot; Unified Cross-Border Service Architecture</span><span class="cred">BRS Status BN-AYSO8LRE</span></div>'
+      + '<div><strong>VECCTAPIVOT ENTERPRISES</strong><span>One Pivot &middot; Endless Possibilities &middot; Unified Cross-Border Service Architecture &middot; 64 services</span><span class="cred">BRS BN-AYSO8LRE | Till 1741514</span></div>'
       + '</div>'
       + '<div class="fcol"><h4>Service Pillars</h4>' + pillars + '</div>'
       + '<div class="fcol"><h4>Gateway</h4>' + gateway + '</div>'
@@ -57,7 +58,7 @@
       + '</div>'
       + '<div class="fbase">'
       + '<span>VECCTAPIVOT ENTERPRISES &copy; ' + y + ' &middot; One Pivot, Endless Possibilities</span>'
-      + '<span>Serving every place, every client &middot; replies on WhatsApp, call, SMS and email</span>'
+      + '<span>Sixty-four services, one desk, one reference &middot; replies on WhatsApp, call, SMS and email</span>'
       + '</div>';
   }
 
