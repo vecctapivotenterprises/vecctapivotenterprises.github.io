@@ -50,7 +50,7 @@
       + '<div class="footgrid">'
       + '<div class="fcol brand">'
       + '<img src="logo.png" alt="Vecctapivot Enterprises logo" width="46" height="46">'
-      + '<div><strong>VECCTAPIVOT ENTERPRISES</strong><span>One Pivot &middot; Endless Possibilities &middot; Unified Cross-Border Service Architecture &middot; 64 services</span><span class="cred">BRS BN-AYSO8LRE | Till 1741514</span></div>'
+      + '<div><strong>VECCTAPIVOT ENTERPRISES</strong><span>One Pivot &middot; Endless Possibilities &middot; Unified Cross-Border Service Architecture &middot; 64 services</span><span class="cred" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;"><span class="ubadge">BRS BN-AYSO8LRE</span><span class="ubadge" style="background:#ffcc00;color:#111;border-color:#ffcc00;">Till 1741514</span></span></div>'
       + '</div>'
       + '<div class="fcol"><h4>Service Pillars</h4>' + pillars + '</div>'
       + '<div class="fcol"><h4>Gateway</h4>' + gateway + '</div>'
@@ -78,7 +78,6 @@
     els.forEach(function (e) { io.observe(e); });
   }
 
-  /* Query helpers (?desk=3&service=...&engagement=...) */
   function params() {
     return new URLSearchParams(location.search);
   }
