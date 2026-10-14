@@ -3,8 +3,8 @@
   "use strict";
   function footer() {
     // ====== EDIT CONTACT HERE ONCE — REFLECTS ON LANDING + ALL PAGES ======
-    var PHONE_DISPLAY = "+254 788 099 685";
-    var PHONE_LINK = "254788099685";
+    var PHONE_DISPLAY = "+254 768 309 956";
+    var PHONE_LINK = "254768309956";
     var EMAIL = "vecctapivotenterprises@gmail.com";
     // =======================================================================
     
