@@ -34,10 +34,10 @@
 
     var channels =
       '<div class="chanrow">'
-      + '<a class="chan wa" href="https://wa.me/254788099685"><strong>WhatsApp</strong><span>+254 788 099 685</span></a>'
-      + '<a class="chan" href="tel:+254788099685"><strong>Call</strong><span>+254 788 099 685</span></a>'
-      + '<a class="chan" href="sms:+254788099685"><strong>SMS</strong><span>+254 788 099 685</span></a>'
-      + '<a class="chan" href="mailto:vecctapivotenterprises@gmail.com"><strong>Email</strong><span>vecctapivotenterprises@gmail.com</span></a>'
+      + '<a class="chan wa" href="https://wa.me/254788099685"><span class="ci ci-wa">W</span><span class="ctxt"><strong>WhatsApp</strong><span>+254 788 099 685</span></span></a>'
+      + '<a class="chan" href="tel:+254788099685"><span class="ci ci-call">C</span><span class="ctxt"><strong>Call</strong><span>+254 788 099 685</span></span></a>'
+      + '<a class="chan" href="sms:+254788099685"><span class="ci ci-sms">S</span><span class="ctxt"><strong>SMS</strong><span>+254 788 099 685</span></span></a>'
+      + '<a class="chan mail" href="mailto:vecctapivotenterprises@gmail.com"><span class="ci ci-mail">✉</span><span class="ctxt"><strong>Email</strong><span>vecctapivotenterprises@gmail.com</span></span></a>'
       + '</div>';
 
     el.innerHTML =
