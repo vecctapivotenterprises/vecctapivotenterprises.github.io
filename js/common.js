@@ -8,6 +8,17 @@
     var EMAIL = "vecctapivotenterprises@gmail.com";
     // =======================================================================
     
+    // ====== AUTO-FIX TOP BAR IN PILLARS (solves your 88 099 problem) ======
+    try {
+      document.querySelectorAll('a[href*="wa.me"]').forEach(function(a){
+        a.href = "https://wa.me/" + PHONE_LINK;
+        if(a.textContent.includes("WhatsApp")){
+          a.textContent = "WhatsApp " + PHONE_DISPLAY;
+        }
+      });
+    } catch(e){}
+    // =======================================================================
+
     var el = document.getElementById("siteFoot");
     if (!el || el.dataset.done) return;
     el.dataset.done = "1";
